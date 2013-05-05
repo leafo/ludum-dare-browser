@@ -11,26 +11,23 @@ COMP_NAME = "ludum-dare-26"
 
 import Model from require "lapis.db.model"
 
+b64_for_url = (str, len)->
+  str = ngx.encode_base64 str
+  str = str\sub 1, len if len
+  (str\gsub "[/+]", {
+    "+": "%2B"
+    "/": "%2F"
+  })
+
+image_signature = (path, secret=require"secret.keys".image_key) ->
+  b64_for_url ngx.hmac_sha1(secret, path), 10
+
 content_types = {
   jpg: "image/jpeg"
   png: "image/png"
   gif: "image/gif"
 }
 
--- {
---   [votes_received] = 24
---   [title] = "Existential Journey Into The Abyss Of Self Actualization And Peace"
---   [user_id] = "22909"
---   [url] = "?action=preview&uid=22909"
---   [votes_given] = 21
---   [user] = "MCovert"
---   [downloads] = {
---     [1] = {
---       [href] = "https://dl.dropboxusercontent.com/u/13659497/ExistentialJourney/ExistentialJourney.html"
---       [label] = "Web"
---     }
---   }
--- }
 class Games extends Model
   @timestamp: true
 
@@ -100,8 +97,19 @@ class Games extends Model
 
     image_blob, raw_ext, cache_hit
 
+  screenshot_url: (r, size, image_id=1) =>
+    if size
+      path = r\url_for "screenshot_sized", comp: @comp, uid: @uid, :image_id, :size
+      path .. "?sig=" .. image_signature path
+    else
+      r\url_for "screnshot_raw", comp: @comp, uid: @uid, :image_id
 
 class LudumDare extends lapis.Application
+  "/gen_sig/game/:comp/:uid/image/:image_id/:size": =>
+    path = @req.parsed_url.path\match "^/gen_sig(.*)"
+    signature = image_signature path
+    redirect_to: path .. "?sig=" .. signature
+
   "/db/make": =>
     schema = require "schema"
     schema.make_schema!
@@ -119,9 +127,13 @@ class LudumDare extends lapis.Application
     game\fetch_details!
     json: game
 
-  "/game/:comp/:uid/image/:image_id/:size": =>
+  [screenshot_sized: "/game/:comp/:uid/image/:image_id/:size"]: =>
     magick = require "magick"
     image_id = tonumber(@params.image_id) or 1
+
+    signature = image_signature @req.parsed_url.path
+    if @params.sig != signature
+      return status: 403, "invalid signature"
 
     game = Games\find comp: @params.comp, uid: @params.uid
     return status: 404, "missing game" unless game
@@ -143,7 +155,7 @@ class LudumDare extends lapis.Application
     content_type: content_types["png"], layout: false, resized_blob
 
   -- get the raw image cached on our side
-  "/game/:comp/:uid/image/:image_id": =>
+  [screnshot_raw: "/game/:comp/:uid/image/:image_id"]: =>
     image_id = tonumber(@params.image_id) or 1
     game = Games\find comp: @params.comp, uid: @params.uid
     return status: 404, "missing game" unless game
@@ -158,7 +170,15 @@ class LudumDare extends lapis.Application
     page = tonumber(@params.page) or 0
     limit = 40
     offset = page * limit
-    games = Games\select "where comp = ? order by votes_received desc limit ? offset ?", COMP_NAME, limit, offset
+    games = Games\select "
+      where comp = ?
+      order by votes_received desc
+      limit ? offset ?", COMP_NAME, limit, offset
+
+    for game in *games
+      game.downloads = json.decode game.downloads
+      game.screenshot_url = game\screenshot_url @
+
     json: games
 
   "/scrape_games": =>
