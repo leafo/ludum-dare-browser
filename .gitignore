@@ -5,6 +5,7 @@ nginx.conf.compiled
 proxy_temp/
 scgi_temp/
 uwsgi_temp/
+cache/
 *.lua
 .tup
 games.html
