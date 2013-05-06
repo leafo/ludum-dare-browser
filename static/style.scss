@@ -1,0 +1,132 @@
+
+$font_size: 18px;
+$bg: #333;
+$sticky_height: 50px;
+
+// @import url(http://fonts.googleapis.com/css?family=Lato:400,700|Inconsolata);
+
+html {
+    overflow: -moz-scrollbars-vertical;
+    overflow-y: scroll;
+}
+
+body {
+    background: $bg;
+    color: #222;
+    font-size: $font_size;
+    margin: 0;
+    font-family: Lato, sans-serif;
+}
+
+.sticky {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $sticky_height;
+    background: #F1F1F1;
+    box-shadow: 0 0 10px rgba(0,0,0, 0.5);
+
+    h1 {
+        margin: 0;
+        font-size: 18px;
+    }
+
+    .inner {
+        line-height: $sticky_height;
+        padding: 0 20px;
+    }
+}
+
+#game_list {
+    margin-top: $sticky_height + 20px;
+    margin-left: 20px;
+}
+
+.loader_cell {
+    width: 300px;
+    height: 240px;
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+
+    background: #464646 url("/static/loader.gif") 50% 50% no-repeat;
+    box-shadow: 0 -1px 0 rgba(0,0,0, 0.2), 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.game_cell {
+    display: inline-block;
+    background: rgba(0,0,0,.5);
+    width: 300px;
+    height: 240px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+
+    box-shadow: 0 0 10px rgba(0,0,0, 0.8);
+
+    &.image_loading {
+        .thumb {
+            opacity: 0;
+        }
+    }
+
+    &:hover {
+        .label {
+            bottom: 0px;
+        }
+    }
+
+    .thumb {
+        position: absolute;
+        border-radius: 2px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255, 0.3);
+        background-position: 50% 50%;
+        background-size: cover;
+
+        -webkit-transition: opacity 0.20s ease-in-out;
+        -moz-transition: opacity 0.20s ease-in-out;
+        transition: opacity 0.20s ease-in-out;
+    }
+
+    .label {
+        $height: 30px;
+        height: $height;
+        color: white;
+        position: absolute;
+        bottom: -$height;
+        left: 0px;
+        right: 0px;
+        background: rgba(0,0,0, 0.8);
+        font-size: 14px;
+
+        border-radius: 0 0 2px 2px;
+
+        box-shadow: inset 1px 0 0 rgba(255,255,255, 0.1), inset -1px 0 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(255,255,255,0.1);
+
+
+        -webkit-transition: bottom 0.20s ease-in-out;
+        -moz-transition: bottom 0.20s ease-in-out;
+        transition: bottom 0.20s ease-in-out;
+
+        .text {
+            line-height: $height;
+            padding: 0 8px;
+        }
+
+        .author {
+            color: #aaa;
+            float: right;
+        }
+    }
+}
+

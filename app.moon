@@ -168,7 +168,7 @@ class LudumDare extends lapis.Application
 
   "/games": =>
     page = tonumber(@params.page) or 0
-    limit = 40
+    limit = 10
     offset = page * limit
     games = Games\select "
       where comp = ?
@@ -177,9 +177,10 @@ class LudumDare extends lapis.Application
 
     for game in *games
       game.downloads = json.decode game.downloads
-      game.screenshot_url = game\screenshot_url @
+      game.screenshot_url = game\screenshot_url @-- , "340x340"
 
-    json: games
+    games = nil unless next games
+    json: { games: games }
 
   "/scrape_games": =>
     require "moon"
