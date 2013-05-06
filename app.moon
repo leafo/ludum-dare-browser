@@ -142,12 +142,23 @@ class LudumDare extends lapis.Application
 
     cache_name = ngx.md5(@req.parsed_url.path) .. ".png"
 
-    blob, err = game\load_screenshot image_id
-    return status: 404, err unless blob
+    blob, err_or_ext = game\load_screenshot image_id
+    return status: 404, err_or_ext unless blob
+
+    -- bail on gif, we don't know how to resize
+    if err_or_ext\lower! == "gif"
+      ngx.header["x-image-gif"] = "1"
+      return content_type: content_types["gif"], layout: false, blob
 
     img = magick.load_image_from_blob blob
     img\set_format "png"
-    resized_blob = magick.thumb img, @params.size
+    size = @params.size
+    -- handle tall images differently
+    ar = img\get_width! / img\get_height!
+    if ar > 2 or 1/ar > 2
+      size = size .. "#"
+
+    resized_blob = magick.thumb img, size
 
     with io.open "cache/#{cache_name}", "w"
       \write resized_blob
