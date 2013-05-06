@@ -191,6 +191,8 @@ class LudumDare extends lapis.Application
     for game in *games
       game.downloads = json.decode game.downloads
       game.screenshot_url = game\screenshot_url @, "340x340"
+      game.url = "http://www.ludumdare.com/compo/#{game.comp}/" .. game.url
+      game.user_url = "http://www.ludumdare.com/compo/author/#{game.user}/"
 
     games = nil unless next games
     json: { games: games }

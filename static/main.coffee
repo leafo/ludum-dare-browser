@@ -4,6 +4,16 @@ _.templateSettings = {
   interpolate : /\{\{(.+?)\}\}/g
 }
 
+class I.GamePage
+  constructor: ->
+    @list = new I.GameList $ "#game_list"
+    @toolbar = $("#toolbar")
+
+    @toolbar.on "change", "input.toggle_details", (e) =>
+      checked =$(e.currentTarget).prop "checked"
+      @list.el.toggleClass "show_labels", checked
+
+
 class I.GameList
   current_page: 0
   aspect_ratio: 300/240
@@ -18,8 +28,6 @@ class I.GameList
   resize_cells: (expected_width) =>
     real_width = expected_width + 20 # cell margin
     page_width = @el.width()
-
-    console.log page_width
 
     num_cells = page_width / real_width
     fract = num_cells - Math.floor(num_cells)
@@ -41,10 +49,11 @@ class I.GameList
         height: #{new_height}px;
       }
     """
-    console.log "#{new_width}px, #{new_height}px"
+
     @_style = $("<style type='text/css'>#{css}</style>").appendTo $("head")
 
   render_game: (game) =>
+    console.log game
     @_tpl ||= _.template $("#game_template").html()
     game_el = $($.trim @_tpl game).appendTo @el
     $("<img />").attr("src", game.screenshot_url).on "load", =>

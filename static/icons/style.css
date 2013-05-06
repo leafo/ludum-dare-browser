@@ -1,0 +1,72 @@
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot');
+	src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('fonts/icomoon.woff') format('woff'),
+		url('fonts/icomoon.ttf') format('truetype'),
+		url('fonts/icomoon.svg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+	font-family: 'icomoon';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+/*
+Instead of a list of all class selectors,
+you can use the generic selector below, but it's slower:
+[class*="icon-"] {
+*/
+.icon-cool, .icon-heart, .icon-box-add, .icon-smiley, .icon-checkmark, .icon-close, .icon-arrow-up, .icon-arrow-down, .icon-expand, .icon-star, .icon-bubble {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+.icon-cool:before {
+	content: "\e000";
+}
+.icon-heart:before {
+	content: "\e001";
+}
+.icon-box-add:before {
+	content: "\e002";
+}
+.icon-smiley:before {
+	content: "\e003";
+}
+.icon-checkmark:before {
+	content: "\e004";
+}
+.icon-close:before {
+	content: "\e005";
+}
+.icon-arrow-up:before {
+	content: "\e006";
+}
+.icon-arrow-down:before {
+	content: "\e007";
+}
+.icon-expand:before {
+	content: "\e008";
+}
+.icon-star:before {
+	content: "\e009";
+}
+.icon-bubble:before {
+	content: "\e00a";
+}

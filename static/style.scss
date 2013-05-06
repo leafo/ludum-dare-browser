@@ -3,6 +3,13 @@ $font_size: 18px;
 $bg: #333;
 $sticky_height: 50px;
 
+
+@mixin unselectable {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 // @import url(http://fonts.googleapis.com/css?family=Lato:400,700|Inconsolata);
 
 html {
@@ -37,6 +44,10 @@ body {
         line-height: $sticky_height;
         padding: 0 20px;
     }
+
+    .tools {
+        float: right;
+    }
 }
 
 #game_list {
@@ -55,6 +66,17 @@ body {
     background: #464646 url("/static/loader.gif") 50% 50% no-repeat;
     box-shadow: 0 -1px 0 rgba(0,0,0, 0.2), 0 1px 0 rgba(255,255,255,0.2);
 }
+
+.game_cell:hover, #game_list.show_labels {
+    .label {
+        bottom: 0px;
+    }
+
+    .top_label {
+        opacity: 1.0;
+    }
+}
+
 
 .game_cell {
     display: inline-block;
@@ -76,13 +98,8 @@ body {
         }
     }
 
-    &:hover {
-        .label {
-            bottom: 0px;
-        }
-    }
-
     .thumb {
+        display: block;
         position: absolute;
         border-radius: 2px;
         top: 0;
@@ -96,6 +113,50 @@ body {
         -webkit-transition: opacity 0.20s ease-in-out;
         -moz-transition: opacity 0.20s ease-in-out;
         transition: opacity 0.20s ease-in-out;
+    }
+
+    .top_label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        opacity: 0;
+
+        -webkit-transition: opacity 0.20s ease-in-out;
+        -moz-transition: opacity 0.20s ease-in-out;
+        transition: opacity 0.20s ease-in-out;
+
+        .votes {
+            @include unselectable;
+            cursor: default;
+            background: rgba(0,0,0, 0.5);
+            box-shadow: 0 0 0 1px rgba(255,255,255, 0.1);
+            padding: 4px;
+            border-radius: 2px;
+            font-size: 13px;
+            color: white;
+            text-shadow: 0 0 4px black;
+            float: right;
+            margin: 4px 4px 0 0;
+
+            .icon {
+                font-size: 16px;
+                position: relative;
+                top: 2px;
+            }
+
+            .icon-star {
+                color: #FFCC61;
+            }
+
+            .icon-cool {
+                color: #FF7C7C;
+            }
+
+            .divider {
+                margin-left: 4px;
+            }
+        }
     }
 
     .label {
@@ -126,6 +187,20 @@ body {
         .author {
             color: #aaa;
             float: right;
+            display: block;
+
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .title {
+            color: white;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 }

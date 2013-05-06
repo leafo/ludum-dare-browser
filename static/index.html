@@ -4,10 +4,17 @@
   <meta charset="UTF-8">
   <title></title>
   <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="/static/icons/style.css" />
 </head>
 <body>
-  <div class="sticky">
+  <div class="sticky" id="toolbar">
     <div class="inner">
+      <div class="tools">
+        <label>
+          <input type="checkbox" class="toggle_details" />
+          Show Details
+        </label>
+      </div>
       <h1>Ludum Dare 26 Games</h1>
     </div>
   </div>
@@ -18,11 +25,23 @@
 
   <script type="text/template" id="game_template">
     <div class="game_cell image_loading">
-      <div class="thumb" style="background-image: url({{ screenshot_url }});"></div>
+      <a href="{{ url }}" target="_blank" class="thumb" style="background-image: url({{ screenshot_url }});"></a>
+      <div class="top_label">
+        <div class="votes">
+          <span title="Votes Received">
+            <span class="icon icon-star"></span> {{ votes_received }}
+          </span>
+          <span class="divider"> </span>
+          <span title="Coolness">
+            <span class="icon icon-cool"></span> {{ votes_given }}
+          </span>
+        </div>
+      </div>
+
       <div class="label">
         <div class="text">
-          <div class="author">{{ user }}</div>
-          {{ title }}
+          <a href="{{ user_url }}" target="_blank" class="author">{{ user }}</a>
+          <a href="{{ url }}" target="_blank" class="title">{{ title }}</a>
         </div>
       </div>
     </div>
@@ -31,7 +50,7 @@
   <script type="text/javascript" src="/static/lib/underscore.js"></script>
   <script type="text/javascript" src="/static/main.js"></script>
   <script type="text/javascript">
-    new I.GameList($("#game_list"));
+    new I.GamePage();
   </script>
 </body>
 </html>
