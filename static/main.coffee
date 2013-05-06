@@ -72,12 +72,60 @@ class I.GameList
     @_style = $("<style type='text/css'>#{css}</style>").appendTo $("head")
 
   render_game: (game) =>
+    @downloads[game.uid] = game.downloads
     @_tpl ||= _.template $("#game_template").html()
     game_el = $($.trim @_tpl game).appendTo @el
     $("<img />").attr("src", game.screenshot_url).on "load", =>
       game_el.removeClass "image_loading"
 
+  hide_downloads: ->
+    @_tooltip ||= $("#download_tooltip")
+    @_open_cell?.removeClass "show_details"
+    @_open_cell = null
+    @_tooltip.removeClass("animated visible").css {
+      top: ""
+      left: ""
+    }
+
+  # takes download element
+  show_downloads: (elm) ->
+    @_tooltip ||= $("#download_tooltip")
+    cell = elm.closest(".game_cell")
+    pos = elm.offset()
+
+
+    if @_open_cell?.is cell
+      @hide_downloads()
+      return
+
+    if @_open_cell
+      @_open_cell.removeClass "show_details"
+
+    @_open_cell = cell.addClass "show_details"
+
+    @_tooltip.empty()
+    if downloads = @downloads[cell.data "uid"]
+      console.log "downloads:", downloads
+      for dl in downloads
+        $('<a class="download_row"></a>')
+          .text(dl.label).attr("href", dl.href)
+          .appendTo @_tooltip
+    else
+      @_tooltip.append "<span class='empty_text'>None!</span>"
+
+    if @_tooltip.is ".visible"
+      @_tooltip.removeClass "animated visible"
+      _.defer => @_tooltip.addClass "animated visible"
+    else
+      @_tooltip.addClass "visible animated"
+
+    @_tooltip.css {
+      left: "#{pos.left}px"
+      top: "#{pos.top}px"
+    }
+
   constructor: (el) ->
+    @downloads = {}
     @el = $ el
     @_loader ||= @el.find ".loader_cell"
     @fetch_page()
@@ -86,6 +134,14 @@ class I.GameList
 
     $(window).on "scroll resize", => @check_for_load()
     $(window).on "resize", _.debounce (=> @resize_cells @cell_sizes[@cell_size]), 200
+
+    @el.on "click", ".downloads", (e) =>
+      @show_downloads $ e.currentTarget
+      false
+
+    @el.on "click", (e) =>
+      unless $(e.currentTarget).closest("#download_tooltip").length
+        @hide_downloads()
 
   check_for_load: ->
     return if @_loading

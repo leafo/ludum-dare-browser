@@ -31,7 +31,7 @@
   </div>
 
   <script type="text/template" id="game_template">
-    <div class="game_cell image_loading">
+    <div class="game_cell image_loading" data-uid="{{ uid }}">
       <a href="{{ url }}" target="_blank" class="thumb" style="background-image: url({{ screenshot_url }});"></a>
       <div class="top_label">
         <div class="votes">
@@ -43,7 +43,12 @@
             <span class="icon icon-cool"></span> {{ votes_given }}
           </span>
         </div>
+
+        <div class="downloads">
+          <span class="icon icon-box-add" title="Show Downloads"></span>
+        </div>
       </div>
+
 
       <div class="label">
         <div class="text">
@@ -53,6 +58,9 @@
       </div>
     </div>
   </script>
+
+  <div class="downloader arrow_box" id="download_tooltip"></div>
+
   <script type="text/javascript" src="/static/lib/jquery-1.9.1.js"></script>
   <script type="text/javascript" src="/static/lib/underscore.js"></script>
   <script type="text/javascript" src="/static/main.js"></script>
