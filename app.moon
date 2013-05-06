@@ -181,7 +181,7 @@ class LudumDare extends lapis.Application
 
   "/games": =>
     page = tonumber(@params.page) or 0
-    limit = 10
+    limit = 40
     offset = page * limit
     games = Games\select "
       where comp = ?

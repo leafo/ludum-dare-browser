@@ -82,11 +82,10 @@ class I.GameList
     @_loader ||= @el.find ".loader_cell"
     @fetch_page()
 
-    cell_size = @cell_sizes[@cell_size]
-    @resize_cells cell_size
+    @resize_cells @cell_sizes[@cell_size]
 
     $(window).on "scroll resize", => @check_for_load()
-    $(window).on "resize", _.debounce (=> @resize_cells cell_size), 200
+    $(window).on "resize", _.debounce (=> @resize_cells @cell_sizes[@cell_size]), 200
 
   check_for_load: ->
     return if @_loading

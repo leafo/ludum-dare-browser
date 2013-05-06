@@ -9,3 +9,4 @@ cache/
 *.lua
 .tup
 games.html
+secret/
