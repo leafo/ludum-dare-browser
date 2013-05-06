@@ -188,9 +188,16 @@ class LudumDare extends lapis.Application
       order by votes_received desc
       limit ? offset ?", COMP_NAME, limit, offset
 
+    sizes = {
+      small: "220x220"
+      medium: "340x340"
+      large: "560x560"
+    }
+    thumb_size = sizes[@params.thumb_size] or sizes.medium
+
     for game in *games
       game.downloads = json.decode game.downloads
-      game.screenshot_url = game\screenshot_url @, "340x340"
+      game.screenshot_url = game\screenshot_url @, thumb_size
       game.url = "http://www.ludumdare.com/compo/#{game.comp}/" .. game.url
       game.user_url = "http://www.ludumdare.com/compo/author/#{game.user}/"
 

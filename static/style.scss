@@ -47,6 +47,41 @@ body {
 
     .tools {
         float: right;
+
+        .icon-expand {
+            color: #aaa;
+            margin-right: 8px;
+        }
+
+        .size_picker {
+            display: inline-block;
+            line-height: 30px;
+            font-size: 0;
+            margin-right: 10px;
+
+            .picker {
+                display: inline-block;
+                font-size: $font_size;
+                cursor: pointer;
+                color: #DFDFDF;
+                background: gray;
+                padding: 0 12px;
+
+                &.current {
+                    background: #313131;
+                    color: white;
+                    text-shadow: 0 0 4px rgba(0,0,0, 0.5);
+                }
+            }
+
+            .left_picker {
+                border-radius: 6px 0 0 6px;
+            }
+
+            .right_picker {
+                border-radius: 0 6px 6px 0;
+            }
+        }
     }
 }
 

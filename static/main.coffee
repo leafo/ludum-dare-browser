@@ -6,12 +6,20 @@ _.templateSettings = {
 
 class I.GamePage
   constructor: ->
-    @list = new I.GameList $ "#game_list"
+    window.thelist = @list = new I.GameList $ "#game_list"
     @toolbar = $("#toolbar")
 
     @toolbar.on "change", "input.toggle_details", (e) =>
       checked =$(e.currentTarget).prop "checked"
       @list.el.toggleClass "show_labels", checked
+
+
+    @size_picker = $ "#size_picker"
+    pickers = @size_picker.find ".picker"
+    @size_picker.on "click", ".picker", (e) =>
+      pickers.removeClass "current"
+      p = $(e.currentTarget).addClass "current"
+      @list.set_size p.data "size"
 
 
 class I.GameList
@@ -20,10 +28,21 @@ class I.GameList
   cell_size: "medium"
 
   cell_sizes: {
-    small: 180
+    small: 180 # 220
     medium: 300 # 340
-    large: 500
+    large: 500 # 360
   }
+
+  set_size: (size) ->
+    size = "medium" if !@cell_sizes[size]
+    @cell_size = size
+    @reset()
+    @resize_cells @cell_sizes[size]
+
+  reset: =>
+    @current_page = 0
+    @el.empty().append @_loader
+    @fetch_page()
 
   resize_cells: (expected_width) =>
     real_width = expected_width + 20 # cell margin
@@ -53,7 +72,6 @@ class I.GameList
     @_style = $("<style type='text/css'>#{css}</style>").appendTo $("head")
 
   render_game: (game) =>
-    console.log game
     @_tpl ||= _.template $("#game_template").html()
     game_el = $($.trim @_tpl game).appendTo @el
     $("<img />").attr("src", game.screenshot_url).on "load", =>
@@ -78,7 +96,12 @@ class I.GameList
 
   fetch_page: ->
     @_loading = true
-    $.get "/games?" + $.param(page: @current_page), (data) =>
+    opts = {
+      page: @current_page
+      thumb_size: @cell_size
+    }
+
+    $.get "/games?" + $.param(opts), (data) =>
       @_loader.remove()
       unless data.games
         @_loading = false
