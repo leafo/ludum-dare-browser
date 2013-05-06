@@ -11,16 +11,18 @@ COMP_NAME = "ludum-dare-26"
 
 import Model from require "lapis.db.model"
 
-b64_for_url = (str, len)->
-  str = ngx.encode_base64 str
-  str = str\sub 1, len if len
-  (str\gsub "[/+]", {
-    "+": "%2B"
-    "/": "%2F"
-  })
+image_signature = do
+  for_url = (str) ->
+    (str\gsub "[/+]", {
+      "+": "%2B"
+      "/": "%2F"
+    })
 
-image_signature = (path, secret=require"secret.keys".image_key) ->
-  b64_for_url ngx.hmac_sha1(secret, path), 10
+  (path, _url=true, len=10, secret=require"secret.keys".image_key) ->
+    str = ngx.encode_base64 ngx.hmac_sha1 secret, path
+    str = str\sub 1, len if len
+    str = for_url str if _url
+    str
 
 content_types = {
   jpg: "image/jpeg"
@@ -131,7 +133,7 @@ class LudumDare extends lapis.Application
     magick = require "magick"
     image_id = tonumber(@params.image_id) or 1
 
-    signature = image_signature @req.parsed_url.path
+    signature = image_signature @req.parsed_url.path, false
     if @params.sig != signature
       return status: 403, "invalid signature"
 
@@ -177,7 +179,7 @@ class LudumDare extends lapis.Application
 
     for game in *games
       game.downloads = json.decode game.downloads
-      game.screenshot_url = game\screenshot_url @-- , "340x340"
+      game.screenshot_url = game\screenshot_url @, "340x340"
 
     games = nil unless next games
     json: { games: games }
