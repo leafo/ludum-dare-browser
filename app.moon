@@ -107,17 +107,17 @@ class Games extends Model
       r\url_for "screnshot_raw", comp: @comp, uid: @uid, :image_id
 
 class LudumDare extends lapis.Application
-  "/gen_sig/game/:comp/:uid/image/:image_id/:size": =>
+  "/admin/gen_sig/game/:comp/:uid/image/:image_id/:size": =>
     path = @req.parsed_url.path\match "^/gen_sig(.*)"
     signature = image_signature path
     redirect_to: path .. "?sig=" .. signature
 
-  "/db/make": =>
+  "/admin/db/make": =>
     schema = require "schema"
     schema.make_schema!
     json: { status: "ok" }
 
-  "/db/migrate": =>
+  "/admin/db/migrate": =>
     import run_migrations from require "lapis.db.migrations"
     run_migrations require "migrations"
     json: { status: "ok" }
@@ -215,10 +215,8 @@ class LudumDare extends lapis.Application
     games = nil unless next games
     json: { games: games }
 
-  "/scrape_games": =>
-    require "moon"
+  "/admin/scrape_games": =>
     games = game_list.fetch_list!
-    -- g, new_record = Games\create_or_update games[1]
 
     import gettime from require "socket"
     start = gettime!
@@ -230,5 +228,3 @@ class LudumDare extends lapis.Application
       pre "\n"
       pre "Elapsed: #{gettime! - start}"
 
-
-  "/": => "hello"
