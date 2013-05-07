@@ -16,7 +16,8 @@ window.onload = function() {
 			'icon-arrow-down' : '&#xe007;',
 			'icon-expand' : '&#xe008;',
 			'icon-star' : '&#xe009;',
-			'icon-bubble' : '&#xe00a;'
+			'icon-bubble' : '&#xe00a;',
+			'icon-paragraph-justify' : '&#xe00b;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;
