@@ -32,7 +32,7 @@
 
   <script type="text/template" id="game_template">
     <div class="game_cell image_loading" data-uid="{{ uid }}">
-      <a href="{{ url }}" target="_blank" class="thumb" style="background-image: url({{ screenshot_url }});"></a>
+      <a href="{{ url }}" target="_blank" title="{{ title }}" class="thumb" style="background-image: url({{ screenshot_url }});"></a>
       <div class="top_label">
         <div class="votes">
           <span title="Votes Received">
@@ -53,7 +53,7 @@
       <div class="label">
         <div class="text">
           <a href="{{ user_url }}" target="_blank" class="author">{{ user }}</a>
-          <a href="{{ url }}" target="_blank" class="title">{{ title }}</a>
+          <a href="{{ url }}" target="_blank" title="{{ title }}" class="title">{{ title }}</a>
         </div>
       </div>
     </div>

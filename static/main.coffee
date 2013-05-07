@@ -105,7 +105,6 @@ class I.GameList
 
     @_tooltip.empty()
     if downloads = @downloads[cell.data "uid"]
-      console.log "downloads:", downloads
       for dl in downloads
         $('<a class="download_row"></a>')
           .text(dl.label).attr("href", dl.href)
