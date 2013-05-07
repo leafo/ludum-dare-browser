@@ -183,9 +183,20 @@ class LudumDare extends lapis.Application
     page = tonumber(@params.page) or 0
     limit = 40
     offset = page * limit
+
+    sorts = {
+      votes: "order by votes_received desc"
+      votes_reverse: "order by votes_received asc"
+
+      coolness: "order by votes_given desc, votes_received asc"
+      coolness_reverse: "order by votes_given asc, votes_received desc"
+    }
+
+    sort = sorts[@params.sort] or sorts.votes
+
     games = Games\select "
       where comp = ?
-      order by votes_received desc
+      #{sort}
       limit ? offset ?", COMP_NAME, limit, offset
 
     sizes = {

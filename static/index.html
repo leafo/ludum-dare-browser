@@ -10,16 +10,32 @@
   <div class="sticky" id="toolbar">
     <div class="inner">
       <div class="tools">
-        <span class="icon-expand"></span>
+        <span class="icon icon-paragraph-justify"></span>
+        <div class="sort_picker" id="sort_picker">
+          <div class="current_option">
+            <span class="label">Most Rated</span>
+            <span class="tri_down"></span>
+          </div>
+
+          <div class="select_popup">
+            <div class="option" data-sort="votes">Most Rated</div>
+            <div class="option" data-sort="votes_reverse">Least Rated</div>
+
+            <div class="option" data-sort="coolness">Most Coolness</div>
+            <div class="option" data-sort="coolness_reverse">Least Coolness</div>
+          </div>
+        </div>
+
+        <span class="icon icon-expand"></span>
         <div class="size_picker" id="size_picker">
           <span class="picker left_picker" data-size="small">Small</span>
           <span class="picker current" data-size="medium">Medium</span>
           <span class="picker right_picker" data-size="large">Large</span>
         </div>
 
-        <label>
+        <label title="Show Details">
           <input type="checkbox" class="toggle_details" />
-          Show Details
+          <span class="icon-eye"></span>
         </label>
       </div>
       <h1>Ludum Dare 26 Games</h1>
@@ -32,7 +48,7 @@
 
   <script type="text/template" id="game_template">
     <div class="game_cell image_loading" data-uid="{{ uid }}">
-      <a href="{{ url }}" target="_blank" title="{{ title }}" class="thumb" style="background-image: url({{ screenshot_url }});"></a>
+      <a href="{{ url }}" target="_blank" class="thumb" style="background-image: url({{ screenshot_url }});"></a>
       <div class="top_label">
         <div class="votes">
           <span title="Votes Received">

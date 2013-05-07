@@ -48,9 +48,53 @@ body {
     .tools {
         float: right;
 
-        .icon-expand {
+        .icon {
             color: #aaa;
+            font-size: 16px;
             margin-right: 8px;
+        }
+
+    .sort_picker {
+            display: inline-block;
+            line-height: 30px;
+            margin-right: 20px;
+
+
+            &.open {
+                .select_popup {
+                    opacity: 1.0;
+                    -webkit-animation: pop .2s ease-in-out;
+                    -moz-animation: pop .2s ease-in-out;
+                    -ms-animation: pop .2s ease-in-out;
+                }
+            }
+
+            .select_popup {
+                opacity: 0;
+                top: -1000px;
+                left: -1000px;
+            }
+
+            .current_option {
+                background: #313131;
+                border-radius: 6px;
+                padding: 0 12px;
+                color: white;
+                text-shadow: 0 0 4px rgba(0,0,0, 0.5);
+                cursor: pointer;
+            }
+
+            .tri_down {
+                display: inline-block;
+                vertical-align: middle;
+                margin-left: 2px;
+                margin-top: -2px;
+                width: 0px;
+                height: 0px;
+                border-style: solid;
+                border-width: 5px 5px 0 5px;
+                border-color: #ffffff transparent transparent transparent;
+            }
         }
 
         .size_picker {
@@ -86,7 +130,7 @@ body {
 }
 
 #game_list {
-    margin-top: $sticky_height + 20px;
+    padding-top: $sticky_height + 20px;
     margin-left: 20px;
 }
 
@@ -329,6 +373,58 @@ body {
         -ms-animation: pop .2s ease-in-out;
     }
 }
+
+.select_popup {
+    position: absolute;
+    left: 100px;
+    top: 100px;
+    background: #ffffff;
+
+    box-shadow: 0 0 10px rgba(0,0,0, 0.5);
+    border-radius: 4px;
+    padding: 4px 0;
+
+    margin-left: -17px;
+    margin-top: 4px;
+
+    -webkit-transition: opacity 0.20s ease-in-out;
+    -moz-transition: opacity 0.20s ease-in-out;
+    transition: opacity 0.20s ease-in-out;
+
+    .option {
+        cursor: pointer;
+        padding: 0 12px;
+        background: white;
+        -webkit-transition: all 0.10s ease-in-out;
+        -moz-transition: all 0.10s ease-in-out;
+        transition: all 0.10s ease-in-out;
+
+        &:hover {
+            background: #222;
+            color: white;
+        }
+    }
+
+
+    &:after {
+        bottom: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    &:after {
+        border-color: rgba(255, 255, 255, 0);
+        border-bottom-color: #ffffff;
+        border-width: 10px;
+        left: 50%;
+        margin-left: -10px;
+    }
+}
+
 
 @-webkit-keyframes pop {
     0% {

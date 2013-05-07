@@ -17,7 +17,8 @@ window.onload = function() {
 			'icon-expand' : '&#xe008;',
 			'icon-star' : '&#xe009;',
 			'icon-bubble' : '&#xe00a;',
-			'icon-paragraph-justify' : '&#xe00b;'
+			'icon-paragraph-justify' : '&#xe00b;',
+			'icon-eye' : '&#xe00c;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;

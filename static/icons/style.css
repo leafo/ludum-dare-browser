@@ -27,7 +27,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-cool, .icon-heart, .icon-box-add, .icon-smiley, .icon-checkmark, .icon-close, .icon-arrow-up, .icon-arrow-down, .icon-expand, .icon-star, .icon-bubble, .icon-paragraph-justify {
+.icon-cool, .icon-heart, .icon-box-add, .icon-smiley, .icon-checkmark, .icon-close, .icon-arrow-up, .icon-arrow-down, .icon-expand, .icon-star, .icon-bubble, .icon-paragraph-justify, .icon-eye {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -72,4 +72,7 @@ you can use the generic selector below, but it's slower:
 }
 .icon-paragraph-justify:before {
 	content: "\e00b";
+}
+.icon-eye:before {
+	content: "\e00c";
 }

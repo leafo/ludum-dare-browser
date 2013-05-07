@@ -5,15 +5,54 @@ _.templateSettings = {
 }
 
 class I.GamePage
-  constructor: ->
-    window.thelist = @list = new I.GameList $ "#game_list"
-    @toolbar = $("#toolbar")
+  setup_sort_picker: ->
+    @sort_picker = $ "#sort_picker"
+    sort_popup = @sort_picker.find ".select_popup"
+    t = null
 
-    @toolbar.on "change", "input.toggle_details", (e) =>
-      checked =$(e.currentTarget).prop "checked"
-      @list.el.toggleClass "show_labels", checked
+    close_sort_picker = =>
+      clearTimeout t if t
+      @sort_picker.removeClass "open"
+      t = setTimeout =>
+        sort_popup.css { left: "", right: ""}
+        t = null
+      , 200
 
+    set_value = (label) =>
+      @sort_picker.find(".current_option .label").html label
 
+    @sort_picker.on "click", ".current_option", (e) =>
+      if @sort_picker.is ".open"
+        close_sort_picker()
+      else
+        clearTimeout t if t
+        t = null
+
+        elm = $(e.currentTarget)
+        pos = elm.position()
+        @sort_picker.addClass "open"
+        sort_popup.css {
+          left: "#{Math.floor pos.left + elm.outerWidth() - sort_popup.width() / 2}px"
+          top: "#{pos.top + elm.height()}px"
+        }
+
+    @sort_picker.on "click", ".option", (e) =>
+      option = $(e.currentTarget)
+      mode = option.data "sort"
+      set_value option.text()
+      close_sort_picker()
+      @list.sort = mode
+      @list.reset()
+
+    $(window.document).on "click", (e) =>
+      if @sort_picker.is ".open"
+        unless $(e.target).closest(".sort_picker").length
+          close_sort_picker()
+
+    $(window).on "resize", =>
+      close_sort_picker() if @sort_picker.is ".open"
+
+  setup_size_picker: =>
     @size_picker = $ "#size_picker"
     pickers = @size_picker.find ".picker"
     @size_picker.on "click", ".picker", (e) =>
@@ -21,11 +60,22 @@ class I.GamePage
       p = $(e.currentTarget).addClass "current"
       @list.set_size p.data "size"
 
+  constructor: ->
+    window.thelist = @list = new I.GameList $ "#game_list"
+    @toolbar = $("#toolbar")
+
+    @toolbar.on "change", "input.toggle_details", (e) =>
+      checked = $(e.currentTarget).prop "checked"
+      @list.el.toggleClass "show_labels", checked
+
+    @setup_size_picker()
+    @setup_sort_picker()
 
 class I.GameList
   current_page: 0
   aspect_ratio: 300/240
   cell_size: "medium"
+  sort: "votes"
 
   cell_sizes: {
     small: 180 # 220
@@ -136,11 +186,14 @@ class I.GameList
 
     @el.on "click", ".downloads", (e) =>
       @show_downloads $ e.currentTarget
-      false
 
-    @el.on "click", (e) =>
-      unless $(e.currentTarget).closest("#download_tooltip").length
-        @hide_downloads()
+    $(document.body).on "click", (e) =>
+      if @_tooltip?.is ".visible"
+        unless $(e.target).closest("#download_tooltip, .downloads").length
+          @hide_downloads()
+
+    $(window).on "resize", =>
+      @hide_downloads() if @_tooltip?.is ".visible"
 
   check_for_load: ->
     return if @_loading
@@ -152,6 +205,7 @@ class I.GameList
     @_loading = true
     opts = {
       page: @current_page
+      sort: @sort
       thumb_size: @cell_size
     }
 
