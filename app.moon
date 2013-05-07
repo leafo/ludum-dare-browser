@@ -148,7 +148,6 @@ class LudumDare extends lapis.Application
     json: game
 
   [screenshot_sized: "/game/:comp/:uid/image/:image_id/:size"]: =>
-    magick = require "magick"
     image_id = tonumber(@params.image_id) or 1
 
     signature = image_signature @req.parsed_url.path, false
@@ -158,7 +157,7 @@ class LudumDare extends lapis.Application
     game = Games\find comp: @params.comp, uid: @params.uid
     return status: 404, "missing game" unless game
 
-    cache_name = ngx.md5(@req.parsed_url.path) .. ".png"
+    cache_name = "resized_" .. ngx.md5(@req.parsed_url.path) .. ".png"
 
     blob, err_or_ext = game\load_screenshot image_id
     return status: 404, err_or_ext unless blob
@@ -168,6 +167,7 @@ class LudumDare extends lapis.Application
       ngx.header["x-image-gif"] = "1"
       return content_type: content_types["gif"], layout: false, blob
 
+    magick = require "magick"
     img = magick.load_image_from_blob blob
     img\set_format "png"
     size = @params.size
