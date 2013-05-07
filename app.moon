@@ -10,6 +10,7 @@ json = require "cjson"
 COMP_NAME = "ludum-dare-26"
 
 import Model from require "lapis.db.model"
+import respond_to from require "lapis.application"
 
 image_signature = do
   for_url = (str) ->
@@ -29,6 +30,38 @@ content_types = {
   png: "image/png"
   gif: "image/gif"
 }
+
+
+cached = (dict_name, fn) ->
+  unless type(fn) == "function"
+    fn = dict_name
+    dict_name = "page_cache"
+
+  =>
+    cache_key = ngx.var.request_uri
+    dict = ngx.shared[dict_name]
+
+    if cache_value = dict\get cache_key
+      ngx.header["x-memory-cache-hit"] = "1"
+      cache_value = json.decode(cache_value)
+      return cache_value
+
+    old_render = @render
+    @render = (...) =>
+      old_render @, ...
+      -- this is done like this because you can't mix hash/array in json
+      to_cache = json.encode {
+        {
+          content_type: @res.headers["Content-type"]
+          layout: false -- layout is already part of content
+        }
+        @res.content
+      }
+      dict\set cache_key, to_cache
+      ngx.header["x-memory-cache-save"] = "1"
+      nil
+
+    fn @
 
 class Games extends Model
   @timestamp: true
@@ -107,21 +140,6 @@ class Games extends Model
       r\url_for "screnshot_raw", comp: @comp, uid: @uid, :image_id
 
 class LudumDare extends lapis.Application
-  "/admin/gen_sig/game/:comp/:uid/image/:image_id/:size": =>
-    path = @req.parsed_url.path\match "^/gen_sig(.*)"
-    signature = image_signature path
-    redirect_to: path .. "?sig=" .. signature
-
-  "/admin/db/make": =>
-    schema = require "schema"
-    schema.make_schema!
-    json: { status: "ok" }
-
-  "/admin/db/migrate": =>
-    import run_migrations from require "lapis.db.migrations"
-    run_migrations require "migrations"
-    json: { status: "ok" }
-
   "/game/:comp/:uid": =>
     game = Games\find comp: @params.comp, uid: @params.uid
     return status: 404 unless game
@@ -179,14 +197,14 @@ class LudumDare extends lapis.Application
     ngx.header["x-image-cache"] = cache_hit and "hit" or "miss"
     content_type: content_types[ext_or_err], layout: false, image_blob
 
-  "/games": =>
+  "/games": cached =>
     page = tonumber(@params.page) or 0
     limit = 40
     offset = page * limit
 
     sorts = {
-      votes: "order by votes_received desc"
-      votes_reverse: "order by votes_received asc"
+      votes: "order by votes_received desc, votes_given desc"
+      votes_reverse: "order by votes_received asc, votes_given desc"
 
       coolness: "order by votes_given desc, votes_received asc"
       coolness_reverse: "order by votes_given asc, votes_received desc"
@@ -227,4 +245,38 @@ class LudumDare extends lapis.Application
 
       pre "\n"
       pre "Elapsed: #{gettime! - start}"
+
+  [cache: "/admin/cache"]: respond_to {
+    GET: =>
+      dict = ngx.shared.page_cache
+      keys = dict\get_keys()
+      @html ->
+        ul ->
+          for key in *keys
+            li ->
+              code key
+              text " "
+              span #dict\get(key) .. "bytes"
+
+        form method: "POST", -> button "Purge"
+
+    POST: =>
+      ngx.shared.page_cache\flush_all!
+      redirect_to: @url_for "cache"
+  }
+
+  "/admin/gen_sig/game/:comp/:uid/image/:image_id/:size": =>
+    path = @req.parsed_url.path\match "^/gen_sig(.*)"
+    signature = image_signature path
+    redirect_to: path .. "?sig=" .. signature
+
+  "/admin/db/make": =>
+    schema = require "schema"
+    schema.make_schema!
+    json: { status: "ok" }
+
+  "/admin/db/migrate": =>
+    import run_migrations from require "lapis.db.migrations"
+    run_migrations require "migrations"
+    json: { status: "ok" }
 
