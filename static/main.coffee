@@ -4,6 +4,10 @@ _.templateSettings = {
   interpolate : /\{\{(.+?)\}\}/g
 }
 
+cdn_prefix = {
+  "ludumdare.itch.io": "http://ludumdare-static.itch.io"
+}
+
 class I.GamePage
   set_sort_picker: (mode) ->
     @sort_picker ||= $ "#sort_picker"
@@ -98,6 +102,7 @@ class I.GameList
   aspect_ratio: 300/240
   cell_size: "medium"
   sort: "votes"
+  cdn_prefix: ""
 
   cell_sizes: {
     small: 180 # 220
@@ -170,6 +175,10 @@ class I.GameList
 
   render_game: (game) ->
     @downloads[game.uid] = game.downloads
+
+    if @cdn_prefix
+      game.screenshot_url = @cdn_prefix + game.screenshot_url
+
     @_tpl ||= _.template $("#game_template").html()
     game_el = $($.trim @_tpl game).appendTo @el
     $("<img />").attr("src", game.screenshot_url).on "load", =>
@@ -242,6 +251,9 @@ class I.GameList
 
     $(window).on "resize", =>
       @hide_downloads() if @_tooltip?.is ".visible"
+
+    if prefix = cdn_prefix[window.location.host]
+      @cdn_prefix = prefix
 
   check_for_load: ->
     return if @_loading
