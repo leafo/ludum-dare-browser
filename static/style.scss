@@ -40,6 +40,18 @@ body {
         font-size: 18px;
     }
 
+    .social_buttons, h1 {
+        display: inline-block;
+    }
+
+    .social_buttons {
+        line-height: auto;
+        vertical-align: middle;
+        position: relative;
+        top: 1px;
+        margin-left: 12px;
+    }
+
     .inner {
         line-height: $sticky_height;
         padding: 0 20px;

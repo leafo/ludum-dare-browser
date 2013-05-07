@@ -2,9 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>Ludum Dare 26 Game Browser - itch.io</title>
   <link rel="stylesheet" href="/static/style.css" />
   <link rel="stylesheet" href="/static/icons/style.css" />
+  <script type="text/javascript">
+    if (window.location.hostname != "localhost") {
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-136625-10']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    }
+  </script>
 </head>
 <body>
   <div class="sticky" id="toolbar">
@@ -38,7 +51,16 @@
           <span class="icon-eye"></span>
         </label>
       </div>
-      <h1>Ludum Dare 26 Games</h1>
+
+      <h1>LD26</h1>
+      <div class="social_buttons">
+        <a href="https://twitter.com/moonscript" class="twitter-follow-button" data-show-count="false">Follow @moonscript</a>
+
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ludumdare.itch.io" data-text="Ludum Dare 26 Game Browser" data-via="moonscript" data-related="moonscript">Tweet</a>
+
+      </div>
+
+
     </div>
   </div>
 
@@ -83,5 +105,8 @@
   <script type="text/javascript">
     new I.GamePage();
   </script>
+
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </body>
 </html>
