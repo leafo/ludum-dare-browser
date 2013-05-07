@@ -24,6 +24,27 @@ body {
     font-size: $font_size;
     margin: 0;
     font-family: Lato, sans-serif;
+
+    padding-top: $sticky_height + 10px;
+}
+
+.itch_banner {
+    margin:  0 20px 15px 20px;
+    color: #ddd;
+    font-size: 16px;
+    border-bottom: 1px dashed #504F4F;
+    padding-bottom: 6px;
+
+    a {
+        color: white;
+        font-weight: bold;
+    }
+
+    .icon {
+        color: #7C7C7C;
+        vertical-align: middle;
+        margin-right: 4px;
+    }
 }
 
 .sticky {
@@ -145,7 +166,6 @@ body {
 }
 
 #game_list {
-    padding-top: $sticky_height + 20px;
     margin-left: 20px;
 }
 
