@@ -5,8 +5,15 @@ _.templateSettings = {
 }
 
 class I.GamePage
+  set_sort_picker: (mode) ->
+    @sort_picker ||= $ "#sort_picker"
+
+    opt = @sort_picker.find ".option[data-sort='#{mode}']"
+    if opt.length
+      @sort_picker.find(".current_option .label").html opt.text()
+
   setup_sort_picker: ->
-    @sort_picker = $ "#sort_picker"
+    @sort_picker ||= $ "#sort_picker"
     sort_popup = @sort_picker.find ".select_popup"
     t = null
 
@@ -52,8 +59,18 @@ class I.GamePage
     $(window).on "resize", =>
       close_sort_picker() if @sort_picker.is ".open"
 
-  setup_size_picker: =>
-    @size_picker = $ "#size_picker"
+  set_size_picker: (val) ->
+    @size_picker ||= $ "#size_picker"
+    current = @size_picker.find(".picker").removeClass("current")
+      .filter("[data-size='#{val}']").addClass "current"
+
+    unless current.length
+      # set default
+      current.end().filter("[data-size='#{I.GameList::cell_size}']")
+        .addClass("current")
+
+  setup_size_picker: ->
+    @size_picker ||= $ "#size_picker"
     pickers = @size_picker.find ".picker"
     @size_picker.on "click", ".picker", (e) =>
       pickers.removeClass "current"
@@ -61,12 +78,17 @@ class I.GamePage
       @list.set_size p.data "size"
 
   constructor: ->
-    window.thelist = @list = new I.GameList $ "#game_list"
+    window.thelist = @list = new I.GameList $("#game_list"), @
     @toolbar = $("#toolbar")
 
     @toolbar.on "change", "input.toggle_details", (e) =>
       checked = $(e.currentTarget).prop "checked"
       @list.el.toggleClass "show_labels", checked
+      @list.save_params()
+
+    if window.location?.hash.match /\bdetails=true\b/
+      @toolbar.find("input.toggle_details").prop "checked", true
+      @list.el.addClass "show_labels"
 
     @setup_size_picker()
     @setup_sort_picker()
@@ -83,18 +105,43 @@ class I.GameList
     large: 500 # 360
   }
 
+  load_params: ->
+    if m = window.location?.hash.match /\bsort=(.+?)\b/
+      @sort = m[1]
+      @parent.set_sort_picker @sort
+
+    if m = window.location?.hash.match /\bthumb_size=(.+?)\b/
+      if @cell_sizes[m[1]]
+        @cell_size = m[1]
+        @parent.set_size_picker @cell_size
+
+  save_params: ->
+    opts = {
+      sort: @sort
+      thumb_size: @cell_size
+    }
+
+    delete opts.sort if @sort == @constructor::sort
+    delete opts.thumb_size if @cell_size == @constructor::cell_size
+
+    if @el.is ".show_labels"
+      opts.details = true
+
+    window.location.hash = $.param opts
+
   set_size: (size) ->
     size = "medium" if !@cell_sizes[size]
     @cell_size = size
     @reset()
     @resize_cells @cell_sizes[size]
 
-  reset: =>
+  reset: ->
+    @save_params()
     @current_page = 0
     @el.empty().append @_loader
     @fetch_page()
 
-  resize_cells: (expected_width) =>
+  resize_cells: (expected_width) ->
     real_width = expected_width + 20 # cell margin
     page_width = @el.width()
 
@@ -121,7 +168,7 @@ class I.GameList
 
     @_style = $("<style type='text/css'>#{css}</style>").appendTo $("head")
 
-  render_game: (game) =>
+  render_game: (game) ->
     @downloads[game.uid] = game.downloads
     @_tpl ||= _.template $("#game_template").html()
     game_el = $($.trim @_tpl game).appendTo @el
@@ -173,10 +220,11 @@ class I.GameList
       top: "#{pos.top}px"
     }
 
-  constructor: (el) ->
+  constructor: (el, @parent) ->
     @downloads = {}
     @el = $ el
     @_loader ||= @el.find ".loader_cell"
+    @load_params()
     @fetch_page()
 
     @resize_cells @cell_sizes[@cell_size]
