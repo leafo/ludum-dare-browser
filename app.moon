@@ -203,11 +203,11 @@ class LudumDare extends lapis.Application
     offset = page * limit
 
     sorts = {
-      votes: "order by votes_received desc, votes_given desc"
-      votes_reverse: "order by votes_received asc, votes_given desc"
+      votes: "order by votes_received desc, votes_given desc, title asc"
+      votes_reverse: "order by votes_received asc, votes_given desc, title desc"
 
-      coolness: "order by votes_given desc, votes_received asc"
-      coolness_reverse: "order by votes_given asc, votes_received desc"
+      coolness: "order by votes_given desc, votes_received asc, title asc"
+      coolness_reverse: "order by votes_given asc, votes_received desc, title desc"
     }
 
     sort = sorts[@params.sort] or sorts.votes
