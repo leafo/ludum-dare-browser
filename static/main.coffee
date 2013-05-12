@@ -258,7 +258,19 @@ class I.GameList
 
     @resize_cells @cell_sizes[@cell_size]
 
-    $(window).on "scroll resize", => @check_for_load()
+    disable_details = _.debounce (=>
+      console.log "disable details"
+      @el.removeClass("details_enabled")), 400, true
+
+    enable_details = _.debounce (=>
+      console.log "enable details"
+      @el.addClass("details_enabled")), 400
+
+    $(window).on "scroll resize", =>
+      disable_details()
+      enable_details()
+      @check_for_load()
+
     $(window).on "resize", _.debounce (=> @resize_cells @cell_sizes[@cell_size]), 200
 
     @el.on "click", ".downloads", (e) =>
