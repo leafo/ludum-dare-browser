@@ -332,8 +332,8 @@ class LudumDare extends lapis.Application
       redirect_to: @url_for "cache"
   }
 
-  "/admin/gen_sig/game/:comp/:uid/image/:image_id/:size": =>
-    path = @req.parsed_url.path\match "^/gen_sig(.*)"
+  "/admin/game/:comp/:uid/image/:image_id/:size": =>
+    path = @req.parsed_url.path\match "^/admin(.*)"
     signature = image_signature path
     redirect_to: path .. "?sig=" .. signature
 
@@ -346,11 +346,6 @@ class LudumDare extends lapis.Application
     import run_migrations from require "lapis.db.migrations"
     run_migrations require "migrations"
     json: { status: "ok" }
-
-  "/admin/game/:comp/:uid/image/:image_id/:size": =>
-    game = Games\find comp: @params.comp, uid: @params.uid
-    return status: 404, "missing game" unless game
-    redirect_to: game\screenshot_url @, @params.size, @params.image_id
 
   --
   "/admin/make_collections": =>
