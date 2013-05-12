@@ -9,8 +9,32 @@ json = require "cjson"
 
 COMP_NAME = "ludum-dare-26"
 
+db = require "lapis.db"
 import Model from require "lapis.db.model"
 import respond_to from require "lapis.application"
+
+local *
+
+CONTENT_TYPES = {
+  jpg: "image/jpeg"
+  png: "image/png"
+  gif: "image/gif"
+}
+
+COLLECTIONS = {
+  love: { "Love", {"love", "love2d"} }
+  python: { "Python", {"python", "pygame"} }
+  unity: { "Unity", {"unity"} }
+  xna: { "XNA", {"xna"} }
+  flash: { "Flash", {"flash", "swf"} }
+  html5: { "HTML5", {"html5"} }
+  java: { "Java", {"java", "jar"} }
+
+  linux: { "Linux", {"linux"} }
+  windows: { "Windows", {"windows", "win32"} }
+  osx: { "OSX", {"os/x", "osx", "os x"} }
+  android: { "Android", {"android"} }
+}
 
 image_signature = do
   for_url = (str) ->
@@ -24,12 +48,6 @@ image_signature = do
     str = str\sub 1, len if len
     str = for_url str if _url
     str
-
-content_types = {
-  jpg: "image/jpeg"
-  png: "image/png"
-  gif: "image/gif"
-}
 
 
 cached = (dict_name, fn) ->
@@ -62,6 +80,23 @@ cached = (dict_name, fn) ->
       nil
 
     fn @
+
+-- eg. search for love games:
+-- love_games = search_downloads("\\blove\\b", "i")
+search_downloads = (games=Games\select!, ...) ->
+  match = ngx.re.match
+
+  found = {}
+  for game in *games
+    if type(game.downloads) == "string"
+      game.downloads = json.decode game.downloads
+
+    for d in *game.downloads
+      if match(d.href, ...) or match(d.label, ...)
+        table.insert found, game
+        break
+
+  found
 
 class Games extends Model
   @timestamp: true
@@ -139,6 +174,14 @@ class Games extends Model
     else
       r\url_for "screnshot_raw", comp: @comp, uid: @uid, :image_id
 
+
+class Collections extends Model
+  @primary_key: {"name", "comp", "uid"}
+
+  @add_game: (name, comp, game) =>
+    uid = game.uid
+    @create { :name, :comp, :uid }
+
 class LudumDare extends lapis.Application
   "/game/:comp/:uid": =>
     game = Games\find comp: @params.comp, uid: @params.uid
@@ -165,7 +208,7 @@ class LudumDare extends lapis.Application
     -- bail on gif, we don't know how to resize
     if err_or_ext\lower! == "gif"
       ngx.header["x-image-gif"] = "1"
-      return content_type: content_types["gif"], layout: false, blob
+      return content_type: CONTENT_TYPES.gif, layout: false, blob
 
     magick = require "magick"
     img = magick.load_image_from_blob blob
@@ -183,7 +226,7 @@ class LudumDare extends lapis.Application
       \close!
 
     ngx.header["x-image-cache"] = "miss"
-    content_type: content_types["png"], layout: false, resized_blob
+    content_type: CONTENT_TYPES.png, layout: false, resized_blob
 
   -- get the raw image cached on our side
   [screnshot_raw: "/game/:comp/:uid/image/:image_id"]: =>
@@ -195,7 +238,7 @@ class LudumDare extends lapis.Application
     return status: 404, ext_or_err unless image_blob
 
     ngx.header["x-image-cache"] = cache_hit and "hit" or "miss"
-    content_type: content_types[ext_or_err], layout: false, image_blob
+    content_type: CONTENT_TYPES[ext_or_err], layout: false, image_blob
 
   "/games": cached =>
     page = tonumber(@params.page) or 0
@@ -212,8 +255,16 @@ class LudumDare extends lapis.Application
 
     sort = sorts[@params.sort] or sorts.votes
 
+    inner_join = if @params.collection
+      collection = db.escape_literal @params.collection
+      "inner join collections on
+        collections.name = #{collection} and games.uid = collections.uid"
+    else
+      ""
+
     games = Games\select "
-      where comp = ?
+      #{inner_join}
+      where games.comp = ?
       #{sort}
       limit ? offset ?", COMP_NAME, limit, offset
 
@@ -279,4 +330,33 @@ class LudumDare extends lapis.Application
     import run_migrations from require "lapis.db.migrations"
     run_migrations require "migrations"
     json: { status: "ok" }
+
+
+  "/admin/console": (...) ->
+    fn = require"lapis.console".make env: "all"
+    fn ...
+
+  --
+  "/admin/make_collections": =>
+    games = Games\select!
+
+    import gettime from require "socket"
+    start = gettime!
+
+    total = 0
+    regexes = {}
+    for collection_name, {_, words} in pairs COLLECTIONS
+      regex = "\\b(?:#{table.concat words, "|"})\\b"
+      filtered = search_downloads games, regex, "i"
+      regexes[regex] = #filtered
+
+      for game in *filtered
+        total += 1
+        Collections\add_game collection_name, COMP_NAME, game
+
+    @html ->
+      require "moon"
+      pre "inserted #{total} rows"
+      pre "took #{gettime! - start} sec"
+      pre moon.dump regexes
 

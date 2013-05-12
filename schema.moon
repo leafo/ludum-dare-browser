@@ -49,6 +49,14 @@ make_schema = ->
   create_index "games", "votes_received"
   create_index "games", "votes_given"
 
+  create_table "collections", {
+    {"name", varchar}
+    {"comp", varchar}
+    {"uid", varchar}
+
+    "PRIMARY KEY(name, comp, uid)"
+  }
+
 destroy_schema = (except={}) ->
   except = {key, true for key in *except}
   tbls = { "games" }
