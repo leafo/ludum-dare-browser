@@ -333,10 +333,10 @@ class LudumDare extends lapis.Application
     run_migrations require "migrations"
     json: { status: "ok" }
 
-
-  "/admin/console": (...) ->
-    fn = require"lapis.console".make env: "all"
-    fn ...
+  "/admin/game/:comp/:uid/image/:image_id/:size": =>
+    game = Games\find comp: @params.comp, uid: @params.uid
+    return status: 404, "missing game" unless game
+    redirect_to: game\screenshot_url @, @params.size, @params.image_id
 
   --
   "/admin/make_collections": =>
