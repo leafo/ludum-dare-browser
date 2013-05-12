@@ -68,7 +68,7 @@ body {
     }
 
     .social_buttons {
-        line-height: auto;
+        line-height: normal;
         vertical-align: middle;
         position: relative;
         top: 1px;
@@ -82,6 +82,8 @@ body {
 
     .tools {
         float: right;
+        position: relative;
+        z-index: 2;
         white-space: normal;
 
         .icon {
@@ -519,7 +521,7 @@ body {
     }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 980px) {
     .sticky {
         h1.long_header {
             display: none;
@@ -530,8 +532,8 @@ body {
     }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 845px) {
     .sticky .social_buttons {
-        display: none
+        display: none;
     }
 }
