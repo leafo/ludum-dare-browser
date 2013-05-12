@@ -16,7 +16,7 @@ make_dropdown = (el) ->
     clearTimeout t if t
     el.removeClass "open"
     t = setTimeout =>
-      popup.css { left: "", right: ""}
+      popup.css { left: "", top: ""}
       t = null
     , 200
 
