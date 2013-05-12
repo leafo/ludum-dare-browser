@@ -276,7 +276,7 @@ class I.GameList
       @cdn_prefix = prefix
 
   check_for_load: ->
-    return if @_loading
+    return if @_loading or !@_loader.parent().length
     win = $(window)
     if win.scrollTop() + win.height() > @_loader.offset().top
       @fetch_page()
