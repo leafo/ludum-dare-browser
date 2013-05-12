@@ -256,9 +256,10 @@ class LudumDare extends lapis.Application
     sort = sorts[@params.sort] or sorts.votes
 
     inner_join = if @params.collection
-      collection = db.escape_literal @params.collection
       "inner join collections on
-        collections.name = #{collection} and games.uid = collections.uid"
+        collections.name = #{db.escape_literal @params.collection} and
+        collections.comp = games.comp and
+        games.uid = collections.uid"
     else
       ""
 
