@@ -371,8 +371,6 @@ class LudumDare extends lapis.Application
         Collections\add_game collection_name, COMP_NAME, game
 
     @html ->
-      require "moon"
       pre "inserted #{total} rows"
       pre "took #{gettime! - start} sec"
-      pre moon.dump regexes
 
