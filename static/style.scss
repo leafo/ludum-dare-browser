@@ -88,13 +88,13 @@ body {
             color: #aaa;
             font-size: 16px;
             margin-right: 8px;
+            margin-left: 10px;
         }
 
-        .sort_picker {
+        .dropdown_picker {
             display: inline-block;
             line-height: 30px;
-            margin-right: 20px;
-
+            margin-right: 10px;
 
             &.open {
                 .select_popup {
@@ -390,7 +390,7 @@ body {
     }
 
     a {
-        color: #666;
+        color: #3a3a3a;
 
         &:hover {
             color: #222;
@@ -458,6 +458,13 @@ body {
         border-width: 10px;
         left: 50%;
         margin-left: -10px;
+    }
+
+    hr {
+        border: 0;
+        height: 1px;
+        background: #d6d6d6;
+        margin: 4px 0;
     }
 }
 

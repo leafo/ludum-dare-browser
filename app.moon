@@ -255,7 +255,8 @@ class LudumDare extends lapis.Application
 
     sort = sorts[@params.sort] or sorts.votes
 
-    inner_join = if @params.collection
+    collection = @params.collection
+    inner_join = if collection and COLLECTIONS[collection]
       "inner join collections on
         collections.name = #{db.escape_literal @params.collection} and
         collections.comp = games.comp and
@@ -283,7 +284,7 @@ class LudumDare extends lapis.Application
       game.user_url = "http://www.ludumdare.com/compo/author/#{game.user}/"
 
     games = nil unless next games
-    json: { games: games }
+    json: { games: games, count: games and #games }
 
   "/admin/scrape_games": =>
     games = game_list.fetch_list!

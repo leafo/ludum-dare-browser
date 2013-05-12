@@ -8,60 +8,70 @@ cdn_prefix = {
   "ludumdare.itch.io": "http://ludumdare-static.itch.io"
 }
 
-class I.GamePage
-  set_sort_picker: (mode) ->
-    @sort_picker ||= $ "#sort_picker"
+make_dropdown = (el) ->
+  popup = el.find ".select_popup"
+  t = null
 
-    opt = @sort_picker.find ".option[data-sort='#{mode}']"
-    if opt.length
-      @sort_picker.find(".current_option .label").html opt.text()
+  close_picker = =>
+    clearTimeout t if t
+    el.removeClass "open"
+    t = setTimeout =>
+      popup.css { left: "", right: ""}
+      t = null
+    , 200
+
+  set_value = (label) =>
+    el.find(".current_option .label").html label
+
+  el.on "i:choose", (e, value) =>
+    opt = el.find ".option[data-value='#{value}']"
+    set_value opt.text() if opt.length
+    false
+
+  el.on "click", ".current_option", (e) =>
+    if el.is ".open"
+      close_picker()
+    else
+      clearTimeout t if t
+      t = null
+
+      target = $(e.currentTarget)
+      pos = target.position()
+      el.addClass "open"
+      popup.css {
+        left: "#{Math.floor pos.left + target.outerWidth() - popup.width() / 2}px"
+        top: "#{pos.top + target.height()}px"
+      }
+
+  el.on "click", ".option", (e) =>
+    option = $(e.currentTarget)
+    value = option.data "value"
+    set_value option.text()
+    close_picker()
+    el.trigger "i:change", [value]
+
+  $(window.document).on "click", (e) =>
+    if el.is ".open"
+      unless $(e.target).closest(el).length
+        close_picker()
+
+  $(window).on "resize", =>
+    close_picker() if el.is ".open"
+
+  el
+
+class I.GamePage
+  setup_collection_picker: ->
+    @collection_picker = make_dropdown($ "#collection_picker")
+      .on "i:change", (e, collection) =>
+        @list.collection = collection
+        @list.reset()
 
   setup_sort_picker: ->
-    @sort_picker ||= $ "#sort_picker"
-    sort_popup = @sort_picker.find ".select_popup"
-    t = null
-
-    close_sort_picker = =>
-      clearTimeout t if t
-      @sort_picker.removeClass "open"
-      t = setTimeout =>
-        sort_popup.css { left: "", right: ""}
-        t = null
-      , 200
-
-    set_value = (label) =>
-      @sort_picker.find(".current_option .label").html label
-
-    @sort_picker.on "click", ".current_option", (e) =>
-      if @sort_picker.is ".open"
-        close_sort_picker()
-      else
-        clearTimeout t if t
-        t = null
-
-        elm = $(e.currentTarget)
-        pos = elm.position()
-        @sort_picker.addClass "open"
-        sort_popup.css {
-          left: "#{Math.floor pos.left + elm.outerWidth() - sort_popup.width() / 2}px"
-          top: "#{pos.top + elm.height()}px"
-        }
-
-    @sort_picker.on "click", ".option", (e) =>
-      option = $(e.currentTarget)
-      mode = option.data "sort"
-      set_value option.text()
-      close_sort_picker()
-      @list.sort = mode
-      @list.reset()
-
-    $(window.document).on "click", (e) =>
-      if @sort_picker.is ".open"
-        unless $(e.target).closest(".sort_picker").length
-          close_sort_picker()
-
-    $(window).on "resize", =>
-      close_sort_picker() if @sort_picker.is ".open"
+    @sort_picker = make_dropdown($ "#sort_picker")
+      .on "i:change", (e, mode) =>
+        @list.sort = mode
+        @list.reset()
 
   set_size_picker: (val) ->
     @size_picker ||= $ "#size_picker"
@@ -82,7 +92,6 @@ class I.GamePage
       @list.set_size p.data "size"
 
   constructor: ->
-    window.thelist = @list = new I.GameList $("#game_list"), @
     @toolbar = $("#toolbar")
 
     @toolbar.on "change", "input.toggle_details", (e) =>
@@ -90,12 +99,16 @@ class I.GamePage
       @list.el.toggleClass "show_labels", checked
       @list.save_params()
 
+    @setup_size_picker()
+    @setup_sort_picker()
+    @setup_collection_picker()
+
+    window.thelist = @list = new I.GameList $("#game_list"), @
+
     if window.location?.hash.match /\bdetails=true\b/
       @toolbar.find("input.toggle_details").prop "checked", true
       @list.el.addClass "show_labels"
 
-    @setup_size_picker()
-    @setup_sort_picker()
 
 class I.GameList
   current_page: 0
@@ -103,6 +116,7 @@ class I.GameList
   cell_size: "medium"
   sort: "votes"
   cdn_prefix: ""
+  collection: "all"
 
   cell_sizes: {
     small: 180 # 220
@@ -113,7 +127,11 @@ class I.GameList
   load_params: ->
     if m = window.location?.hash.match /\bsort=(.+?)\b/
       @sort = m[1]
-      @parent.set_sort_picker @sort
+      @parent.sort_picker.trigger "i:choose", @sort
+
+    if m = window.location?.hash.match /\bcollection=(.+?)\b/
+      @collection = m[1]
+      @parent.collection_picker.trigger "i:choose", @collection
 
     if m = window.location?.hash.match /\bthumb_size=(.+?)\b/
       if @cell_sizes[m[1]]
@@ -124,10 +142,12 @@ class I.GameList
     opts = {
       sort: @sort
       thumb_size: @cell_size
+      collection: @collection
     }
 
     delete opts.sort if @sort == @constructor::sort
     delete opts.thumb_size if @cell_size == @constructor::cell_size
+    delete opts.collection if @collection == @constructor::collection
 
     if @el.is ".show_labels"
       opts.details = true
@@ -267,6 +287,7 @@ class I.GameList
       page: @current_page
       sort: @sort
       thumb_size: @cell_size
+      collection: @collection
     }
 
     $.get "/games?" + $.param(opts), (data) =>

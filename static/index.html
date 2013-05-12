@@ -24,18 +24,42 @@
     <div class="inner">
       <div class="tools">
         <span class="icon icon-paragraph-justify"></span>
-        <div class="sort_picker" id="sort_picker">
+        <div id="collection_picker" class="collection_picker dropdown_picker">
+          <div class="current_option">
+            <span class="label">All Games</span>
+            <span class="tri_down"></span>
+          </div>
+
+          <div class="select_popup">
+            <div class="option" data-value="all">All Games</div>
+            <hr />
+            <div class="option" data-value="windows">Windows</div>
+            <div class="option" data-value="osx">OSX</div>
+            <div class="option" data-value="linux">Linux</div>
+            <hr />
+            <div class="option" data-value="flash">Flash</div>
+            <div class="option" data-value="html5">HTML5</div>
+            <div class="option" data-value="java">Java</div>
+            <div class="option" data-value="love">LÖVE</div>
+            <div class="option" data-value="python">Python</div>
+            <div class="option" data-value="unity">Unity</div>
+            <div class="option" data-value="XNA">XNA</div>
+          </div>
+
+        </div>
+
+        <div id="sort_picker" class="sort_picker dropdown_picker">
           <div class="current_option">
             <span class="label">Most Rated</span>
             <span class="tri_down"></span>
           </div>
 
           <div class="select_popup">
-            <div class="option" data-sort="votes">Most Rated</div>
-            <div class="option" data-sort="votes_reverse">Least Rated</div>
+            <div class="option" data-value="votes">Most Rated</div>
+            <div class="option" data-value="votes_reverse">Least Rated</div>
 
-            <div class="option" data-sort="coolness">Most Coolness</div>
-            <div class="option" data-sort="coolness_reverse">Least Coolness</div>
+            <div class="option" data-value="coolness">Most Coolness</div>
+            <div class="option" data-value="coolness_reverse">Least Coolness</div>
           </div>
         </div>
 
