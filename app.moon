@@ -56,7 +56,11 @@ cached = (dict_name, fn) ->
     dict_name = "page_cache"
 
   =>
-    cache_key = ngx.var.request_uri
+    params = [k.. ":" .. v for k,v in pairs @GET]
+    table.sort params
+    params = table.concat params, "-"
+    cache_key = @req.parsed_url.path .. "#" .. params
+
     dict = ngx.shared[dict_name]
 
     if cache_value = dict\get cache_key
@@ -303,13 +307,23 @@ class LudumDare extends lapis.Application
     GET: =>
       dict = ngx.shared.page_cache
       keys = dict\get_keys()
+      table.sort keys
+
+      sum = 0
       @html ->
         ul ->
           for key in *keys
             li ->
+              kb = #dict\get(key) / 1014
+              sum += kb
               code key
               text " "
-              span #dict\get(key) .. "bytes"
+              span "%.2f"\format(kb) .. "kb"
+
+        div ->
+          b "total: "
+          text "%.2f"\format(sum)
+          text "kb"
 
         form method: "POST", -> button "Purge"
 
