@@ -184,7 +184,9 @@ class Collections extends Model
 
   @add_game: (name, comp, game) =>
     uid = game.uid
-    @create { :name, :comp, :uid }
+    params = { :name, :comp, :uid }
+    unless @find params
+      @create params
 
 class LudumDare extends lapis.Application
   "/game/:comp/:uid": =>
@@ -295,12 +297,18 @@ class LudumDare extends lapis.Application
 
     import gettime from require "socket"
     start = gettime!
+    count = 0
     @html ->
       for game in *games
-        g, new_record = Games\create_or_update game
-        pre "#{new_record}\t#{g.title}" if g
+        success, err = pcall ->
+          g, new_record = Games\create_or_update game
+          count += 1 if g
+
+        unless success
+          pre "ERR: #{game.title}: #{err}"
 
       pre "\n"
+      pre "Games: #{count}"
       pre "Elapsed: #{gettime! - start}"
 
   [cache: "/admin/cache"]: respond_to {
@@ -368,4 +376,5 @@ class LudumDare extends lapis.Application
     @html ->
       pre "inserted #{total} rows"
       pre "took #{gettime! - start} sec"
+
 
