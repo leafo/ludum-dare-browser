@@ -7,7 +7,8 @@ game_list.set_http http
 import to_json from require "lapis.util"
 json = require "cjson"
 
-COMP_NAME = "ludum-dare-26"
+COMP_NAME = "ludum-dare-27"
+COMP_ID = 27
 
 db = require "lapis.db"
 import Model from require "lapis.db.model"
@@ -134,7 +135,7 @@ class Games extends Model
 
   fetch_details: (force=false)=>
     return if @have_details and not force
-    detailed = game_list.fetch_game @uid
+    detailed = game_list.fetch_game @uid, COMP_ID
     detailed.have_details = true
     @@create_or_update detailed, @
 
@@ -293,7 +294,7 @@ class LudumDare extends lapis.Application
     json: { games: games, count: games and #games }
 
   "/admin/scrape_games": =>
-    games = game_list.fetch_list!
+    games = game_list.fetch_list COMP_ID
 
     import gettime from require "socket"
     start = gettime!
@@ -357,7 +358,7 @@ class LudumDare extends lapis.Application
 
   --
   "/admin/make_collections": =>
-    games = Games\select!
+    games = Games\select "where comp = ?", COMP_NAME
 
     import gettime from require "socket"
     start = gettime!

@@ -1,4 +1,4 @@
-# Ludum Dare 26 Games Browser
+# Ludum Dare Games Browser
 
 <http://ludumdare.itch.io>
 
