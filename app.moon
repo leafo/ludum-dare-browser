@@ -144,7 +144,7 @@ class Games extends Model
     return nil unless @num_screenshots > 0 and @screenshots
     json.decode @screenshots
 
-  load_screenshot: (i=1)=>
+  load_screenshot: (i=1, skip_cache=false) =>
     screens = @parse_screenshots!
     return nil, "no screenshots" unless screens
 
@@ -156,7 +156,8 @@ class Games extends Model
     cache_name = ngx.md5(original_url) .. ext
 
     local image_blob, cache_hit
-    if file = io.open "cache/#{cache_name}"
+    file = io.open "cache/#{cache_name}"
+    if file and not skip_cache
       cache_hit = true
       image_blob = file\read "*a"
       file\close!
@@ -355,6 +356,20 @@ class LudumDare extends lapis.Application
     import run_migrations from require "lapis.db.migrations"
     run_migrations require "migrations"
     json: { status: "ok" }
+
+  "/admin/refresh_image/:uid": =>
+    game = assert Games\find(comp: COMP_NAME, uid: @params.uid), "missing game"
+    game\load_screenshot nil, true -- update master image
+
+    image_id = 1
+    commands = for size in *{"220x220", "340x340", "560x560"}
+      path = "/game/#{COMP_NAME}/#{@params.uid}/image/#{image_id}/#{size}"
+      cache_name = "resized_" .. ngx.md5(path) .. ".png"
+
+      cmd = "rm cache/#{cache_name}"
+      { cmd, os.execute cmd }
+
+    json: commands
 
   --
   "/admin/make_collections": =>
