@@ -14,6 +14,6 @@ config "production", ->
   num_workers 2
   num_connections 1024*8
   code_cache "on"
-  daemon "off"
+  daemon "on"
 
   postgresql_url "postgres://postgres:@127.0.0.1/ludumdare"
