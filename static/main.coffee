@@ -5,7 +5,6 @@ _.templateSettings = {
 }
 
 cdn_prefix = {
-  "ludumdare.itch.io": "http://ludumdare-static.itch.io"
 }
 
 make_dropdown = (el) ->
