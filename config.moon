@@ -7,7 +7,10 @@ config "development", ->
   code_cache "off"
   daemon "off"
 
-  postgresql_url "postgres://postgres:@127.0.0.1/ludumdare"
+  postgres {
+    backend: "pgmoon"
+    database: "ludumdare"
+  }
 
 config "production", ->
   port 10000
@@ -16,4 +19,8 @@ config "production", ->
   code_cache "on"
   daemon "on"
 
-  postgresql_url "postgres://postgres:@127.0.0.1/ludumdare"
+  postgres {
+    backend: "pgmoon"
+    database: "ludumdare"
+  }
+
