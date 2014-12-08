@@ -347,16 +347,6 @@ class LudumDare extends lapis.Application
     signature = image_signature path
     redirect_to: path .. "?sig=" .. signature
 
-  "/admin/db/make": =>
-    schema = require "schema"
-    schema.make_schema!
-    json: { status: "ok" }
-
-  "/admin/db/migrate": =>
-    import run_migrations from require "lapis.db.migrations"
-    run_migrations require "migrations"
-    json: { status: "ok" }
-
   "/admin/refresh_image/:uid": =>
     game = assert Games\find(comp: COMP_NAME, uid: @params.uid), "missing game"
     game\load_screenshot nil, true -- update master image
