@@ -79,15 +79,18 @@ parse_list = (content) ->
   games
 
 fetch_list = (ld=26)->
-  url = "http://www.ludumdare.com/compo/ludum-dare-#{ld}/?action=misc_links"
-  res = http!.request url
+  url = "http://ludumdare.com/compo/ludum-dare-#{ld}/?action=misc_links"
+  res, status = http!.request url
+  assert status == 200, "#{url} failed with #{status}"
+
   parse_list res
 
 
 -- get screenshots, determine if jam or comp
 fetch_game = (uid, ld=26) ->
-  url = "http://www.ludumdare.com/compo/ludum-dare-#{ld}/?action=preview&uid=#{uid}"
-  res = http!.request url
+  url = "http://ludumdare.com/compo/ludum-dare-#{ld}/?action=preview&uid=#{uid}"
+  res, status = http!.request url
+  assert status == 200, "#{url} failed with #{status}"
 
   screenshots = for link in *parse_links res
     continue unless link.href\match "shot%d+"

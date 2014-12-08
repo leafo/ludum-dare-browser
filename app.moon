@@ -7,8 +7,8 @@ game_list.set_http http
 import to_json from require "lapis.util"
 json = require "cjson"
 
-COMP_NAME = "ludum-dare-30"
-COMP_ID = 30
+COMP_NAME = "ludum-dare-31"
+COMP_ID = 31
 
 db = require "lapis.db"
 import Model from require "lapis.db.model"
@@ -288,8 +288,8 @@ class LudumDare extends lapis.Application
     for game in *games
       game.downloads = json.decode game.downloads
       game.screenshot_url = game\screenshot_url @, thumb_size
-      game.url = "http://www.ludumdare.com/compo/#{game.comp}/" .. game.url
-      game.user_url = "http://www.ludumdare.com/compo/author/#{game.user}/"
+      game.url = "http://ludumdare.com/compo/#{game.comp}/" .. game.url
+      game.user_url = "http://ludumdare.com/compo/author/#{game.user}/"
 
     games = nil unless next games
     json: { games: games, count: games and #games }
