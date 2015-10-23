@@ -24,3 +24,6 @@ config "production", ->
     database: "ludumdare"
   }
 
+  systemd {
+    user: true
+  }
