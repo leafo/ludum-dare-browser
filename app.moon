@@ -7,8 +7,8 @@ game_list.set_http http
 import to_json from require "lapis.util"
 json = require "cjson"
 
-COMP_NAME = "ludum-dare-33"
-COMP_ID = 33
+COMP_NAME = "ludum-dare-34"
+COMP_ID = 34
 
 db = require "lapis.db"
 import Model from require "lapis.db.model"
