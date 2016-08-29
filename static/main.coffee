@@ -113,7 +113,7 @@ class I.GameList
   current_page: 0
   aspect_ratio: 300/240
   cell_size: "medium"
-  sort: "votes"
+  sort: "random"
   cdn_prefix: ""
   collection: "all"
 
@@ -289,11 +289,13 @@ class I.GameList
 
   fetch_page: ->
     @_loading = true
+    @_rand ||= Math.floor Math.random() * 100000
     opts = {
       page: @current_page
       sort: @sort
       thumb_size: @cell_size
       collection: @collection
+      seed: if @sort == "random" then @_rand
     }
 
     $.get "/games?" + $.param(opts), (data) =>

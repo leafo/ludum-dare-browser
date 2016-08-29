@@ -259,9 +259,10 @@ class LudumDare extends lapis.Application
 
       coolness: "order by votes_given desc, votes_received asc, title asc"
       coolness_reverse: "order by votes_given asc, votes_received desc, title desc"
+      random: "random" -- done below
     }
 
-    sort = sorts[@params.sort] or sorts.votes
+    sort = sorts[@params.sort] or "random" -- sorts.votes
 
     collection = @params.collection
     inner_join = if collection and COLLECTIONS[collection]
@@ -272,11 +273,28 @@ class LudumDare extends lapis.Application
     else
       ""
 
-    games = Games\select "
-      #{inner_join}
-      where games.comp = ?
-      #{sort}
-      limit ? offset ?", COMP_NAME, limit, offset
+    games = if sort == "random"
+      seed = (tonumber(@params.seed) or os.time! / 60) % 100000 / 100000
+      res = db.query "
+        begin;
+        set local seed = ?;
+        select * from (
+          select *, random() from #{Games\table_name!}
+            #{inner_join}
+            where games.comp = ?
+            limit ? offset ?
+        ) g order by g.random asc;
+        commit
+      ", seed, COMP_NAME, limit, offset
+
+
+      [Games\load(g) for g in *res[3]]
+    else
+      Games\select "
+        #{inner_join}
+        where games.comp = ?
+        #{sort}
+        limit ? offset ?", COMP_NAME, limit, offset
 
     sizes = {
       small: "220x220"
