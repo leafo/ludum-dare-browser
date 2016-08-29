@@ -282,8 +282,9 @@ class LudumDare extends lapis.Application
           select *, random() from #{Games\table_name!}
             #{inner_join}
             where games.comp = ?
-            limit ? offset ?
-        ) g order by g.random asc;
+        ) g
+          order by g.random asc
+          limit ? offset ?;
         commit
       ", seed, COMP_NAME, limit, offset
 
