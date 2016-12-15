@@ -2,6 +2,33 @@ import Model from require "lapis.db.model"
 
 config = require("lapis.config").get!
 
+-- Generated schema dump: (do not edit)
+--
+-- CREATE TABLE games (
+--   id integer NOT NULL,
+--   comp character varying(255) NOT NULL,
+--   uid character varying(255) NOT NULL,
+--   "user" character varying(255) NOT NULL,
+--   url character varying(255) NOT NULL,
+--   title character varying(255) NOT NULL,
+--   downloads text NOT NULL,
+--   num_downloads integer DEFAULT 0 NOT NULL,
+--   screenshots text,
+--   num_screenshots integer DEFAULT 0 NOT NULL,
+--   votes_received integer DEFAULT 0 NOT NULL,
+--   votes_given integer DEFAULT 0 NOT NULL,
+--   is_jam boolean,
+--   have_details boolean DEFAULT false NOT NULL,
+--   created_at timestamp without time zone NOT NULL,
+--   updated_at timestamp without time zone NOT NULL
+-- );
+-- ALTER TABLE ONLY games
+--   ADD CONSTRAINT games_pkey PRIMARY KEY (id);
+-- CREATE INDEX games_comp_title_idx ON games USING btree (comp, title);
+-- CREATE UNIQUE INDEX games_comp_uid_idx ON games USING btree (comp, uid);
+-- CREATE INDEX games_votes_given_idx ON games USING btree (votes_given);
+-- CREATE INDEX games_votes_received_idx ON games USING btree (votes_received);
+--
 class Games extends Model
   @timestamp: true
 
