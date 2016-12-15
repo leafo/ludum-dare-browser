@@ -5,9 +5,10 @@ config {"development", "production", "test"}, ->
   comp_name "ludum-dare-37"
   comp_id 37
 
-config "development", ->
   num_workers 1
   num_connections 1024
+
+config "development", ->
   code_cache "off"
   daemon "off"
 
@@ -31,3 +32,12 @@ config "production", ->
   systemd {
     user: true
   }
+
+config "test", ->
+  code_cache "on"
+  daemon "off"
+
+  postgres {
+    database: "ludumdare_test"
+  }
+
