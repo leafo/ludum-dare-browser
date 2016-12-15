@@ -2,6 +2,9 @@
 
 <http://ludumdare.itch.io>
 
+
+[![Build Status](https://travis-ci.org/leafo/ludum-dare-browser.svg?branch=master)](https://travis-ci.org/leafo/ludum-dare-browser)
+
 A website for browsing Ludum Dare games. Built with [Lapis][2] and
 [MoonScript][1].
 
