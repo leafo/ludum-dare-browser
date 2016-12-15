@@ -113,4 +113,4 @@ if ... == "game"
   game = fetch_game 22909
   require("moon").p game
 
-{ :fetch_list, :fetch_game, :set_http }
+{ :fetch_list, :fetch_game, :set_http, :parse_list }

@@ -6,8 +6,6 @@ describe "ludumdare", ->
 
   import Games, Collections from require "spec.models"
 
-  before_each ->
-
   it "requests root", ->
     status = request "/"
     assert.same 200, status
