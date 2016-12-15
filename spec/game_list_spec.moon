@@ -12,7 +12,7 @@ describe "ludumdare.game_list", ->
     out = require("game_list").parse_list file
 
     assert.same 2390, #out
-    game_shape = types.shape {
+    list_shape = types.array_of types.shape {
       votes_received: types.integer
       votes_given: types.integer
 
@@ -27,8 +27,34 @@ describe "ludumdare.game_list", ->
       }
     }
 
-    assert game_shape out[1]
+    assert list_shape out
+
+    assert.same {
+      votes_received: 3
+      uid: "125708"
+      title: "Find The One Peaceful Room"
+      url: "?action=preview&uid=125708"
+      votes_given: 0
+      user: "eric186"
+      downloads: {
+        {
+          href: "https://www.dropbox.com/s/v61ptr30aqsdyjw/WebGL.zip?dl=0"
+          label: "Web"
+        }
+        {
+          href: "https://www.dropbox.com/s/49kvc1htcphup76/Windows.zip?dl=0"
+          label: "Windows"
+        }
+        {
+          href: "https://www.dropbox.com/s/2yfn94ldvri6wu5/Mac.zip?dl=0"
+          label: "OS/X"
+        }
+        {
+          href: "https://www.dropbox.com/s/0zonvgqpft12tjk/Linux.zip?dl=0"
+          label: "Linux"
+        }
+      }
+    }, out[1]
 
   it "parses game page", ->
-
 
