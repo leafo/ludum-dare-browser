@@ -1,20 +1,18 @@
 lapis = require "lapis"
-http = require "lapis.nginx.http"
 
+http = require "lapis.nginx.http"
 game_list = require "game_list"
 game_list.set_http http
+
+db = require "lapis.db"
 
 import to_json from require "lapis.util"
 json = require "cjson"
 
-COMP_NAME = "ludum-dare-37"
-COMP_ID = 37
+config = require("lapis.config").get!
+import Games, Collections from require "models"
 
-db = require "lapis.db"
-import Model from require "lapis.db.model"
 import respond_to from require "lapis.application"
-
-local *
 
 CONTENT_TYPES = {
   jpg: "image/jpeg"
@@ -49,7 +47,6 @@ image_signature = do
     str = str\sub 1, len if len
     str = for_url str if _url
     str
-
 
 cached = (dict_name, fn) ->
   unless type(fn) == "function"
@@ -103,92 +100,8 @@ search_downloads = (games=Games\select!, ...) ->
 
   found
 
-class Games extends Model
-  @timestamp: true
-
-  @simple_columns = {
-    "url", "title", "uid", "user", "votes_received", "votes_given", "is_jam",
-    "have_details"
-  }
-
-  @create_or_update: (data, game=nil) =>
-    game = game or @find comp: COMP_NAME, uid: data.uid
-    formatted = {k, data[k] for k in *@simple_columns}
-
-    if downloads = data.downloads
-      formatted.downloads = to_json downloads
-      formatted.num_downloads = #downloads
-
-    if screenshots = data.screenshots
-      formatted.screenshots = to_json screenshots
-      formatted.num_screenshots = #screenshots
-
-    if game
-      for k,v in pairs formatted
-        formatted[k] = nil if v == game[k]
-
-      game\update formatted
-      game, false
-    else
-      formatted.comp = COMP_NAME
-      @create(formatted), true
-
-  fetch_details: (force=false)=>
-    return if @have_details and not force
-    detailed = game_list.fetch_game @uid, COMP_ID
-    detailed.have_details = true
-    @@create_or_update detailed, @
-
-  parse_screenshots: =>
-    @fetch_details!
-    return nil unless @num_screenshots > 0 and @screenshots
-    json.decode @screenshots
-
-  load_screenshot: (i=1, skip_cache=false) =>
-    screens = @parse_screenshots!
-    return nil, "no screenshots" unless screens
-
-    original_url = screens[i]
-    return nil, "invalid screenshot" unless original_url
-
-    ext = original_url\match("%.%w+$") or ""
-    raw_ext = ext\match"%w+"
-    cache_name = ngx.md5(original_url) .. ext
-
-    local image_blob, cache_hit
-    file = io.open "cache/#{cache_name}"
-    if file and not skip_cache
-      cache_hit = true
-      image_blob = file\read "*a"
-      file\close!
-    else
-      cache_hit = false
-      image_blob, status = http.request original_url
-      unless status == 200
-        return nil, "failed to fetch original"
-
-      with io.open "cache/#{cache_name}", "w"
-        \write image_blob
-        \close!
-
-    image_blob, raw_ext, cache_hit
-
-  screenshot_url: (r, size, image_id=1) =>
-    if size
-      path = r\url_for "screenshot_sized", comp: @comp, uid: @uid, :image_id, :size
-      path .. "?sig=" .. image_signature path
-    else
-      r\url_for "screnshot_raw", comp: @comp, uid: @uid, :image_id
 
 
-class Collections extends Model
-  @primary_key: {"name", "comp", "uid"}
-
-  @add_game: (name, comp, game) =>
-    uid = game.uid
-    params = { :name, :comp, :uid }
-    unless @find params
-      @create params
 
 class LudumDare extends lapis.Application
   "/game/:comp/:uid": =>
@@ -286,7 +199,7 @@ class LudumDare extends lapis.Application
           order by g.random asc
           limit ? offset ?;
         commit
-      ", seed, COMP_NAME, limit, offset
+      ", seed, config.comp_name, limit, offset
 
 
       [Games\load(g) for g in *res[3]]
@@ -295,7 +208,7 @@ class LudumDare extends lapis.Application
         #{inner_join}
         where games.comp = ?
         #{sort}
-        limit ? offset ?", COMP_NAME, limit, offset
+        limit ? offset ?", config.comp_name, limit, offset
 
     sizes = {
       small: "220x220"
@@ -314,7 +227,7 @@ class LudumDare extends lapis.Application
     json: { games: games, count: games and #games }
 
   "/admin/scrape_games": =>
-    games = game_list.fetch_list COMP_ID
+    games = game_list.fetch_list config.comp_id
 
     import gettime from require "socket"
     start = gettime!
@@ -367,12 +280,12 @@ class LudumDare extends lapis.Application
     redirect_to: path .. "?sig=" .. signature
 
   "/admin/refresh_image/:uid": =>
-    game = assert Games\find(comp: COMP_NAME, uid: @params.uid), "missing game"
+    game = assert Games\find(comp: config.comp_name, uid: @params.uid), "missing game"
     game\load_screenshot nil, true -- update master image
 
     image_id = 1
     commands = for size in *{"220x220", "340x340", "560x560"}
-      path = "/game/#{COMP_NAME}/#{@params.uid}/image/#{image_id}/#{size}"
+      path = "/game/#{config.comp_name}/#{@params.uid}/image/#{image_id}/#{size}"
       cache_name = "resized_" .. ngx.md5(path) .. ".png"
 
       cmd = "rm cache/#{cache_name}"
@@ -382,7 +295,7 @@ class LudumDare extends lapis.Application
 
   --
   "/admin/make_collections": =>
-    games = Games\select "where comp = ?", COMP_NAME
+    games = Games\select "where comp = ?", config.comp_name
 
     import gettime from require "socket"
     start = gettime!
@@ -396,7 +309,7 @@ class LudumDare extends lapis.Application
 
       for game in *filtered
         total += 1
-        Collections\add_game collection_name, COMP_NAME, game
+        Collections\add_game collection_name, config.comp_name, game
 
     @html ->
       pre "inserted #{total} rows"

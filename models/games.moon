@@ -1,0 +1,80 @@
+import Model from require "lapis.db.model"
+
+config = require("lapis.config").get!
+
+class Games extends Model
+  @timestamp: true
+
+  @simple_columns = {
+    "url", "title", "uid", "user", "votes_received", "votes_given", "is_jam",
+    "have_details"
+  }
+
+  @create_or_update: (data, game=nil) =>
+    game = game or @find comp: config.comp_name, uid: data.uid
+    formatted = {k, data[k] for k in *@simple_columns}
+
+    if downloads = data.downloads
+      formatted.downloads = to_json downloads
+      formatted.num_downloads = #downloads
+
+    if screenshots = data.screenshots
+      formatted.screenshots = to_json screenshots
+      formatted.num_screenshots = #screenshots
+
+    if game
+      for k,v in pairs formatted
+        formatted[k] = nil if v == game[k]
+
+      game\update formatted
+      game, false
+    else
+      formatted.comp = config.comp_name
+      @create(formatted), true
+
+  fetch_details: (force=false)=>
+    return if @have_details and not force
+    detailed = game_list.fetch_game @uid, config.comp_id
+    detailed.have_details = true
+    @@create_or_update detailed, @
+
+  parse_screenshots: =>
+    @fetch_details!
+    return nil unless @num_screenshots > 0 and @screenshots
+    json.decode @screenshots
+
+  load_screenshot: (i=1, skip_cache=false) =>
+    screens = @parse_screenshots!
+    return nil, "no screenshots" unless screens
+
+    original_url = screens[i]
+    return nil, "invalid screenshot" unless original_url
+
+    ext = original_url\match("%.%w+$") or ""
+    raw_ext = ext\match"%w+"
+    cache_name = ngx.md5(original_url) .. ext
+
+    local image_blob, cache_hit
+    file = io.open "cache/#{cache_name}"
+    if file and not skip_cache
+      cache_hit = true
+      image_blob = file\read "*a"
+      file\close!
+    else
+      cache_hit = false
+      image_blob, status = http.request original_url
+      unless status == 200
+        return nil, "failed to fetch original"
+
+      with io.open "cache/#{cache_name}", "w"
+        \write image_blob
+        \close!
+
+    image_blob, raw_ext, cache_hit
+
+  screenshot_url: (r, size, image_id=1) =>
+    if size
+      path = r\url_for "screenshot_sized", comp: @comp, uid: @uid, :image_id, :size
+      path .. "?sig=" .. image_signature path
+    else
+      r\url_for "screnshot_raw", comp: @comp, uid: @uid, :image_id

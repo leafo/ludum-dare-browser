@@ -1,6 +1,10 @@
 
 import config from require "lapis.config"
 
+config {"development", "production", "test"}, ->
+  comp_name "ludum-dare-37"
+  comp_id 37
+
 config "development", ->
   num_workers 1
   num_connections 1024

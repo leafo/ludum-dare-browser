@@ -107,12 +107,10 @@ if ... == "games"
     file\close!
 
   games = parse_list res
-  -- require "moon"
-  -- moon.p games
+  require("moon").p games
 
 if ... == "game"
   game = fetch_game 22909
-  require "moon"
-  moon.p game
+  require("moon").p game
 
 { :fetch_list, :fetch_game, :set_http }
