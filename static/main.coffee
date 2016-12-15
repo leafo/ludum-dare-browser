@@ -113,7 +113,7 @@ class I.GameList
   current_page: 0
   aspect_ratio: 300/240
   cell_size: "medium"
-  sort: "random"
+  sort: "votes"
   cdn_prefix: ""
   collection: "all"
 
