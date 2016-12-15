@@ -262,7 +262,7 @@ class LudumDare extends lapis.Application
       random: "random" -- done below
     }
 
-    sort = sorts[@params.sort] sorts.votes
+    sort = sorts[@params.sort] or sorts.votes
 
     collection = @params.collection
     inner_join = if collection and COLLECTIONS[collection]
