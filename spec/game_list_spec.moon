@@ -57,4 +57,12 @@ describe "ludumdare.game_list", ->
     }, out[1]
 
   it "parses game page", ->
+    file = io.open("spec/data/ld-37-game.html")\read "*a"
+    out = require("game_list").parse_game_page file
+    assert.same {
+      is_jam: false
+      screenshots: {
+        "http://ludumdare.com/compo/wp-content/compo2/593814/3479-shot0-1481510638.png"
+      }
+    }, out
 

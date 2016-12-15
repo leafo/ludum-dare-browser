@@ -78,13 +78,19 @@ parse_list = (content) ->
 
   games
 
+parse_game_page = (content) ->
+  screenshots = for link in *parse_links content
+    continue unless link.href\match "shot%d+"
+    link.href
+
+  is_jam = content\match("Jam Entry") and true or false
+  { :uid, :screenshots, :is_jam }
+
 fetch_list = (ld=26)->
   url = "http://ludumdare.com/compo/ludum-dare-#{ld}/?action=misc_links"
   res, status = http!.request url
   assert status == 200, "#{url} failed with #{status}"
-
   parse_list res
-
 
 -- get screenshots, determine if jam or comp
 fetch_game = (uid, ld=26) ->
@@ -92,12 +98,7 @@ fetch_game = (uid, ld=26) ->
   res, status = http!.request url
   assert status == 200, "#{url} failed with #{status}"
 
-  screenshots = for link in *parse_links res
-    continue unless link.href\match "shot%d+"
-    link.href
-
-  is_jam = res\match("Jam Entry") and true or false
-  { :uid, :screenshots, :is_jam }
+  parse_game_page res
 
 if ... == "games"
   -- games = fetch_list!
@@ -113,4 +114,4 @@ if ... == "game"
   game = fetch_game 22909
   require("moon").p game
 
-{ :fetch_list, :fetch_game, :set_http, :parse_list }
+{ :fetch_list, :fetch_game, :set_http, :parse_list, :parse_game_page }
