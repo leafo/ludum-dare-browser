@@ -1,0 +1,13 @@
+language: c
+sudo: required
+
+services:
+  - docker
+
+install:
+  - docker build -t ludumdare-test .
+
+script:
+  - docker run ludumdare-test
+
+
