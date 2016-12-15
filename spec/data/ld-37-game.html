@@ -1,0 +1,736 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<title>Ludum Dare 37 | Ludum Dare</title>
+	
+	<meta name="generator" content="WordPress 4.4.2" /> <!-- leave this for stats -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@ludumdare" />
+	<meta name="twitter:title" content="Ludum Dare" />
+	<meta name="twitter:description" content="The worlds largest online game jam event. Join us every April, August, and December." />
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+	
+	<link rel="stylesheet" href="http://ludumdare.com/compo/wp-content/themes/ludum/style.css?2.96" type="text/css" media="screen" />
+	<link rel="alternate" type="application/rss+xml" title="Ludum Dare RSS Feed" href="http://ludumdare.com/compo/feed/" />
+	<link rel="pingback" href="http://ludumdare.com/compo/xmlrpc.php" />
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css' />
+
+	<link rel="alternate" type="application/rss+xml" title="Ludum Dare &raquo; Feed" href="http://ludumdare.com/compo/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Ludum Dare &raquo; Comments Feed" href="http://ludumdare.com/compo/comments/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/ludumdare.com\/compo\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.4.2"}};
+			!function(a,b,c){function d(a){var c,d=b.createElement("canvas"),e=d.getContext&&d.getContext("2d"),f=String.fromCharCode;return e&&e.fillText?(e.textBaseline="top",e.font="600 32px Arial","flag"===a?(e.fillText(f(55356,56806,55356,56826),0,0),d.toDataURL().length>3e3):"diversity"===a?(e.fillText(f(55356,57221),0,0),c=e.getImageData(16,16,1,1).data.toString(),e.fillText(f(55356,57221,55356,57343),0,0),c!==e.getImageData(16,16,1,1).data.toString()):("simple"===a?e.fillText(f(55357,56835),0,0):e.fillText(f(55356,57135),0,0),0!==e.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag"),unicode8:d("unicode8"),diversity:d("diversity")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag&&c.supports.unicode8&&c.supports.diversity||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='compo2-style-css'  href='http://ludumdare.com/compo/wp-content/plugins/compo2/style.css?ver=4.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='steam-style-css'  href='http://ludumdare.com/compo/wp-content/plugins/steam-widget/style.css?1_1&#038;ver=4.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='broadcast-style-css'  href='http://ludumdare.com/compo/wp-content/plugins/twidget/style.css?1_1&#038;ver=4.4.2' type='text/css' media='all' />
+<script type='text/javascript' src='http://ludumdare.com/compo/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>
+<script type='text/javascript' src='http://ludumdare.com/compo/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript' src='http://ludumdare.com/compo/wp-content/plugins/i-like-dare/js/i-like-this.js?1_1&#038;ver=4.4.2'></script>
+<link rel='https://api.w.org/' href='http://ludumdare.com/compo/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://ludumdare.com/compo/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://ludumdare.com/compo/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 4.4.2" />
+<link rel="canonical" href="http://ludumdare.com/compo/ludum-dare-37/" />
+<link rel='shortlink' href='http://ludumdare.com/compo/?p=593814' />
+<link rel="alternate" type="application/json+oembed" href="http://ludumdare.com/compo/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fludumdare.com%2Fcompo%2Fludum-dare-37%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://ludumdare.com/compo/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fludumdare.com%2Fcompo%2Fludum-dare-37%2F&#038;format=xml" />
+<!-- WALL=/donations/ --><link rel="stylesheet" type="text/css" href="http://ludumdare.com/compo/wp-content/plugins/i-like-dare/css/i-like-this.css" media="screen" />
+<script type="text/javascript">var blogUrl = 'http://ludumdare.com/compo'</script>
+
+
+<!-- Plugin: Open external links a new window. Plugin by Kristian Risager Larsen, http://kristianrisagerlarsen.dk . Download it at http://wordpress.org/extend/plugins/open-external-links-in-a-new-window/ -->
+<script type="text/javascript">//<![CDATA[
+	function external_links_in_new_windows_loop() {
+		if (!document.links) {
+			document.links = document.getElementsByTagName('a');
+		}
+		var change_link = false;
+		var force = '';
+		var ignore = '';
+
+		for (var t=0; t<document.links.length; t++) {
+			var all_links = document.links[t];
+			change_link = false;
+			
+			if(document.links[t].hasAttribute('onClick') == false) {
+				// forced if the address starts with http (or also https), but does not link to the current domain
+				if(all_links.href.search(/^http/) != -1 && all_links.href.search('ludumdare.com') == -1) {
+					// alert('Changeda '+all_links.href);
+					change_link = true;
+				}
+					
+				if(force != '' && all_links.href.search(force) != -1) {
+					// forced
+					// alert('force '+all_links.href);
+					change_link = true;
+				}
+				
+				if(ignore != '' && all_links.href.search(ignore) != -1) {
+					// alert('ignore '+all_links.href);
+					// ignored
+					change_link = false;
+				}
+
+				if(change_link == true) {
+					// alert('Changed '+all_links.href);
+					document.links[t].setAttribute('onClick', 'javascript:window.open(\''+all_links.href+'\'); return false;');
+					document.links[t].removeAttribute('target');
+				}
+			}
+		}
+	}
+	
+	// Load
+	function external_links_in_new_windows_load(func)
+	{	
+		var oldonload = window.onload;
+		if (typeof window.onload != 'function'){
+			window.onload = func;
+		} else {
+			window.onload = function(){
+				oldonload();
+				func();
+			}
+		}
+	}
+
+	external_links_in_new_windows_load(external_links_in_new_windows_loop);
+	//]]></script>
+
+	
+	<!-- Google Analytics -->
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-2932135-5']);
+		_gaq.push(['_trackPageview']);
+		
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+	
+	<!-- Countdown Clocks -->
+	<script type="text/javascript">
+	(function() {
+		// Zero Pad Digits //
+		function PadZero( num ) {
+			if ( num < 10 ) {
+				return "0" + num;
+			}
+			return num;
+		}
+		
+		// Subtract B - A //
+		function DateDiff( a, b ) {
+			return b.getTime() - a.getTime();
+		}
+
+		var timerHandle = null;
+
+		var clockElm = null;
+
+		var serverTime = 1481832601;
+		var serverClock = new Date(serverTime*1000);
+		var localClock = new Date();
+
+//		// If Clock is Bad //
+//		var clockDiff = DateDiff(localClock,serverClock);
+//		if ( Math.abs(clockDiff) > 45*60*1000 ) {	// If 45 minutes off (cache safe) then Error //
+//			window.addEventListener("load", function(e) {
+//				clockElm = document.getElementsByClassName('clock');
+//				for (var idx = 0; idx < clockElm.length; idx++ ) {
+//					clockElm[idx].innerHTML = '<a href="/compo/faq/">Clock Error</a>';
+//				}
+//			});
+//		}
+//		// If Clock is Okay //
+//		else 
+		{
+			// Store it in Window (global scope) //
+			window.mkClocksUpdate = function(e) {
+				clockElm = document.getElementsByClassName('clock');
+				
+				// If no clocks, bail //
+				if ( clockElm.length === 0 ) {
+					return;
+				}
+				
+				window._mkClocksFunc = function(){
+					var nowClock = new Date();
+					
+					for (var idx = 0; idx < clockElm.length; idx++ ) {
+						var diff = DateDiff(nowClock,new Date(clockElm[idx].getAttribute('title')));
+						
+						if ( diff >= 0 ) {
+							var oneSecond = 1000;
+							var oneMinute = 60*1000;
+							var oneHour = 60*60*1000;
+							var oneDay = 24*60*60*1000;
+							var oneWeek = 7*24*60*60*1000;
+		
+							var diffMS = Math.floor(diff % oneSecond);
+							var diffSeconds = Math.floor(diff / oneSecond) % 60;
+							var diffMinutes = Math.floor(diff / oneMinute) % 60;
+							var diffHours = Math.floor(diff / oneHour) % 24;
+							var diffDays = Math.floor(diff / oneDay) % 7;
+							var diffDaysOnly = Math.floor(diff / oneDay);
+							var diffWeeks = Math.floor(diff / oneWeek);
+							
+							var sep = ":";
+							if ( diffMS >= 500 ) {
+								sep = ";";
+							}
+							
+							var fiveWeek = diffDaysOnly <= (7*5)+1;
+
+							var weekText = diffWeeks + " Weeks, ";
+							if ( diffWeeks == 1 ) {
+								weekText = "1 Week, ";
+							}
+							else if ( diffWeeks == 0 ) {
+								weekText = "";
+							}
+							
+							var dayText = diffDays + " Days" + (fiveWeek ? ", " : "");
+							if ( diffDays == 1 ) {
+								dayText = "1 Day, ";
+							}
+							else if ( diffDays == 0 ) {
+								dayText = "";
+							}
+							
+							var prefixText = clockElm[idx].getAttribute('prefix');
+							if ( prefixText === null ) {
+								prefixText = "";
+							}
+							else {
+								var prefixStyle = clockElm[idx].getAttribute('prefix-style');
+								if ( prefixStyle ) {
+									prefixText = '<span style="' + prefixStyle + '">' + prefixText + "</span>";
+								}
+							}
+							
+							clockElm[idx].innerHTML = 
+								prefixText +
+								weekText +
+								dayText +
+								(fiveWeek ? 
+									PadZero(diffHours) + sep +
+									PadZero(diffMinutes) + sep +
+									PadZero(diffSeconds)
+								: "" );
+						}
+						else {
+							/* Flash on Completion */
+							clockElm[idx].innerHTML = clockElm[idx].getAttribute('msg');
+						}
+					}
+				};
+
+				if ( timerHandle === null ) {
+					timerHandle = setInterval( window._mkClocksFunc,500);
+				}
+			};
+
+			window.mkClocksFocus = function(e) {
+				if ( timerHandle === null ) {
+					timerHandle = setInterval( window._mkClocksFunc,500);
+				}
+			};
+			window.mkClocksBlur = function(e) {
+				if ( timerHandle ) {
+					clearInterval( timerHandle );
+					timerHandle = null;
+				}
+			};
+			
+			window.addEventListener("load", window.mkClocksUpdate);
+			/* In case people want us to be less wasteful */
+			//window.addEventListener("focus", window.mkClocksFocus);
+			//window.addEventListener("blur", window.mkClocksBlur);
+		}
+	})();
+	</script>
+</head>
+<body>
+	<div style="display:none;height:54px;background:#000;position:relative;"><img style="display:block;position:absolute;left:0;right:0;top:0;bottom:0;margin:auto;" src="/compo/wp-content/themes/ludum/images/ld-tease.png" width="960" height="47" /></div>
+	<div id="page">
+		<div id="header">
+			<div class="body">
+				<!-- Not Logged In -->
+				<div class="login-not">
+					<div class="headline"><a href="/compo/wp-login.php"><strong>Login</strong></a> | <a href="/compo/wp-login.php?action=register">Create Account</a></div>
+				</div>
+				<a href="http://ludumdare.com/compo/" title="Home"><img src="/compo/wp-content/themes/ludum/povimg/LDLogo2015.png" width="386" height="64" /></a>
+			</div>
+		</div>
+		
+		<div id="status">
+<div class="section toppad botpad round-bot" style="display:none">
+<p>   <!-- Theme announcement --></p>
+<div class="biggercell bigcell cell" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/jam2.jpg');">
+<div class="overlay"></div>
+<div class="botleft hidden"><img src="http://ludumdare.com/compo/wp-content/uploads/2011/11/PlayRate80Star.png" alt="PlayRate80Star" width="300" height="80" class="aligncenter size-full wp-image-419119" /></div>
+<div class="name" style="color:#F62;text-shadow:0 1px #820;font-size:22px">Ludum Dare 36</div>
+<div class="desc">The Theme is:</div>
+<div class="clock botright hidden" title="Sat, 18 Apr 2016 01:00:00 UTC" msg="GO! GO! GO!" style="color:#F80;"></div>
+<div class="name botright">Ancient Technology</div>
+<p>    <a href="http://ludumdare.com/compo/ludum-dare-36/?action=preview" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<p>  <!-- Compo timer --></p>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/ld36_ancient_tech.png');">
+<div class="overlay"></div>
+<div class="botleft"></div>
+<div class="name" style="color:#0FA;text-shadow:0 1px #084;font-size:22px">The Compo ends in</div>
+<div class="desc">Solo, from scratch, with source, in 48 hours.</div>
+<div class="clock botright" title="Mon, 29 Aug 2016 01:00:00 UTC" msg="GO! GO! GO!" style="color:#8F0;"></div>
+<p>    <a href="http://ludumdare.com/compo/ludum-dare-36/?action=edit" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<p>  <!-- Compo submission hour --></p>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/ld36_ancient_tech.png');">
+<div class="overlay"></div>
+<div class="botleft"></div>
+<div class="name" style="color:#FC2;text-shadow:0 1px #860;font-size:22px">Submission Hour ends</div>
+<div class="desc">Compo Submission Hour! Submit now!</div>
+<div class="clock botright" title="Mon, 29 Aug 2016 02:00:00 UTC" msg="GO! GO! GO!" style="color:#F80;"></div>
+<p>    <a href="http://ludumdare.com/compo/ludum-dare-36/?action=edit" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<p>  <!-- Feedback friends --></p>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2016/07/stars.png');">
+<div class="overlay"></div>
+<div class="name" style="color:#ffdf38;text-shadow:0 1px #333;font-size:22px">Feedback Friends</div>
+<div class="desc">Give and receive feedback on your game</div>
+<div class="clock botright" title="Tue, 20 Sep 2016 01:00:00 UTC" msg="Game Over!" style="color:#F80;font-size:22px;"></div>
+<p>    <a href="http://feedback.ld.intricati.com/?event=ludum-dare-36" title="FF"><img src="/_.png" class="blank" /></a>
+  </div>
+<p>  <!-- Jam timer --></p>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/ld36_ancient_tech.png');">
+<div class="overlay"></div>
+<div class="botleft"></div>
+<div class="name" style="color:#0AF;text-shadow:0 1px #048;font-size:22px">The Jam ends in</div>
+<div class="desc">Solo and Teams, relaxed, 72 hours.</div>
+<div class="clock botright" title="Tue, 30 Aug 2016 01:00:00 UTC" msg="GO! GO! GO!" style="color:#8F0;"></div>
+<p>    <a href="http://ludumdare.com/compo/ludum-dare-36/?action=edit" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<p>  <!-- Jam submission hour --></p>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/ld36_ancient_tech.png');">
+<div class="overlay"></div>
+<div class="botleft"></div>
+<div class="name" style="color:#FC2;text-shadow:0 1px #860;font-size:22px">Submission Hour ends</div>
+<div class="desc">Jam Submission Hour! Submit now!</div>
+<div class="clock botright" title="Tue, 30 Aug 2016 02:00:00 UTC" msg="GO! GO! GO!" style="color:#F80;"></div>
+<p>    <a href="http://ludumdare.com/compo/ludum-dare-36/?action=edit" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<p>  <!-- game over --></p>
+<div class="bigcell cell" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/ld36_ancient_tech.png');">
+<div class="overlay"></div>
+<div class="botleft"></div>
+<div class="name" style="color:#FC2;text-shadow:0 1px #860;font-size:22px">LD36 has ended!</div>
+<div class="desc">Well done to everyone who took part.</div>
+<div class="name botright" style="text-align: right; margin-right: 10px; color: #F62">1912 Amazing Games!</div>
+<p>    <a href="http://ludumdare.com/compo/ludum-dare-36/?action=preview" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<p>  <!-- Countdown to LD weekend --></p>
+<div class="biggercell bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/jam2.jpg');">
+<div class="overlay"></div>
+<div class="botleft hidden"><img src="http://ludumdare.com/compo/wp-content/uploads/2011/11/PlayRate80Star.png" alt="PlayRate80Star" width="300" height="80" class="aligncenter size-full wp-image-419119" /></div>
+<div class="name" style="color:#0FA;text-shadow:0 1px #333;font-size:22px">Ludum Dare 36</div>
+<div class="desc">August 26th-29th, (Starts: Aug 27th 01:00 UTC)</div>
+<div class="clock botright" title="Sat, 27 Aug 2016 01:00:00 UTC" msg="GO! GO! GO!" style="color:#F80;"></div>
+<p>    <a href="http://time.is/0100_27_Aug_2016_in_UTC?Ludum_Dare_36" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<p>  <!-- Theme suggestions now open --></p>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2016/07/stars.png');">
+<div class="overlay"></div>
+<div class="name" style="color:#FFDF38;text-shadow:0 1px #333;font-size:22px">Suggest a theme!</div>
+<div class="desc">Theme suggestions for LD36 now open</div>
+<p>    <a href="http://goo.gl/forms/HFoLLgcfHgwjypQD2" target="_blank" title="Theme suggestion form"><img src="/_.png" class="blank" /></a>
+   </div>
+<p>  <!-- Theme suggestions closed, slaughter coming soon --></p>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2016/07/stars.png');">
+<div class="overlay"></div>
+<div class="name" style="color:#FFDF38;text-shadow:0 1px #333;font-size:22px">Slaughter coming soon</div>
+<div class="desc">Theme suggestions for LD36 now closed</div>
+</p></div>
+<p>   <!-- Slaughter now open --></p>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2016/07/stars.png');">
+<div class="overlay"></div>
+<div class="name" style="color:#ffdf38;text-shadow:0 1px #333;font-size:22px">Theme slaughter!</div>
+<div class="desc">Separate the good themes from the bad ones</div>
+<div class="name botright" style="text-align: right; margin-right: 10px; color: #2fa2d7">~ v o t e&nbsp;&nbsp;&nbsp;n o w ~</div>
+<p>     <a href="http://slaughter.ld.intricati.com/" target="_blank" title="Theme slaughter!"><img src="/_.png" class="blank" /></a>
+    </div>
+<p>  <!-- Final round of theme voting --></p>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2016/07/stars.png');">
+<div class="overlay"></div>
+<div class="name" style="color:#ffdf38;text-shadow:0 1px #333;font-size:22px">Theme Voting</div>
+<div class="desc">Log in and choose the theme for LD36!</div>
+<div class="name botright" style="text-align: right; margin-right: 10px; color: #2fa2d7">FINAL ROUND</div>
+<p>    <a href="http://ludumdare.com/compo/ld36-theme-voting-round-5-of-5/" title="Theme voting - round 5"><img src="/_.png" class="blank" /></a>
+  </div>
+<p>  <!-- old random stuff --></p>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/judgement.jpg');">
+<div class="overlay"></div>
+<div class="botleft hidden"><img src="http://ludumdare.com/compo/wp-content/uploads/2011/11/PlayRate80Star.png" alt="PlayRate80Star" width="300" height="80" class="aligncenter size-full wp-image-419119" /></div>
+<div class="name" style="color:#F2C;text-shadow:0 1px #802;font-size:22px">Judging ends in</div>
+<div class="desc">Click here to start</div>
+<div class="clock botright" title="Tue, 10 May 2016 01:00:00 UTC" msg="RESULTS SOON" style="color:#08F;font-size:22px"></div>
+<p>    <a href="http://ludumdare.com/compo/ludum-dare-35/" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/jam3.jpg');">
+<div class="overlay"></div>
+<div class="botleft"></div>
+<div class="name" style="color:#FC2;text-shadow:0 1px #860;font-size:22px">Submission Hour ends</div>
+<div class="desc">Submission Hour! Submit now!</div>
+<div class="clock botright" title="Tue, 19 Apr 2016 02:00:00 UTC" msg="GO! GO! GO!" style="color:#F80;"></div>
+<p>    <a href="http://ludumdare.com/compo/ludum-dare-35/?action=edit" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/jam3.jpg');">
+<div class="overlay"></div>
+<div class="botleft"></div>
+<div class="name" style="color:#FC2;text-shadow:0 1px #860;font-size:22px">Submission Hour ends</div>
+<div class="desc">Compo Submission Hour! Submit now!</div>
+<div class="clock botright" title="Mon, 18 Apr 2016 02:00:00 UTC" msg="GO! GO! GO!" style="color:#F80;"></div>
+<p>    <a href="http://ludumdare.com/compo/ludum-dare-35/?action=edit" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<div class="biggercell bigcell cell" style="display:none;background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/jam2.jpg');">
+<div class="overlay"></div>
+<div class="botleft"></div>
+<div class="name" style="color:#0FA;text-shadow:0 1px #084;font-size:22px">Ludum Dare 34</div>
+<div class="desc">Coming December 11th-14th Weekend</div>
+<div class="clock botright" title="Fri, 12 Dec 2015 02:00:00 UTC" msg="Results Soon" style="color:#8F0;font-size:26px;"></div>
+<p>    <a href="http://ludumdare.com/compo/" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/jam3.jpg');">
+<div class="overlay"></div>
+<div class="botleft"></div>
+<div class="name" style="color:#FC2;text-shadow:0 1px #860;font-size:20px">October Challenge ends</div>
+<div class="desc">Make a game &#8211; Take it to Market &#8211; Earn $1</div>
+<div class="clock botright" title="Sun, 1 Nov 2015 11:00:00 UTC" msg="Ended. Submit Now!" style="color:#F80;font-size:24px"></div>
+<p>    <a href="http://ludumdare.com/compo/2015/09/28/october-challenge-2015/" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2015/11/twobuttons.jpeg');">
+<div class="overlay"></div>
+<div class="botleft"></div>
+<div class="name" style="color:#0AF;text-shadow:0 1px #048;font-size:22px">The Jam ends in</div>
+<div class="desc">Solo and Teams, relaxed, 72 hours. Submit here!</div>
+<div class="clock botright" title="Tue, 19 Apr 2016 01:00:00 UTC" msg="GO! GO! GO!" style="color:#8F0;"></div>
+<p>    <a href="http://ludumdare.com/compo/ludum-dare-35/?action=edit" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2015/11/growing.jpeg');">
+<div class="overlay"></div>
+<div class="botleft"></div>
+<div class="name" style="color:#0FA;text-shadow:0 1px #084;font-size:22px">The Compo ends in</div>
+<div class="desc">Solo, from scratch, with source, in 48 hours.</div>
+<div class="clock botright" title="Mon, 18 Apr 2016 01:00:00 UTC" msg="GO! GO! GO!" style="color:#8F0;"></div>
+<p>    <a href="http://ludumdare.com/compo/ludum-dare-35/?action=edit" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/finalfull.jpg');">
+<div class="overlay" style="display:none;"></div>
+<div class="name" style="color:#F84;text-shadow:0 1px #028;display:none;">Theme Voting</div>
+<div class="desc" style="display:none;">4 Rounds of voting, new rounds every day! The top 20 themes will be your Final Round!</div>
+<div class="clock botright" title="Tue, 30 Dec 2014 02:00:00 UTC" msg="Results Soon" style="color:#F8C;display:none;"></div>
+<p>    <a href="http://ludumdare.com/compo/ld33-theme-voting-round-5-of-5/"><img src="/_.png" class="blank" /></a>
+  </div>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/judgement.jpg');">
+<div class="overlay"></div>
+<div class="botleft"><img src="http://ludumdare.com/compo/wp-content/uploads/2011/11/PlayRate80Star.png" alt="PlayRate80Star" width="300" height="80" class="aligncenter size-full wp-image-419119" /></div>
+<p>    <a href="http://ludumdare.com/compo/ludum-dare-35/" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+<div class="bigcell cell hidden" style="background-image:url('http://ludumdare.com/compo/wp-content/uploads/2011/11/judgement.jpg');">
+<div class="overlay"></div>
+<div class="botleft hidden"><img src="http://ludumdare.com/compo/wp-content/uploads/2011/11/PlayRate80Star.png" alt="PlayRate80Star" width="300" height="80" class="aligncenter size-full wp-image-419119" /></div>
+<div class="name" style="color:#F2C;text-shadow:0 1px #802;font-size:22px">Ludum Dare 34 Results</div>
+<div class="desc hidden">See the winners!</div>
+<div class="clock botright hidden" title="Tue, 12 May 2015 01:00:00 UTC" msg="RESULTS SOON" style="color:#08F;"></div>
+<p>    <a href="http://ludumdare.com/compo/ludum-dare-34/" title=""><img src="/_.png" class="blank" /></a>
+  </div>
+</div>
+<div class="section fatsection" style="display:none">
+<div class="group-right">
+<div class="free link">LD 35 (Apr)<a href="http://ludumdare.com/compo/ludum-dare-35/"><img src="/_.png" class="blank" /></a></div>
+<div class="free link hidden">Future<a href="http://ludumdare.com/compo/2015/07/20/starship-the-new-ludum-dare-in-great-detail-2/"><img src="/_.png" class="blank" /></a></div>
+<div class="free link" title="">Mini 70 (Sep)<a href="http://ludumdare.com/compo/2016/09/05/mini-ld-70-determinism/"><img src="/_.png" class="blank" /></a></div>
+</p></div>
+<div class="group-left">
+<div class="free link">Ludum Dare 36<a href="http://ludumdare.com/compo/2016/08/24/welcome-to-ludum-dare-36/"><img src="/_.png" class="blank" /></a></div>
+<div class="free link">Real World Gatherings<a href="http://ludumdare.com/compo/2016/07/09/real-world-gatherings-for-ludum-dare-36/"><img src="/_.png" class="blank" /></a></div>
+<div class="free link">Wallpapers<a href="http://ludumdare.com/compo/2016/07/16/ludum-dare-36-wallpapers/"><img src="/_.png" class="blank" /></a></div>
+<div class="free link">Warmup Weekend<a href="http://ludumdare.com/compo/2016/08/17/warmup-weekend-for-ludum-dare-36/"><img src="/_.png" class="blank" /></a></div>
+<div class="free link">Tools<a href="http://ludumdare.com/compo/tools/"><img src="/_.png" class="blank" /></a></div>
+<div class="free link hidden">Rules<a href="http://ludumdare.com/compo/rules/"><img src="/_.png" class="blank" /></a></div>
+</p></div>
+</div>
+<style>
+.important {
+  background:#C30 !important;
+  color:#FF0 !important;
+}
+.important a {
+  color:#000 !important;
+}
+.important a:hover {
+  color:#FFF !important;
+}</p>
+<p>.announce {
+  background:#FC2;
+  color:#620;
+}
+.announce a {
+  color:#C40;
+}
+.announce a:hover {
+  color:#FFF;
+}</p>
+<p>/*
+.announce a {
+  color:#880;
+}
+.announce a:hover {
+  color:#FFF;
+}*/
+</style>
+<div class="section toppad round-top"></div>
+<div class="announce botpad" style="display:none;">The Ludum Dare 32 Theme is: <strong>An Unconventional Weapon</strong></div>
+<div class="announce botpad hidden" style="background:#4AF;color:#028;">Keep working until the deadline! <strong>Submission Hour</strong> begins soon! An extra hour to submit your game!</div>
+<div class="announce botpad hidden" style="background:#4AF;color:#026;"><strong>Submission Hour!</strong> &#8230; more or less. Just get your game submitted. Sorry about the server problems!</div>
+<div class="announce botpad hidden" style="background:#4AF;color:#026;"><strong>Theme:</strong> <span style="color:#FFF">One room</span> | Submission Hour for the <strong>JAM</strong> ends in: <span class="clock" title="Tue, 13 Dec 2016 03:00:00 UTC" msg="Uh oh!" style="color:#FFF;"></span> | <strong>Judging</strong> ends in: <span class="clock" title="Tue, 2 Jan 2017 02:00:00 UTC" msg="GO! GO! GO!" style="color:#FFF;"></span></div>
+<div class="announce botpad" style="background:#4AF;color:#026;"><strong>Theme:</strong> <span style="color:#FFF">One room</span> | <strong>Judging</strong> ends in: <span class="clock" title="Tue, 3 Jan 2017 02:00:00 UTC" msg="GO! GO! GO!" style="color:#FFF;"></span></div>
+<div class="announce botpad hidden" style="background:#4AF;color:#026;"><strong>Submission Hour!</strong> <a href="http://ludumdare.com/compo/ludum-dare-35/?action=edit" style="color:#0F8;"><strong>Submit</strong></a> your Jam games now!</div>
+<div class="announce botpad hidden" style="background:#CCF;color:#026;">Join us on <a href="http://twitter.com/ludumdare" style="color:#08F;"><strong>Twitter</strong></a> and <a href="/compo/irc/" style="color:#08F;"><strong>IRC</strong></a> (<strong>#ludumdare</strong> on Afternet.org) for the <strong>Theme Announcement!</strong></div>
+<div class="section toppad hidden" style=""></div>
+<div class="announce botpad hidden" style="background:#889;color:#EEE;">Thanks everyone for coming out! For the next 3 weeks, we&#8217;ll be <strong>Playing and Rating</strong> the games you created.<br />You <strong style="color:#4CF">NEED</strong> ratings to get a score at the end. <strong>Play and Rate</strong> games to help others find your game.<br />We&#8217;ll be announcing Ludum Dare 36&#8217;s August date alongside the results.</div>
+<div class="announce botpad hidden" style="background:#6F0;color:#260;"><strong>New Server</strong>: Welcome to the New (less expensive) Server! Find any problems? <a href="http://ludumdare.com/compo/2016/03/18/moving-servers-march-18th-20th-weekend/">Report them here</a>.</div>
+<div class="section toppad">
+<style type="text/css">
+.event {
+	display: block;
+	text-align: center;
+	padding: 5px 0 10px 0;
+}
+.event .title {
+	display: block;
+	font-size: 120%;
+	padding: 5px;
+}
+.event .links {
+	display: block;
+	font-size: 200%;
+}
+.event .bold {
+	font-weight: bold;
+}
+</style>
+<p><script type="text/javascript">/*if (window.location.pathname == '/compo/') {
+	var navigationBlock = "<span class='event'><span class='title'>On Now: <a class='bold' href='/compo/2016/08/24/welcome-to-ludum-dare-36/'>Ludum Dare 36</a></span><span class='links'><a class='bold' href='/compo/ludum-dare-36/?action=me'>My Game</a> | <a class='bold' href='/compo/ludum-dare-36/?action=edit'>Edit</a> | <a href='/compo/ludum-dare-36/?action=preview'>View All</a> | <a href='http://feedback.ld.intricati.com'>Feedback Friends!</a>*</span><span class='title'>*Last week: <a href='http://feedback.ld.intricati.com/?event=ludum-dare-36&#038;sorting=received'>Rescue the games without comments!</a></span></span>";
+	jQuery(document).ready(function() {
+		jQuery('#content').prepend(navigationBlock);
+	});
+}*/</script></div>
+		</div>
+		<!-- Force Clock Update -->
+		<script type="text/javascript">mkClocksUpdate();</script>
+<div id="body">
+	<div id="content" class="fullcolumn botpad">
+
+		<div class="ld-post post" id="post-593814">
+			<div class="entry body">
+				<div style="font-size: 18px;text-align:center;"><strong><a href="https://ldjam.com">Ludum Dare 37</a></strong> &#8212; December 9th-11th, 2016 &#8212; <strong>Theme:</strong> <strong>One Room</strong></div>
+<p>Well, Mike ran in to problems getting ldjam.com working properly with about 12 hours left in the Compo, so this is the backup plan.</p>
+<p></p>
+<div id='compo2'><div id='compo-body'><p class='message'>You must sign in to vote.</p><p><a href='?action=preview'>Back to Browse Entries</a></p>
+		<style>
+			#shotview {
+				text-align:center;
+				margin-bottom:10px;
+			}
+			#shotview img {
+				max-width:900px;
+			}
+		</style>
+	<div id='shotview' class=''><a id='shotview_link' href='http://ludumdare.com/compo/wp-content/compo2/593814/3479-shot0-1481510638.png' target='_blank'><img id='shotview_img' src='http://ludumdare.com/compo/wp-content/compo2//593814/3479-shot0-1481510638.png-eq-900-500.jpg'></a></div><div style='overflow:auto;'><div style='float:right;'><img alt='' src='http://2.gravatar.com/avatar/5c431e54e8edb6398a9fb28af3241be6?s=56&#038;d=mm&#038;r=g' srcset='http://2.gravatar.com/avatar/5c431e54e8edb6398a9fb28af3241be6?s=112&amp;d=mm&amp;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' /></div><h2 style='font-size:28px'>Walkie Talkie</h2>by <a href="../author/managore/" target='_blank'><strong>managore</strong></a> - <i>Compo Entry</i></div>	<style>
+		.shot-nav {
+			text-align:center;
+			width:940px;
+			left:-20px;
+			position:relative;
+			margin-top:10px;
+		}
+		
+		.shot-nav .sn-item {
+			display:inline-block;
+			opacity:0.4;
+			padding:3px;
+			position:relative;
+		}
+		.shot-nav .sn-item:hover {
+			opacity:1.0;
+		}
+
+		.shot-nav .sn-item .sn-img {
+			border-radius:7px;
+			cursor:pointer;
+		}
+		
+		.shot-nav .sn-item .sn-overlay {
+			border-radius:7px;
+			position:absolute;
+			background:url('/compo/wp-content/plugins/compo2/art/TiledBars.png');
+			left:0;
+			top:0;
+			width:100%;
+			height:100%;
+		}
+		
+		.shot-nav .sn-item .sn-icon {
+			position:absolute;
+			left:50%;
+			top:50%;
+			-ms-transform: translate(-50%,-50);
+			-webkit-transform: translate(-50%,-50%);
+			transform: translate(-50%,-50%);
+		}
+		
+		.shot-nav .sn-selected {
+			opacity:0.8;
+			border:3px solid #000;
+			background:#000;
+			border-radius:10px;
+			padding:0;
+		}
+		
+		.links {
+			margin:0;
+		}
+		
+		.links ul {
+			list-style:none;
+			margin:0;
+		}
+		.links ul li:before {
+			content:'';
+		}
+		
+		#compo-nsfw {
+			cursor:pointer;
+			background:#900;
+			border-radius:10px;
+			padding:20px;
+			color:#FF0;
+			text-align:center;
+		}
+		
+		#compo-nsfw h2 {
+			text-align:center;
+			font-size:40px;
+			color:#F80;
+		}
+		
+	</style>
+	
+	<script>
+		function c2_addclass( el, className ) {
+			if ( el ) {
+				if (el.classList)
+					el.classList.add(className);
+				else
+					el.className += ' ' + className;
+			}
+		}
+		function c2_removeclass( el, className ) {
+			if ( el ) {
+				if (el.classList)
+					el.classList.remove(className);
+				else
+					el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+			}
+		}
+
+		// Global Variable //
+		window.c2_ShotIndex = 0;
+		
+		function c2_show_embed() {
+			c2_removeclass( document.getElementById('embed-view'), 'hidden');
+		}
+		function c2_hide_embed() {
+			c2_addclass( document.getElementById('embed-view'), 'hidden');
+		}
+		
+		function c2_show_image( _img, _link ) {
+			c2_removeclass( document.getElementById('shotview'), 'hidden');
+			document.getElementById('shotview_img').setAttribute('src', _img);
+			document.getElementById('shotview_link').setAttribute('href', _link);
+		}
+		function c2_hide_image() {
+			c2_addclass( document.getElementById('shotview'), 'hidden');
+		}
+		
+		function c2_highlight_nav( id ) {
+			c2_removeclass( document.getElementById('shot-nav-'+window.c2_ShotIndex), 'sn-selected');
+			c2_addclass( document.getElementById('shot-nav-'+id), 'sn-selected');
+			
+			window.c2_ShotIndex = id;		
+		}
+
+		function c2_select_embed( id ) {
+			c2_hide_image();
+			
+			c2_highlight_nav(id);
+			
+			c2_show_embed();
+		}
+		function c2_select_image( id, _img, _link ) {
+			c2_hide_embed();
+		
+			c2_highlight_nav(id);
+
+			c2_show_image( _img, _link );
+		}
+	</script>
+
+<div class='shot-nav'><span><div class='sn-item sn-selected' id='shot-nav-0'><img class='sn-img' src='http://ludumdare.com/compo/wp-content/compo2//593814/3479-shot0-1481510638.png-crop-180-140.jpg' width='180' height='140' onclick='c2_select_image(0,"http://ludumdare.com/compo/wp-content/compo2//593814/3479-shot0-1481510638.png-eq-900-500.jpg","http://ludumdare.com/compo/wp-content/compo2/593814/3479-shot0-1481510638.png");'></div><div class='sn-item ' id='shot-nav-1'><img class='sn-img' src='http://ludumdare.com/compo/wp-content/compo2//593814/3479-shot1-1481511567.png-crop-180-140.jpg' width='180' height='140' onclick='c2_select_image(1,"http://ludumdare.com/compo/wp-content/compo2//593814/3479-shot1-1481511567.png-eq-900-500.jpg","http://ludumdare.com/compo/wp-content/compo2/593814/3479-shot1-1481511567.png");'></div><div class='sn-item ' id='shot-nav-2'><img class='sn-img' src='http://ludumdare.com/compo/wp-content/compo2//593814/3479-shot2-1481511567.png-crop-180-140.jpg' width='180' height='140' onclick='c2_select_image(2,"http://ludumdare.com/compo/wp-content/compo2//593814/3479-shot2-1481511567.png-eq-900-500.jpg","http://ludumdare.com/compo/wp-content/compo2/593814/3479-shot2-1481511567.png");'></div></span></div><p>Send messages<br/><br/>Receive messages<br/><br/>Play messages<br/><br/><br/><br/>/howtoplay<br/><br/>Use the &lt;arrow keys&gt;, &lt;page up&gt; and &lt;page down&gt; to navigate to a message, then press &lt;enter&gt; to play the message. Use the &lt;arrow keys&gt; and &lt;space&gt; (or a gamepad) to run and jump your way to the green circle to beat the message, or press &lt;esc&gt; to go back to navigating. You can hold down &lt;page up&gt; or &lt;page down&gt; to quickly navigate through the messages.<br/><br/>Every two minutes you can press &lt;tab&gt; to switch between navigating messages and typing a message. Use any and all of the keyboard keys to write your message, then press &lt;enter&gt; to play your message. As soon as you beat your message, it gets sent and other people will see it. If you want to change your message, press &lt;esc&gt; to go back to typing. Make sure not to beat your message if you don't want to send it yet!<br/><br/>You can press &lt;alt&gt; + &lt;enter&gt; to toggle fullscreen, and you can press &lt;esc&gt; once to change your username and a second time to exit the game.<br/><br/>/help<br/><br/>- You need an internet connection to get new messages<br/>- If your messages aren't showing up after a few seconds (and you've scrolled down all the way), please let me know<br/>- A green circle after a level means you've beaten it, a red heart after a level means I think it's particularly fun or unique<br/><br/>/about<br/><br/>Made with GameMaker:Studio, Aseprite and Sublime Text 2. The font used is m5x7 (you can download it for free at https://managore.itch.io/m5x7). The user interface style is inspired by Aseprite's beautiful UI. Many thanks to @takorii for letting me use their server, without it the game couldn't exist.<br/><br/>The post compo build is functionally the same, but lets you search for levels (&lt;f3&gt; or &lt;ctrl&gt; + &lt;f&gt;), mark a level as a favourite of yours (&lt;f2&gt; or &lt;ctrl&gt; + &lt;s&gt;) and quickly skip to the oldest or newest level (&lt;home&gt; and &lt;end&gt; respectively).</p><h2>Downloads and Links</h2><div class='links'><ul><li><a href='https://www.dropbox.com/s/19xnempifsspye4/Walkie%20Talkie.exe?dl=0' target='_blank'>Windows (original)</a></li><li><a href='https://managore.itch.io/walkie-talkie' target='_blank'>Windows (post compo)</a></li><li><a href='https://www.dropbox.com/s/1es3zv16h49ip7q/Walkie%20Talkie%20SOURCE.gmz?dl=0' target='_blank'>Source (with database calls removed)</a></li></ul></div><br /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:site" content="@ludumdare" /><meta name="twitter:creator" content="@managore" /><meta name="twitter:title" content="Walkie Talkie" /><meta name="twitter:description" content="Send messages
+
+Receive messages
+
+Play messages
+
+
+
+/howtoplay
+
+Use the &lt;arrow keys&gt;, &lt;page up&gt; and &lt;page down&gt; to navigate to a message, then press &lt;enter&gt; to play the" /><meta name="twitter:image" content="http://ludumdare.com/compo/wp-content/compo2//593814/3479-shot0-1481510638.png-crop-560-300.jpg" /><script>var Elm = document.getElementsByTagName("title")[0];Elm.innerHTML = "Walkie Talkie by managore | " + Elm.innerHTML;</script><h2>Comments</h2><div class = 'comment'><img src="http://www.gravatar.com/avatar/1040f6b8cf08d235e15f818c280f2104?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=1566">Mark Overmars</a> says ...</strong></div><div><small>Dec 12, 2016 @ 3:08am</small></div><p>Very cool. Very inventive. Quite fun.<br/><br/>Kind of reminds me of this one puzzle game where you built your own levels using ascii characters, each of which had different functions.<br/><br/>The levels are too small on my laptop - some zoom-in upon selecting a level would be nice. Overall a fantastic submission.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/baa095197c17c5576fe58782cbc1c578?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=26987">Rscar</a> says ...</strong></div><div><small>Dec 12, 2016 @ 4:32am</small></div><p>This is seriously so cool. The interactivity is amazing and the gameplay itself is super fun - each character is so creative and interesting. I appreciate your attention to detail.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/c08ee50376bf8b41908b3174edcee2aa?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=40741">elkiwydev</a> says ...</strong></div><div><small>Dec 12, 2016 @ 7:53am</small></div><p>At first I was like &quot;Ow... This time managore disappointed me.. it's just a chat..&quot;<br/>But after I understood what the &quot;levels&quot; are I was more like &quot;HOLY COW WHAT?!&quot;<br/><br/>You blew my mind as always &lt;3</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/363301456aa6343d238f224820cd5792?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=43734">Insality</a> says ...</strong></div><div><small>Dec 12, 2016 @ 8:06am</small></div><p>wow! As always perfect idea and game-design<br/>very impressive. and perfect implementation<br/><br/>I'm really get suprised to see this idea :)</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/f5a532d47c2f300cb17cff376560a7c7?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=57518">Steven Miller</a> says ...</strong></div><div><small>Dec 12, 2016 @ 9:07am</small></div><p>____/TT!TT\--vvvvv/T{T&gt;_</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/90cbc72a9ba41556d7bb41efe8608d33?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=20432">tppr2046</a> says ...</strong></div><div><small>Dec 12, 2016 @ 9:53am</small></div><p>Really Cute! It reminds me the google doodle games.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/b51e5d65176b9e09ac76897ddfe41655?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=34494">ccglp</a> says ...</strong></div><div><small>Dec 12, 2016 @ 12:05pm</small></div><p>We are on the office playing this like mad people. We can't believe this. <br/><br/>You just do it again.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/847c5a65fc48122f76dbfd504c76ade4?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=53023">cynicalmonkey</a> says ...</strong></div><div><small>Dec 12, 2016 @ 1:13pm</small></div><p>You win at game jams again! at first I was worried this was going to be a Hackmud type deal as its all the rage but man this is fun</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/79d070e99f5eba4653c9d4f64a85a098?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=29499">d_0o_d</a> says ...</strong></div><div><small>Dec 12, 2016 @ 1:30pm</small></div><p>Amazing game. This has got to be the easiest level editor there is. I enjoyed this game very much.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/25236b506475e7b5ec22ca5e5ea1f11e?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=44748">impbox</a> says ...</strong></div><div><small>Dec 12, 2016 @ 1:56pm</small></div><p>must play! I want this with me in every chatroom</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/3c2af62fc4e34900757550649907a6ad?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=39241">HolyBlackCat</a> says ...</strong></div><div><small>Dec 12, 2016 @ 3:42pm</small></div><p>Oh wow! :O<br/>Good job sir, as always. That idea is something completely new.<br/>My crystal ball says that you'll get #1 in innovation, or at least very close to it.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/561bbe5b98af4f92b9554e21d921031a?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=46975">pta2002</a> says ...</strong></div><div><small>Dec 12, 2016 @ 3:47pm</small></div><p>Wow, this is incredible! Good job!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/4c816f7ec6bb88d1a8594a44fce92f60?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=70562">creativwhisper</a> says ...</strong></div><div><small>Dec 12, 2016 @ 4:03pm</small></div><p>This game is impressive. Really cool concept, very innovative. You can't stop deliver this masterpieces, did you? Lol.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/7de17f7f48e08976e90600816cc454b5?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=86097">CMLSC</a> says ...</strong></div><div><small>Dec 12, 2016 @ 4:04pm</small></div><p>Wow, if this game doesn't win innovation, I'd be surprised. :D</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/a40a71cdae27b51b7fe356622e8d6485?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=28415">XenosNS</a> says ...</strong></div><div><small>Dec 12, 2016 @ 4:04pm</small></div><p>Such a fun idea.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/6cbd5ca069634b84bc43ece9bc335f6f?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=50394">rburema</a> says ...</strong></div><div><small>Dec 12, 2016 @ 4:51pm</small></div><p>Neat! Amazing! Other near-synonyms of 'Great'! :-)<br/><br/>Would maybe be nice if you could have some statistics on your created levels? Like: 'This line has been played 37 times, 16 of which reached the goal'. But with less words perhaps.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/d287ca86feb099a7058d05d71ce8111e?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=55211">martincohen</a> says ...</strong></div><div><small>Dec 12, 2016 @ 4:56pm</small></div><p>As always: mind blown. There's creativity and then there's Mr. Daniel Linssen. I wrote down a list of &quot;what would Daniel Linssen do&quot; and I wasn't even close, sadly I've lost the list due to Windows restart, but I'll do it next time and publish it. Anyway, awesome entry.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/58ecf464cdd45a3922727236f1d6b0d9?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=7050">TrampolineTales</a> says ...</strong></div><div><small>Dec 12, 2016 @ 5:06pm</small></div><p>I'd love to rate this game, but the game doesn't work for me for whatever reason. It wouldn't let me type any characters.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/e11fa1ccb66c5b52df07dfe91c92ac7e?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=32902">dunin</a> says ...</strong></div><div><small>Dec 12, 2016 @ 5:08pm</small></div><p>That is a well good idea!<br/><br/>I hope people will continue to typing in your chat and with the time make incredible levels!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/1a075c16e96a3cd1f8d645ca4feb1228?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=44497">pixzleone</a> says ...</strong></div><div><small>Dec 12, 2016 @ 6:05pm</small></div><p>Very innovative, really cool. Well done!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/edf1e00f7d81158d1874182d8ae16c65?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=51405">Trasevol_Dog</a> says ...</strong></div><div><small>Dec 12, 2016 @ 6:14pm</small></div><p>Best mmo I've played in a while!<br/>The idea behind this blew my mind and it's super well executed (as always with you Managore).<br/>I personally feel like the colors you choose are a bit cold but it might just be me.<br/>Amazing entry, we need more stars to rate this.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/194da6b37992f5ef36171e7d94e1681e?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=84229">jusw85</a> says ...</strong></div><div><small>Dec 12, 2016 @ 7:55pm</small></div><p>The game alone was already awesome, but finding out that the chat was real made it mind blowing.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/f2fe0aecb0fec6415f4261712289ce80?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=771">rogual</a> says ...</strong></div><div><small>Dec 12, 2016 @ 8:26pm</small></div><p>Bloody amazing. Really creative. I think we have a winner.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/c7db90847404621e570ae8f97a9bcc8b?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=15675">metaldemon</a> says ...</strong></div><div><small>Dec 12, 2016 @ 8:35pm</small></div><p>Most innovative interpretation of the theme I've seen yet!<br/><br/>Took a little bit of figuring out, but as soon as I got the hang of it I thoroughly enjoyed it!<br/><br/>Great entry as always managore!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/e11fa1ccb66c5b52df07dfe91c92ac7e?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=32902">dunin</a> says ...</strong></div><div><small>Dec 12, 2016 @ 8:49pm</small></div><p>Ok, there allready are incredible levels...</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/573c696a77280cab1a079dad706db764?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=32996">Gabe</a> says ...</strong></div><div><small>Dec 12, 2016 @ 9:25pm</small></div><p>This is a really cool thing! It's just really interesting the way you took the one room theme and turned it on it's head.<br/><br/>Awesome work!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/14b8c7bc168193dd0fc961a6442633b1?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=124546">meg</a> says ...</strong></div><div><small>Dec 12, 2016 @ 9:29pm</small></div><p>Really inventive, I'm terrible at platformers but I loved the &lt; ^ &gt; :D</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/b6fa149b8d7bdfb014a9229cbbc78e4f?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=38683">MichaelBrune</a> says ...</strong></div><div><small>Dec 12, 2016 @ 9:51pm</small></div><p>This would be awesome as an IRC client plugin! :D</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/c9bbd616cb5ddc2ff4504c638ab3c7b8?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=92797">Kimen</a> says ...</strong></div><div><small>Dec 12, 2016 @ 11:53pm</small></div><p>⊙﹏⊙∥∣&deg; 1st. MaNagoRe (っ◕‿◕) 2nd. MiyaMoto &lt;= ( ◜◡＾)っ✂╰⋃╯ ๏̯͡๏﴿</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/109a3118c055b995e594e5a4a0255d27?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=20471">Ludipe</a> says ...</strong></div><div><small>Dec 13, 2016 @ 12:06am</small></div><p>wow, just wow, this was an incredible concept perfectly executed. Would love to read a postmortem about this.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/132d70102c9f2c26ee6c2476e3eed50a?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=14549">madameberry</a> says ...</strong></div><div><small>Dec 13, 2016 @ 1:26am</small></div><p>Daniel Linssen does it again.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/617e3ed8db6dcb014b065e0a6ee199c0?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=52384">Jeuiop</a> says ...</strong></div><div><small>Dec 13, 2016 @ 1:51am</small></div><p>Good as always!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/3cfd3a8d506930d95977cc5599dbccd0?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=34144">Zarkith</a> says ...</strong></div><div><small>Dec 13, 2016 @ 2:14am</small></div><p>I don't own a copy of Super Mario Maker, but now I'll never need one! :D<br/><br/>All it needs are a search function, jump to top/bottom, and beaten/heart filters and it'd be perfect.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/87eb2d0120c9594b776f2b61843fb263?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=125838">renatorabelo</a> says ...</strong></div><div><small>Dec 13, 2016 @ 3:32am</small></div><p>Amazing work dude!! Idle animations for the main dude (sprites) are missing from source code.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/f3840658cad01dff1292c7e68e311a4c?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=2001">Geti</a> says ...</strong></div><div><small>Dec 13, 2016 @ 4:12am</small></div><p>Very nice :) lots of UX improvements to be had, but of course it's all about the clever idea in the end!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/69b33c0ef565a450d29673b1e714117d?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=110543">datMarv</a> says ...</strong></div><div><small>Dec 13, 2016 @ 4:27am</small></div><p>Whew, I'm seriously impressed.<br/>Even the idle animation of that little guy is amazing..</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/c616173c678d43e1941eee1e29e9ab6c?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=39200">spacedoubt</a> says ...</strong></div><div><small>Dec 13, 2016 @ 5:51am</small></div><p>Simply Brilliant. This should be a required addition to all chat rooms.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/9c088e595b0d7002c447727d4b82f981?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=15964">Enrymion</a> says ...</strong></div><div><small>Dec 13, 2016 @ 6:05am</small></div><p>delete not working while typing was annoying other than that awesome.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/eb679b7e8497bd73a0f457a389de49b4?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=19499">Alex Rose</a> says ...</strong></div><div><small>Dec 13, 2016 @ 6:16am</small></div><p>Managore, can you let some of the rest of us stand a chance some time?<br/><br/>I have really nothing else to say, it is what it is, it's definitely going to get gold in innovation, probs gold in overall too.<br/><br/>So.. congrats in advance. lol.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/c94024d2c5033768aefee1ecada41fda?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=36267">LukeZaz</a> says ...</strong></div><div><small>Dec 13, 2016 @ 6:19am</small></div><p>Incredibly innovative game with a lot of fun to be had. Well done!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/15a99878c05e1deccd084ac9db7c3211?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=70881">rayriver</a> says ...</strong></div><div><small>Dec 13, 2016 @ 6:59am</small></div><p>Amazing!<br/>Innovative as always</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/cd2a210a7344884b4ca608edc2da658a?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=72781">ginger9</a> says ...</strong></div><div><small>Dec 13, 2016 @ 8:43am</small></div><p>Unbelievable</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/69d77019e7ee6a1b7101339cece1116f?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=18943">NuSan</a> says ...</strong></div><div><small>Dec 13, 2016 @ 8:43am</small></div><p>So great and full of possibilities. This is a realy impressive idea and very well executed. Having a text based level editor in a chat windows is very great. Multiline editing would expand that even futher. It's a bit bad to not be able to filter levels from other message, but it's part of the concept. Maybe a tag system at the start of message, and a reply system to group message related to a level. Keep up the awesome work.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/abf106683be99fbe1c076da172b3c1d8?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=125566">DeqingLi</a> says ...</strong></div><div><small>Dec 13, 2016 @ 9:38am</small></div><p>though low-quality, but interesting!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/d5c42269861c2e6cac1ea68553320cf3?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=90026">wowa_u</a> says ...</strong></div><div><small>Dec 13, 2016 @ 10:00am</small></div><p>very clever and cool</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/a1462a2db3ed853cf64165d933b185ea?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=527">Jonathan Whiting</a> says ...</strong></div><div><small>Dec 13, 2016 @ 10:29am</small></div><p>The concept is great, but it's the slickness of the platforming that goes with it that really impressed me.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/c1d791da548ed012a0f67352867cb844?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=11347">My Sweet Whomp</a> says ...</strong></div><div><small>Dec 13, 2016 @ 11:59am</small></div><p>I love the idea, controls are a bit harsh but it's fun to play anyway! Would have loved some sounds when jumping etc.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/352f14f38987119faf12918792df2db5?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=111981">LozzaDawg</a> says ...</strong></div><div><small>Dec 13, 2016 @ 12:23pm</small></div><p>Dude, this game is awesome! i had a great time with my friend playing each other's levels. Really creative and original idea, great spin on the 'room' part. Excellent work all round.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/251746c77dd98944b4e18f457f2df454?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=21326">Awpteamoose</a> says ...</strong></div><div><small>Dec 13, 2016 @ 12:23pm</small></div><p>Great game. Love it. Idea is very innovative</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/37ca42b106a496592ae36628df72f0f5?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=21252">Gamepopper</a> says ...</strong></div><div><small>Dec 13, 2016 @ 1:15pm</small></div><p>This idea is just amazing, I love how each possible character can be used in the level.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/b7dfb9031c7ed9a64d6ca278d5b49c08?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=125432">Wildebeest Studio</a> says ...</strong></div><div><small>Dec 13, 2016 @ 2:09pm</small></div><p>Really challenging! And smart! A chat room was a great way to use the theme while having so many levels made all around the world!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/128cd851232e04d9a8dd781a357f14af?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=3574">resty</a> says ...</strong></div><div><small>Dec 13, 2016 @ 2:22pm</small></div><p>Oh my god, this entry is incredible... <br/>I can't say any word...</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/4647526f9bb08b46a49b123e16b28709?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=110086">Pikas96</a> says ...</strong></div><div><small>Dec 13, 2016 @ 3:01pm</small></div><p>This idea is awesome. I haven't even written anything on the chat, I'm just playing every message. <br/>Maybe it needs some sound effects to make it perfect, but, overall, mindblowing.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/870e40f507236870fe7d421752eeb68d?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=110286">MrErdalUral</a> says ...</strong></div><div><small>Dec 13, 2016 @ 3:41pm</small></div><p>Wow I did not expect that. This is amazing! Tank you for the game!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/da5adc5dad43881c12458d9782d52e77?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=124812">zeoxo</a> says ...</strong></div><div><small>Dec 13, 2016 @ 4:04pm</small></div><p>One of the most innovative and unique games I've ever seen, I'd love to see this turned into a full title! 5/5</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/026a9b4bc1ccc41a1b4cbc8aac7084eb?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=23171">SleepyStudios</a> says ...</strong></div><div><small>Dec 13, 2016 @ 5:26pm</small></div><p>Simply amazing. Incredible use of the theme and the amount of polish is superb - even little things like only adding levels to the database if it's completed are taken into consideration.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/b7b79d53a3492d26f7803787d0fd874c?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=28449">Gord10</a> says ...</strong></div><div><small>Dec 13, 2016 @ 5:40pm</small></div><p>I loved it!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/fe11585d8a9308c943c0756c7ff8b5d5?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=107822">Mine10blox</a> says ...</strong></div><div><small>Dec 13, 2016 @ 5:51pm</small></div><p>Very innovative! I like it. These are the games that make me continue programming</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/af147cefea2e8172ac2e819f1f551a1d?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=7701">Ellian</a> says ...</strong></div><div><small>Dec 13, 2016 @ 6:15pm</small></div><p>As usual, creativity pushed to the limit. <br/>I'm just amazed at how much actual gameplay and possibilities are in there... it's insane. Amazing work. :)</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/5e906f9a755ef864d7ecc082ee408c68?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=27519">Flatgub</a> says ...</strong></div><div><small>Dec 13, 2016 @ 6:41pm</small></div><p>This is incredible =O!<br/>I'm not even sure how you come up with ideas like this but its so unique! Other than not having any sound this so far is my favourite entry!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/49b51759b54c7f56282998d5424f617a?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=58574">Rainbow</a> says ...</strong></div><div><small>Dec 13, 2016 @ 6:50pm</small></div><p>Great idea, very innovative!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/390dd9dc4ba93548f2d18409900001a3?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=125391">grena</a> says ...</strong></div><div><small>Dec 13, 2016 @ 6:53pm</small></div><p>So smart. I love it.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/6e2a0cef7c73ed551bb7d35aa6f40c5b?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=125682">TeamAxolotl</a> says ...</strong></div><div><small>Dec 13, 2016 @ 7:01pm</small></div><p>I don't know if we can really call it a &quot;game&quot;, but it's really great as always!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/3caddb3e4e2b1993c2207b429a1ce252?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=24765">local minimum</a> says ...</strong></div><div><small>Dec 13, 2016 @ 7:25pm</small></div><p>Fantastically innovative idea really. And many of the levels were quite cool to play. It was, when I looked 2.5k levels so given that, it would be very nice with some way to scroll to the bottom really fast. I actually didn't manage to get to input anything myself, something I must have misunderstood, so possibly making that a little easier too. As always though, a treat to see what you come up with!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/51d48dd99631c0a8c90b18e86f4cce2c?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=111722">Neowedge</a> says ...</strong></div><div><small>Dec 13, 2016 @ 7:29pm</small></div><p>Sublime!!!! Greetings!!! :)</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/2789afafb53bccebe8b44266dd97db78?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=110825">dietzribi</a> says ...</strong></div><div><small>Dec 13, 2016 @ 7:51pm</small></div><p>This is obviously the winner! Genius</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/9d2b8a123b51e5c24d96118e2a317adf?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=35366">NeithR</a> says ...</strong></div><div><small>Dec 13, 2016 @ 7:51pm</small></div><p>Love how the game levels were made from chat text C:.<br/>The only I had trouble was scrolling into the bottom of the chat.<br/>Other than that, this is amazing. Imagine if this used as captcha xD.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/90dc683d24f2b8ef80d71f1080c14016?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=34088">MentaL13</a> says ...</strong></div><div><small>Dec 13, 2016 @ 8:02pm</small></div><p>This is super awesome. At first, I thought that these are custom messages prepared during the jam and I was really surprised when I saw that real people are sending message (new levels) all the time</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/072b4b741e0859efb293387465c3c334?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=49640">vini60</a> says ...</strong></div><div><small>Dec 13, 2016 @ 8:15pm</small></div><p>One of the best games I've played so far for this LD.<br/>Amazeballs.<br/>The concept is new and fun.<br/>Good job.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/25c1af62c326f5df7d61fbc00edf2cc1?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=15664">Ithildin</a> says ...</strong></div><div><small>Dec 13, 2016 @ 8:35pm</small></div><p>Wow, I have no words...(all the characters went to the game to become a level)<br/><br/>I'm seriously impressed. After windowframe (well, and pretty much any of your entries) I was expecting to be surprised, but this is mind blowing.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/c481f87cc5125c0a7818bd2eb8f43efb?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=88982">Treborginho</a> says ...</strong></div><div><small>Dec 13, 2016 @ 8:44pm</small></div><p>There are no more stars to give to you! This is the best game hands down!! I am never gonna complete all levels, but I will try.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/604827b3dd83dff4fb89ad2594a57d88?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=125471">InoMoxo</a> says ...</strong></div><div><small>Dec 13, 2016 @ 9:41pm</small></div><p>I love it! :)</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/d18ae3f9f2644b741e69dbc0bacb8e3d?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=2550">Birke</a> says ...</strong></div><div><small>Dec 13, 2016 @ 10:06pm</small></div><p>Nice! Super original concept. Would have been nice with some audio and music.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/aed9e0a127b396241adc9641cf8dbe25?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=125515">JokoMax</a> says ...</strong></div><div><small>Dec 13, 2016 @ 10:28pm</small></div><p>Interesting game, i did'nt realize what is going on until i send my message xD</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/d0ad3ad9ec3256da0a4b136b34f51571?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=124309">Mayhem Makers</a> says ...</strong></div><div><small>Dec 13, 2016 @ 11:07pm</small></div><p>As always, managore comes with the most creatives gameplay ideas.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/5f01d95e648cff7b01589d20604e2a76?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=22408">ChuiGum</a> says ...</strong></div><div><small>Dec 13, 2016 @ 11:52pm</small></div><p>One of the coolest entries I've seen so far. As always, 5 stars in innovation! You're always coming up with a cool mechanic. I try to be innovative too, so I love it when people do the same! Nice smooth crisp graphics too, so clean. Well done, again! I bet you'll be in the top 10 again.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/dca054277a8b0e121f92f747111d8772?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=32794">NoahCagle</a> says ...</strong></div><div><small>Dec 14, 2016 @ 4:33am</small></div><p>The amount of money that I would pay for this game is ridiculous. Honestly a work of art. Hats off to you.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/eba179dd7c86568b3448e01f4f15059f?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=47684">2Bit</a> says ...</strong></div><div><small>Dec 14, 2016 @ 6:10am</small></div><p>Oh man, user generated content, the internet is gonna love this.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/d8dee06731c4721b441682221307c71d?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=86533">RetroSpecter</a> says ...</strong></div><div><small>Dec 14, 2016 @ 6:13am</small></div><p>Amazing game as per usual</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/1ecf47e51972e7ecf18ce4326c60422c?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=125819">DalesDiscountTires</a> says ...</strong></div><div><small>Dec 14, 2016 @ 6:53am</small></div><p>This is incredibly. Mind blowing. Great job man!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/59c7f71eec01466ead7316054328b7d3?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=62808">Drury</a> says ...</strong></div><div><small>Dec 14, 2016 @ 7:00am</small></div><p>It's sad to see young men selling their souls to the devil for the ability to make the best LD games.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/ad358b95bc4fd6cb14be3de336363a35?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=45424">MatLab</a> says ...</strong></div><div><small>Dec 14, 2016 @ 9:38am</small></div><p>So good idea, very impressive work! Little animations are cute and physic remind me the first Mario Bros. (hard air control but good tolerance). GG<br/>PS : Need sound !</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/d2dc585acc096455a6750e9a133932ff?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=61047">nicruo</a> says ...</strong></div><div><small>Dec 14, 2016 @ 10:20am</small></div><p>Oh man, I am a fan of you work. But this one, this one is crazy genius. I don't know how you came up with the idea. But even know that I'm typing this comment, I hope that the message starts to transform. === /TTTTTT\       == ... :D</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/0cf4f9a309045f3f52fe726b078554db?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=7905">sudojess</a> says ...</strong></div><div><small>Dec 14, 2016 @ 10:28am</small></div><p>Awesome! Another great game from you. super innovative</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/90e75f6a3c07fc130f6cc2deae091514?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=44858">wowods</a> says ...</strong></div><div><small>Dec 14, 2016 @ 10:55am</small></div><p>What a great idea for this theme!!!!!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/13dac3e9caa7afb376cc6451d31f39b7?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=29223">qbicfeet</a> says ...</strong></div><div><small>Dec 14, 2016 @ 12:46pm</small></div><p>This is completely bonkers, probably one of the most inventive games across all LDs. Would love a browser version :)</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/ce3b91148148c902c7354dcbde8fa101?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=46262">AngrySquirrels</a> says ...</strong></div><div><small>Dec 14, 2016 @ 1:21pm</small></div><p>Wow, that's again a really great idea and take on the theme! Great game!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/f71ff3a551120d28384a54b2af7546fa?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=37397">elmoGames</a> says ...</strong></div><div><small>Dec 14, 2016 @ 2:05pm</small></div><p>Ofcourse this will win. It is pretty good</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/c1fd4e16a19a292a1cc93c5a758f7cea?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=47448">amras0000</a> says ...</strong></div><div><small>Dec 14, 2016 @ 2:08pm</small></div><p>This game is a perfectly addicting platformer. I could lose hours to it (and have already). The controls are tight, the obstacles /just fair enough/ where every death is clearly my fault.<br/><br/>I'd love to see this kinda of game implemented as a proper IRC client, where I can join any network and play on its messages.<br/><br/>As far as extended features go, I'd also have liked to see the letters have a bigger role. As it stands, most of the fun levels are just punctuation, and I'd love to see full-on sentences or poems used as levels, with various letters (not just 'o' and 'v') being used as props.<br/><br/>Still, it's an excellent game with a very innovative idea that came through to a super smooth title. Great work.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/a43203c6d95ff0a75fa234b1e39f9b2b?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=3040">ethankennerly</a> says ...</strong></div><div><small>Dec 14, 2016 @ 3:33pm</small></div><p>When I saw the open brace shoot a dash at me, I was enchanted by your animated ASCII world.  If you continue to develop this, and I hope you do, when I wasn't sure which level would be a step up in difficulty for my skill I felt less competent.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/df959ff06ee5c66a3a1c3866240fca05?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=36186">foolmoron</a> says ...</strong></div><div><small>Dec 14, 2016 @ 4:21pm</small></div><p>THE most innovative idea I've ever seen. The graphics and colors work perfectly to identify the obstacles in the platformer too. Controls feel a bit float and imprecise though.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/f69a577998822ce1357fcbf346a05575?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=33967">Junber</a> says ...</strong></div><div><small>Dec 14, 2016 @ 6:29pm</small></div><p>Great idea and a more than solid execution. It would have been nice if you could scroll to the bottom by just pressing a single key. Sound would have also been cool.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/482b26ff124317d8ab2254dd63019bb2?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=25257">Tonasz</a> says ...</strong></div><div><small>Dec 14, 2016 @ 8:21pm</small></div><p>Genius. Just... genius.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/855af8f2453c1cdad6c2daa3fb41a6bd?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=39580">commodoreKid</a> says ...</strong></div><div><small>Dec 14, 2016 @ 9:34pm</small></div><p>Well it's you again with another original idea. What can I say?</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/6d6f19b888c934bb2519715915e1da50?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=113453">BlueLlama</a> says ...</strong></div><div><small>Dec 14, 2016 @ 11:12pm</small></div><p>Didn't quite understand it at first, then it blew my mind, had to show it to others as well.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/2cf30497c542457c7ea8bb3aeede7287?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=113128">tartlegames</a> says ...</strong></div><div><small>Dec 14, 2016 @ 11:43pm</small></div><p>Man... You are the Leonardo Divinci of the indie game world. Great work. This is brilliant.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/3855f891a507aee3e9bbbc2a1320e884?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=29748">pLaw</a> says ...</strong></div><div><small>Dec 15, 2016 @ 12:01am</small></div><p>This is brilliant! My absolute favourite of all LD37 entries so far!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/66716c914b77ce5f78635ea21149df40?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=58120">roaringcatgames</a> says ...</strong></div><div><small>Dec 15, 2016 @ 12:26am</small></div><p>Every single time you nail it. Not only is this a brilliant idea, but the visuals and controls are perfect. The movement feels super satisfying, the transition between &quot;chat&quot; and &quot;game&quot; is seamless, and it has &quot;virtually endless&quot; content. Another game showing the rest of us how it's done. Great work.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/34775e04cc20d0d6089dc6b8b7106d97?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=12839">Elemental Zeal Games Studios</a> says ...</strong></div><div><small>Dec 15, 2016 @ 12:37am</small></div><p>Really cool idea, and very well executed. Nicely done :)</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/ce2fbf78ea3fde9f5536f244d1b0f444?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=92436">MementoGames</a> says ...</strong></div><div><small>Dec 15, 2016 @ 12:55am</small></div><p>This is perfect. Well, almost perfect. I missed some tunes to jump around with. But the rest is just awesome. Amazing job as always!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/82789aaf07647fdd770fe47aa33309ab?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=22454">emmelineprufrock</a> says ...</strong></div><div><small>Dec 15, 2016 @ 3:58am</small></div><p>It's a really interesting concept. I am terribad at it, so I don't feel like I'm getting the full experience (precision platforming has never been my jam) but I'm impressed with your ability to come up with a concept like this and execute it in so little time by yourself. Fantastic work. <br/><br/>I also like the animations around the little main character.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/17020ef62e8947180776606273a424a1?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=14895">Fib</a> says ...</strong></div><div><small>Dec 15, 2016 @ 4:11am</small></div><p>Wow... mind blown. The creativity is just astonishing. ___ ^ ___ /TTT   &gt;    _____</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/cc2cdac3855d5d31a3b1b1948705096e?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=3007">fishbrain</a> says ...</strong></div><div><small>Dec 15, 2016 @ 7:56am</small></div><p>Unique and inventive!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/744c50c54fa867cec9c13c31d23b14cf?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=1551">Maple</a> says ...</strong></div><div><small>Dec 15, 2016 @ 8:39am</small></div><p>This is great!<br/><br/>It really could benefit from Copy and Paste function, for people to send people levels.<br/><br/>It also could really do with some music. a lot of vibe was lost. I image like typing sfx when in chat and then lvl sfx/bgm while in playing mode.<br/><br/>Anyway, keep it up. I'll def be following your works.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/42cee3e012b968448fec2bfced47f481?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=125598">Nixxor</a> says ...</strong></div><div><small>Dec 15, 2016 @ 9:18am</small></div><p>What an interesting little take on a concept! Love it!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/da0ba67196ce99a21d6304fa1280eb43?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=21374">DesignerNap</a> says ...</strong></div><div><small>Dec 15, 2016 @ 9:19am</small></div><p>Really smart idea that is very well executed. Great work.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/3420593aeb4bba81bf2c6b4fbc1c7c36?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=43525">madmarcel</a> says ...</strong></div><div><small>Dec 15, 2016 @ 10:02am</small></div><p>Very cool.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/1cf2f64c3e6667c920a799ba99bff818?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=64215">aamatniekss</a> says ...</strong></div><div><small>Dec 15, 2016 @ 10:08am</small></div><p>Congrats on the win! :D That's just amazing!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/47467e85fa6ac0ca6b9d037dc006e335?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=52961">piller.yann</a> says ...</strong></div><div><small>Dec 15, 2016 @ 12:29pm</small></div><p>Woooow ! The concept is so cool and imaginative !</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/76b0f13c505c6242b938bc760da3780c?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=6685">Patacorow</a> says ...</strong></div><div><small>Dec 15, 2016 @ 1:11pm</small></div><p>_____________^^&amp;-  |  -  |  |\___ <br/><br/>HA! Beat that!<br/>Really! geat job on that one! it's so smart and fun.<br/>Who you come up every single time with a brilliant ideas ?!<br/>and make them look so beautiful!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/160b005d4255ff59c5d32c7fc3050da9?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=1874">Pierrec</a> says ...</strong></div><div><small>Dec 15, 2016 @ 1:48pm</small></div><p>Now I see a tiny character jumping while I write. This is so clever! Nothing to add.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/b5f99bea12fcb8827b5f5dd58b6f42c9?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=21924">Kalinka</a> says ...</strong></div><div><small>Dec 15, 2016 @ 1:49pm</small></div><p>my best rate for #LD37 :) Fantastic idea and making !</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/43b060e4bed7af35efddf4400b01ef7d?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=15279">Split82</a> says ...</strong></div><div><small>Dec 15, 2016 @ 3:04pm</small></div><p>Super innovative :) Great job.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/ca20f8412d3a0e05bc6e724d130b7532?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=84579">Brickkid512</a> says ...</strong></div><div><small>Dec 15, 2016 @ 4:10pm</small></div><p>Very Creative, Nice Job!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/5fce57db387176772bf2a606d8df82f4?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=66030">David Cookie</a> says ...</strong></div><div><small>Dec 15, 2016 @ 4:27pm</small></div><p>I mean.. do I need to add more compliments to the list? Just fantastic as always, and I really wonder how you managed to do that in only 2 days.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/ff178fc357e28f5e384c7675810abbb6?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=19504">Kalkatos</a> says ...</strong></div><div><small>Dec 15, 2016 @ 5:15pm</small></div><p>Brilliant, just brilliant!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/cd9163040dbe60196b7cff13fa40250b?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=49890">mike.cullingham</a> says ...</strong></div><div><small>Dec 15, 2016 @ 5:29pm</small></div><p>Nice job as always.  Very clever use of the theme.</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/74fe7449219d26da082a7a127ed0dccf?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=40112">qristofer</a> says ...</strong></div><div><small>Dec 15, 2016 @ 5:32pm</small></div><p>Wow. The best spam filter!</p></div><div class = 'comment'><img src="http://www.gravatar.com/avatar/2121aa0cf2f30bc2ac33463b4098c73d?s=48&d=mm&r=g" align="right" class="gravatar" /><div><strong><a href="?action=preview&uid=45696">andyman404</a> says ...</strong></div><div><small>Dec 15, 2016 @ 8:05pm</small></div><p>This is so innovative! Great work again Managore!</p></div><p>You must sign in to comment.</p></div><div id='compo-nsfw' class='hidden' onclick='c2_addclass( document.getElementById("compo-nsfw"), "hidden"); c2_removeclass( document.getElementById("compo-body"), "hidden");'><h2>WARNING!</h2><p>This entry may contain subject matter that you or those around you may find offensive. You have been warned.</p><h2>I understand. Let me see it.</h2></div><script>if ( window["compo_game_nsfw"] ) { c2_addclass( document.getElementById("compo-body"), "hidden"); c2_removeclass( document.getElementById("compo-nsfw"), "hidden"); }</script></div>
+				<br />
+			</div>
+		</div>
+				</div>
+</div>
+		<div id="footer">
+			<div class="text">All posts, images, and comments are owned by their creators.</div>
+			<div class="query">18 queries executed in 0.109 seconds.</div>
+		</div>
+	</div>
+<script type='text/javascript' src='http://ludumdare.com/compo/wp-includes/js/wp-embed.min.js?ver=4.4.2'></script>
+</body>
+</html>
+<p>[cache: using cached page]</p>
