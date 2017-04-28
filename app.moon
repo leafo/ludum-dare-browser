@@ -6,13 +6,14 @@ game_list.set_http http
 
 db = require "lapis.db"
 
-import to_json from require "lapis.util"
+import to_json, from_json from require "lapis.util"
 json = require "cjson"
 
 config = require("lapis.config").get!
 import Games, Collections from require "models"
 
 import respond_to from require "lapis.application"
+import image_signature from require "helpers.image_signature"
 
 CONTENT_TYPES = {
   jpg: "image/jpeg"
@@ -34,19 +35,6 @@ COLLECTIONS = {
   osx: { "OSX", {"os/x", "osx", "os x"} }
   android: { "Android", {"android"} }
 }
-
-image_signature = do
-  for_url = (str) ->
-    (str\gsub "[/+]", {
-      "+": "%2B"
-      "/": "%2F"
-    })
-
-  (path, _url=true, len=10, secret=require"secret.keys".image_key) ->
-    str = ngx.encode_base64 ngx.hmac_sha1 secret, path
-    str = str\sub 1, len if len
-    str = for_url str if _url
-    str
 
 cached = (dict_name, fn) ->
   unless type(fn) == "function"

@@ -1,6 +1,7 @@
 import Model from require "lapis.db.model"
 
 config = require("lapis.config").get!
+import to_json, from_json from require "lapis.util"
 
 -- Generated schema dump: (do not edit)
 --
@@ -61,14 +62,16 @@ class Games extends Model
 
   fetch_details: (force=false)=>
     return if @have_details and not force
-    detailed = game_list.fetch_game @uid, config.comp_id
+    import fetch_game from require "game_list"
+
+    detailed = fetch_game @uid, config.comp_id
     detailed.have_details = true
     @@create_or_update detailed, @
 
   parse_screenshots: =>
     @fetch_details!
     return nil unless @num_screenshots > 0 and @screenshots
-    json.decode @screenshots
+    from_json @screenshots
 
   load_screenshot: (i=1, skip_cache=false) =>
     screens = @parse_screenshots!
@@ -89,6 +92,7 @@ class Games extends Model
       file\close!
     else
       cache_hit = false
+      http = require "http"
       image_blob, status = http.request original_url
       unless status == 200
         return nil, "failed to fetch original"
@@ -101,6 +105,7 @@ class Games extends Model
 
   screenshot_url: (r, size, image_id=1) =>
     if size
+      import image_signature from require "helpers.image_signature"
       path = r\url_for "screenshot_sized", comp: @comp, uid: @uid, :image_id, :size
       path .. "?sig=" .. image_signature path
     else
