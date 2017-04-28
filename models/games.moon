@@ -39,7 +39,11 @@ class Games extends Model
   }
 
   @create_or_update: (data, game=nil) =>
-    game = game or @find comp: config.comp_name, uid: data.uid
+    game = game or @find {
+      comp: assert(data.comp_name, "missing comp_name from data")
+      uid: data.uid
+    }
+
     formatted = {k, data[k] for k in *@simple_columns}
 
     if downloads = data.downloads
@@ -57,16 +61,19 @@ class Games extends Model
       game\update formatted
       game, false
     else
-      formatted.comp = config.comp_name
+      formatted.comp = data.comp_name
       @create(formatted), true
 
   fetch_details: (force=false)=>
     return if @have_details and not force
     import fetch_game from require "game_list"
 
-    detailed = fetch_game @uid, config.comp_id
+    detailed = fetch_game @uid, assert @get_comp_id!
     detailed.have_details = true
     @@create_or_update detailed, @
+
+  get_comp_id: =>
+    @comp\match "^ludum%-dare%-(%d+)$"
 
   parse_screenshots: =>
     @fetch_details!

@@ -222,6 +222,7 @@ class LudumDare extends lapis.Application
     count = 0
     @html ->
       for game in *games
+        game.comp_name = config.comp_name
         success, err = pcall ->
           g, new_record = Games\create_or_update game
           count += 1 if g
