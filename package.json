@@ -1,0 +1,30 @@
+{
+  "name": "ludum-dare-browser",
+  "version": "1.0.0",
+  "description": "<http://ludumdare.itch.io>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leafo/ludum-dare-browser.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leafo/ludum-dare-browser/issues"
+  },
+  "homepage": "https://github.com/leafo/ludum-dare-browser#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "preact": "^8.1.0",
+    "preact-router": "^2.5.2"
+  }
+}
