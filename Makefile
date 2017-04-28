@@ -31,3 +31,5 @@ checkpoint:
 annotate_models:
 	lapis annotate $$(find models -type f | grep moon$$)
 
+dump.sql::
+	pg_dump -U postgres ludumdare > dump.sql
