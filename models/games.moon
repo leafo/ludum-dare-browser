@@ -99,7 +99,7 @@ class Games extends Model
       file\close!
     else
       cache_hit = false
-      http = require "http"
+      http = require "lapis.nginx.http"
       image_blob, status = http.request original_url
       unless status == 200
         return nil, "failed to fetch original"
