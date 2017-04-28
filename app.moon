@@ -36,41 +36,6 @@ COLLECTIONS = {
   android: { "Android", {"android"} }
 }
 
-cached = (dict_name, fn) ->
-  unless type(fn) == "function"
-    fn = dict_name
-    dict_name = "page_cache"
-
-  =>
-    params = [k.. ":" .. v for k,v in pairs @GET]
-    table.sort params
-    params = table.concat params, "-"
-    cache_key = @req.parsed_url.path .. "#" .. params
-
-    dict = ngx.shared[dict_name]
-
-    if cache_value = dict\get cache_key
-      ngx.header["x-memory-cache-hit"] = "1"
-      cache_value = json.decode(cache_value)
-      return cache_value
-
-    old_render = @render
-    @render = (...) =>
-      old_render @, ...
-      -- this is done like this because you can't mix hash/array in json
-      to_cache = json.encode {
-        {
-          content_type: @res.headers["Content-type"]
-          layout: false -- layout is already part of content
-        }
-        @res.content
-      }
-      dict\set cache_key, to_cache
-      ngx.header["x-memory-cache-save"] = "1"
-      nil
-
-    fn @
-
 -- eg. search for love games:
 -- love_games = search_downloads("\\blove\\b", "i")
 search_downloads = (games=Games\select!, ...) ->
@@ -87,8 +52,6 @@ search_downloads = (games=Games\select!, ...) ->
         break
 
   found
-
-
 
 
 class LudumDare extends lapis.Application
@@ -149,7 +112,7 @@ class LudumDare extends lapis.Application
     ngx.header["x-image-cache"] = cache_hit and "hit" or "miss"
     content_type: CONTENT_TYPES[ext_or_err], layout: false, image_blob
 
-  "/games": cached =>
+  "/games": =>
     page = tonumber(@params.page) or 0
     limit = 40
     offset = page * limit
@@ -175,6 +138,8 @@ class LudumDare extends lapis.Application
       ""
 
     games = if sort == "random"
+      @res\add_header "Cache-Control", "no-store"
+
       seed = (tonumber(@params.seed) or os.time! / 60) % 100000 / 100000
       res = db.query "
         begin;
@@ -233,35 +198,6 @@ class LudumDare extends lapis.Application
       pre "\n"
       pre "Games: #{count}"
       pre "Elapsed: #{gettime! - start}"
-
-  [cache: "/admin/cache"]: respond_to {
-    GET: =>
-      dict = ngx.shared.page_cache
-      keys = dict\get_keys()
-      table.sort keys
-
-      sum = 0
-      @html ->
-        ul ->
-          for key in *keys
-            li ->
-              kb = #dict\get(key) / 1014
-              sum += kb
-              code key
-              text " "
-              span "%.2f"\format(kb) .. "kb"
-
-        div ->
-          b "total: "
-          text "%.2f"\format(sum)
-          text "kb"
-
-        form method: "POST", -> button "Purge"
-
-    POST: =>
-      ngx.shared.page_cache\flush_all!
-      redirect_to: @url_for "cache"
-  }
 
   "/admin/game/:comp/:uid/image/:image_id/:size": =>
     path = @req.parsed_url.path\match "^/admin(.*)"
