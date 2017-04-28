@@ -50,5 +50,9 @@ import create_table, create_index, drop_table from schema
 
       "PRIMARY KEY(name, comp, uid)"
     }
+
+  [2]: =>
+    db.query "alter table games alter column title type text"
+    db.query 'alter table games alter column "user" type text'
 }
 
