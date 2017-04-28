@@ -1,4 +1,4 @@
-.PHONY: test migrate
+.PHONY: test migrate init_schema test_db lint checkpoint annotate_models
 
 test:
 	busted
@@ -7,14 +7,13 @@ migrate:
 	lapis migrate
 	make schema.sql
 
-schema.sql:
+schema.sql::
 	pg_dump -s -U postgres ludumdare > schema.sql
 	pg_dump -a -t lapis_migrations -U postgres ludumdare >> schema.sql
 
 init_schema:
 	createdb -U postgres ludumdare
 	cat schema.sql | psql -U postgres ludumdare
-
 
 test_db:
 	-dropdb -U postgres ludumdare_test
