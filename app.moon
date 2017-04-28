@@ -112,7 +112,10 @@ class LudumDare extends lapis.Application
     ngx.header["x-image-cache"] = cache_hit and "hit" or "miss"
     content_type: CONTENT_TYPES[ext_or_err], layout: false, image_blob
 
-  "/games": =>
+  "/games/:comp_name": =>
+    unless @params.comp_name\match "^ludum%-dare%-%d+$"
+      return { status: 404, "not found" }
+
     page = tonumber(@params.page) or 0
     limit = 40
     offset = page * limit
@@ -152,7 +155,7 @@ class LudumDare extends lapis.Application
           order by g.random asc
           limit ? offset ?;
         commit
-      ", seed, config.comp_name, limit, offset
+      ", seed, @params.comp_name, limit, offset
 
 
       [Games\load(g) for g in *res[3]]
@@ -161,13 +164,14 @@ class LudumDare extends lapis.Application
         #{inner_join}
         where games.comp = ?
         #{sort}
-        limit ? offset ?", config.comp_name, limit, offset
+        limit ? offset ?", @params.comp_name, limit, offset
 
     sizes = {
       small: "220x220"
       medium: "340x340"
       large: "560x560"
     }
+
     thumb_size = sizes[@params.thumb_size] or sizes.medium
 
     for game in *games

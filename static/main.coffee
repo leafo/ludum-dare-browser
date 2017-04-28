@@ -90,8 +90,9 @@ class I.GamePage
       p = $(e.currentTarget).addClass "current"
       @list.set_size p.data "size"
 
-  constructor: ->
+  constructor: (@opts) ->
     @toolbar = $("#toolbar")
+    @comp_name = @opts.comp_name
 
     @toolbar.on "change", "input.toggle_details", (e) =>
       checked = $(e.currentTarget).prop "checked"
@@ -298,7 +299,7 @@ class I.GameList
       seed: if @sort == "random" then @_rand
     }
 
-    $.get "/games?" + $.param(opts), (data) =>
+    $.get "/games/#{@parent.comp_name}?" + $.param(opts), (data) =>
       @_loader.remove()
       unless data.games
         @_loading = false
