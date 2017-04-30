@@ -4,8 +4,10 @@ import classNames from "classnames"
 class DropDownPicker extends Component {
   constructor(props) {
     super(props)
+    let current = this.props.options.find(e => e.default) || this.props.options.find(e => e.value)
+
     this.state = {
-      currentOption: this.props.options.find(e => e.value).value,
+      currentOption: current.value,
       open: false,
     }
   }
@@ -87,6 +89,15 @@ export default class Page extends Component {
             {value: "love", label: "LÖVE"},
             {value: "unity", label: "Unity"},
             {value: "xna", label: "XNA"},
+
+          ]}/>
+
+          <DropDownPicker options={[
+            {value: "random", label: "Random"},
+            {value: "votes", label: "Most Rated", default: true},
+            {value: "votes_reverse", label: "Least rated"},
+            {value: "coolness", label: "Most Coolness"},
+            {value: "coolness_reverse", label: "Least Coolness"},
           ]}/>
         </div>
       </div>
