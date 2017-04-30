@@ -1,8 +1,7 @@
-
 $font_size: 18px;
 $bg: #333;
 $sticky_height: 50px;
-
+$link_color: #a57393;
 
 @mixin unselectable {
     -moz-user-select: none;
@@ -32,7 +31,6 @@ body {
     margin:  0 20px 15px 20px;
     color: #ddd;
     font-size: 16px;
-    border-bottom: 1px dashed #504F4F;
     padding-bottom: 6px;
 
     a {
@@ -56,11 +54,21 @@ body {
     height: $sticky_height;
     background: #F1F1F1;
     box-shadow: 0 0 10px rgba(0,0,0, 0.5);
-    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
 
     h1 {
         margin: 0;
         font-size: 18px;
+    }
+
+    .spacer {
+        flex: 1;
+    }
+
+    a {
+        color: $link_color;
     }
 
     .social_buttons, h1 {
@@ -75,17 +83,7 @@ body {
         margin-left: 12px;
     }
 
-    .inner {
-        line-height: $sticky_height;
-        padding: 0 20px;
-    }
-
     .tools {
-        float: right;
-        position: relative;
-        z-index: 2;
-        white-space: normal;
-
         .icon {
             color: #aaa;
             font-size: 16px;
@@ -95,25 +93,28 @@ body {
 
         .dropdown_picker {
             display: inline-block;
-            line-height: 30px;
+            position: relative;
             margin-right: 10px;
 
             &.open {
                 .select_popup {
                     opacity: 1.0;
-                    -webkit-animation: pop .2s ease-in-out;
-                    -moz-animation: pop .2s ease-in-out;
-                    -ms-animation: pop .2s ease-in-out;
                 }
             }
 
             .select_popup {
                 opacity: 0;
-                top: -1000px;
-                left: -1000px;
+                top: 100%;
+                left: 50%;
+                transform: translate(-50%, 0);
             }
 
             .current_option {
+                font-size: inherit;
+                height: 30px;
+                line-height: 30px;
+                margin: 0;
+                border: 0;
                 background: #313131;
                 border-radius: 6px;
                 padding: 0 12px;
@@ -406,9 +407,6 @@ body {
 
     &.visible {
         opacity: 1;
-        -webkit-animation: pop .2s ease-in-out;
-        -moz-animation: pop .2s ease-in-out;
-        -ms-animation: pop .2s ease-in-out;
     }
 }
 
@@ -422,20 +420,24 @@ body {
     border-radius: 4px;
     padding: 4px 0;
 
-    margin-left: -17px;
-    margin-top: 4px;
+    margin-top: 5px;
 
-    -webkit-transition: opacity 0.20s ease-in-out;
-    -moz-transition: opacity 0.20s ease-in-out;
     transition: opacity 0.20s ease-in-out;
 
     .option {
+        font-size: inherit;
+        display: block;
+        width: 100%;
+        border: 0;
         cursor: pointer;
-        padding: 0 12px;
+        padding: 4px 12px;
         background: white;
-        -webkit-transition: all 0.10s ease-in-out;
-        -moz-transition: all 0.10s ease-in-out;
-        transition: all 0.10s ease-in-out;
+        transition: all 0.1s ease-in-out;
+        white-space: nowrap;
+
+        &.selected {
+            font-weight: bold;
+        }
 
         &:hover {
             background: #222;
@@ -467,50 +469,6 @@ body {
         height: 1px;
         background: #d6d6d6;
         margin: 4px 0;
-    }
-}
-
-
-@-webkit-keyframes pop {
-    0% {
-        -webkit-transform: scale(0.8);
-    }
-
-    100% {
-        -webkit-transform: scale(1.0);
-    }
-
-    50% {
-        -webkit-transform: scale(1.2);
-    }
-}
-
-@-moz-keyframes pop {
-    0% {
-        -moz-transform: scale(0.8);
-    }
-
-    100% {
-        -moz-transform: scale(1.0);
-    }
-
-    50% {
-        -moz-transform: scale(1.2);
-    }
-}
-
-
-@-ms-keyframes pop {
-    0% {
-        -ms-transform: scale(0.8);
-    }
-
-    100% {
-        -ms-transform: scale(1.0);
-    }
-
-    50% {
-        -ms-transform: scale(1.2);
     }
 }
 
