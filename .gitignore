@@ -10,3 +10,4 @@ cache/
 .tup
 games.html
 secret/
+node_modules/
