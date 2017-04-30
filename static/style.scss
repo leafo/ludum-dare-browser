@@ -11,6 +11,10 @@ $link_color: #a57393;
 
 @import url(http://fonts.googleapis.com/css?family=Lato:400,700|Inconsolata);
 
+button {
+    font-size: inherit;
+    font-family: inherit;
+}
 
 html {
     overflow: -moz-scrollbars-vertical;
@@ -110,7 +114,6 @@ body {
             }
 
             .current_option {
-                font-size: inherit;
                 height: 30px;
                 line-height: 30px;
                 margin: 0;
@@ -157,7 +160,6 @@ body {
             }
 
             button {
-                font-size: inherit;
                 border: 0;
                 line-height: 30px;
                 height: 30px;
@@ -431,7 +433,6 @@ body {
     transition: opacity 0.20s ease-in-out;
 
     .option {
-        font-size: inherit;
         display: block;
         width: 100%;
         border: 0;
