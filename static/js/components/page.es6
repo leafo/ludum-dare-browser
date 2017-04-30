@@ -1,6 +1,37 @@
 import { h, render, Component } from "preact"
 import classNames from "classnames"
 
+class PillPicker extends Component {
+  constructor(props) {
+    super(props)
+    let current = this.props.options.find(e => e.default) || this.props.options[0]
+    console.log(current)
+    this.state = {
+      currentOption: current.value,
+    }
+  }
+
+  setOption(opt) {
+    this.setState({
+      currentOption: opt.value
+    })
+  }
+
+  renderOptions() {
+    return this.props.options.map(opt => {
+      return <button type="button" class={classNames("picker", {current: opt.value == this.state.currentOption})} onClick={e => this.setOption(opt)}>
+        {opt.label}
+      </button>
+    })
+  }
+
+  render() {
+    return <div class="size_picker">
+      {this.renderOptions()}
+    </div>
+  }
+}
+
 class DropDownPicker extends Component {
   constructor(props) {
     super(props)
@@ -17,6 +48,7 @@ class DropDownPicker extends Component {
   }
 
   onClick(e) {
+    e.preventDefault()
     this.setState({
       open: !this.state.open
     })
@@ -36,7 +68,7 @@ class DropDownPicker extends Component {
           return <hr />
         }
 
-        return <button class={classNames("option", { selected: opt.value == this.state.currentOption})} onClick={e => this.setOption(opt)}>
+        return <button type="button" class={classNames("option", { selected: opt.value == this.state.currentOption})} onClick={e => this.setOption(opt)}>
           {opt.label}
         </button>
       })}
@@ -99,6 +131,18 @@ export default class Page extends Component {
             {value: "coolness", label: "Most Coolness"},
             {value: "coolness_reverse", label: "Least Coolness"},
           ]}/>
+
+          <span class="icon icon-expand"></span>
+          <PillPicker options={[
+            {value: "small", label: "Small"},
+            {value: "medium", label: "Medium"},
+            {value: "large", label: "Large"},
+          ]} />
+
+          <label title="Show Details">
+            <input type="checkbox" class="toggle_details" />
+            <span class="icon-eye"></span>
+          </label>
         </div>
       </div>
 
