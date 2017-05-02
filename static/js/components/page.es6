@@ -3,6 +3,7 @@ import classNames from "classnames"
 
 import PillPicker from "ld/components/pill_picker"
 import DropDownPicker from "ld/components/drop_down_picker"
+import GameGrid from "ld/components/game_grid"
 
 export default class Page extends Component {
   render() {
