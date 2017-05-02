@@ -6,6 +6,31 @@ import DropDownPicker from "ld/components/drop_down_picker"
 import GameGrid from "ld/components/game_grid"
 
 export default class Page extends Component {
+  componentDidMount() {
+    this.fetchGames({}, res => {
+      this.setState({
+        games: res.games
+      })
+    })
+  }
+
+  fetchGames(filter, callback) {
+    this.setState({loading: true, games: false})
+    let xhr = new XMLHttpRequest()
+    xhr.open("GET", "/games/ludum-dare-37")
+
+    xhr.addEventListener("readystatechange", e => {
+      if (xhr.readyState != 4) return
+      let res = JSON.parse(xhr.responseText)
+      console.log("got response", res)
+      if (callback) {
+        callback(res)
+      }
+    })
+
+    xhr.send()
+  }
+
   render() {
     return <div class="game_browser">
       <div id="toolbar" class="sticky">
@@ -69,6 +94,10 @@ export default class Page extends Component {
         site, <a href="http://itch.io">itch.io</a>, host and sell your games with
         pay-what-you-want pricing. Thanks!
       </div>
+
+      {
+        this.state.games ?  <GameGrid games={this.state.games} /> : null
+      }
     </div>
   }
 }

@@ -1,18 +1,20 @@
 import { h, render, Component } from "preact"
 import classNames from "classnames"
 
-export default class GameGrid extends Component {
-
-  render() {
-    return <div class="game_grid">
-      {this.props.games.map(game => {
-        return this.renderGame(game)
-      })}
-    </div>
+class GameCell extends Component {
+  componentDidMount() {
+    console.log("added game")
   }
 
-  renderGame(game) {
-    let {url, user_url, title, uid, screenshot_url, votes_received, votes_given} = game
+  componentDidUnmount() {
+    console.log("removed game")
+  }
+
+  render() {
+    let {
+      url, user, user_url, title, uid, screenshot_url, votes_received,
+      votes_given
+    } = this.props.game
 
     return <div class="game_cell image_loading" data-uid={ uid }>
       <a href={url} target="_blank" class="thumb" style={{
@@ -42,6 +44,20 @@ export default class GameGrid extends Component {
         </div>
       </div>
     </div>
+  }
 
+}
+
+export default class GameGrid extends Component {
+  render() {
+    return <div class="game_grid">
+      {this.props.games.map(game => {
+        return this.renderGame(game)
+      })}
+    </div>
+  }
+
+  renderGame(game) {
+    return <GameCell game={game} />
   }
 }

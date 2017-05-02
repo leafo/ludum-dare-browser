@@ -176,7 +176,7 @@ body {
     }
 }
 
-#game_list {
+.game_grid {
     margin-left: 20px;
 }
 
@@ -192,7 +192,7 @@ body {
     box-shadow: 0 -1px 0 rgba(0,0,0, 0.2), 0 1px 0 rgba(255,255,255,0.2);
 }
 
-#game_list.details_enabled .game_cell:hover, .game_cell.show_details, #game_list.show_labels {
+.game_grid.details_enabled .game_cell:hover, .game_cell.show_details, .game_grid.show_labels {
     .label {
         bottom: 0px;
     }
