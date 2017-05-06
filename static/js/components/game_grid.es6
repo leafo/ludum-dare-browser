@@ -3,11 +3,9 @@ import classNames from "classnames"
 
 class GameCell extends Component {
   componentDidMount() {
-    console.log("added game")
-  }
-
-  componentDidUnmount() {
-    console.log("removed game")
+    let image = new Image()
+    image.src = this.props.game.screenshot_url
+    image.onload = () => this.setState({imageLoaded: true})
   }
 
   render() {
@@ -16,7 +14,7 @@ class GameCell extends Component {
       votes_given
     } = this.props.game
 
-    return <div class="game_cell image_loading" data-uid={ uid }>
+    return <div class={classNames("game_cell", { image_loading: !this.state.imageLoaded})} data-uid={ uid }>
       <a href={url} target="_blank" class="thumb" style={{
         backgroundImage: `url('${screenshot_url}')`
       }}></a>
