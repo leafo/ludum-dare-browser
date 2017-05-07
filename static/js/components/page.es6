@@ -6,29 +6,45 @@ import DropDownPicker from "ld/components/drop_down_picker"
 import GameGrid from "ld/components/game_grid"
 
 export default class Page extends Component {
+  constructor(props) {
+    super(props)
+    this.page = 0
+  }
+
   componentDidMount() {
     this.fetchGames({}, res => {
       this.setState({
-        games: res.games
+        loading: false,
+        games: res.games,
       })
     })
   }
 
   fetchGames(filter, callback) {
-    this.setState({loading: true, games: false})
+    this.setState({loading: true })
+
     let xhr = new XMLHttpRequest()
-    xhr.open("GET", "/games/ludum-dare-37")
+    xhr.open("GET", `/games/ludum-dare-37?page=${this.page}`)
 
     xhr.addEventListener("readystatechange", e => {
       if (xhr.readyState != 4) return
       let res = JSON.parse(xhr.responseText)
-      console.log("got response", res)
       if (callback) {
         callback(res)
       }
     })
 
     xhr.send()
+  }
+
+  loadNextPage(done) {
+    this.page += 1
+    this.fetchGames({}, res => {
+      this.setState({
+        games: this.state.games.concat(res.games)
+      })
+      done()
+    })
   }
 
   render() {
@@ -94,9 +110,11 @@ export default class Page extends Component {
         site, <a href="http://itch.io">itch.io</a>, host and sell your games with
         pay-what-you-want pricing. Thanks!
       </div>
-
       {
-        this.state.games ?  <GameGrid games={this.state.games} /> : null
+        this.state.games ? <GameGrid
+          games={this.state.games}
+          loadNextPage={this.loadNextPage.bind(this)}
+        /> : null
       }
     </div>
   }

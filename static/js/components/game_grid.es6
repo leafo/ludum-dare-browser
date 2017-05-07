@@ -70,7 +70,7 @@ export default class GameGrid extends Component {
 
         if (this.props.loadNextPage) {
           this.props.loadNextPage(() => this.setState({ loading: false }))
-        } {
+        } else {
           console.warn("Missing props.loadNextPage")
         }
       }
