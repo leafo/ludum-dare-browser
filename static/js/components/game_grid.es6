@@ -14,7 +14,14 @@ class GameCell extends Component {
       votes_given
     } = this.props.game
 
-    return <div class={classNames("game_cell", { image_loading: !this.state.imageLoaded})} data-uid={ uid }>
+    return <div
+      class={classNames("game_cell", { image_loading: !this.state.imageLoaded})}
+      data-uid={ uid }
+      style={{
+        width: this.props.width ? `${this.props.width}px` : null,
+        height: this.props.height ? `${this.props.height}px` : null,
+      }}
+    >
       <a href={url} target="_blank" class="thumb" style={{
         backgroundImage: `url('${screenshot_url}')`
       }}></a>
@@ -49,6 +56,13 @@ class GameCell extends Component {
 export default class GameGrid extends Component {
   componentDidMount() {
     this.setGridSizing(this.gameGridEl)
+
+    this.resizeListener = () => this.setGridSizing(this.gameGridEl)
+    window.addEventListener("resize", this.resizeListener)
+  }
+
+  componentDidUnmount() {
+    window.removeEventListener("resize", this.resizeListener)
   }
 
   render() {
@@ -65,8 +79,6 @@ export default class GameGrid extends Component {
 
     let realWidth = expectedWidth + 20 // cell margin
     let pageWidth = el.clientWidth
-
-    console.warn(realWidth, pageWidth)
 
     let numCells = pageWidth / realWidth
     let fract = numCells - Math.floor(numCells)
@@ -87,12 +99,12 @@ export default class GameGrid extends Component {
 
     this.setState({
       gameCellWidth: newWidth,
-      gameCellHeight: newWidth,
+      gameCellHeight: newHeight
     })
 
   }
 
   renderGame(game) {
-    return <GameCell game={game} />
+    return <GameCell width={this.state.gameCellWidth} height={this.state.gameCellHeight} game={game} />
   }
 }
