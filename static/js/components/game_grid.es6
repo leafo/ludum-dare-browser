@@ -58,11 +58,31 @@ export default class GameGrid extends Component {
     this.setGridSizing(this.gameGridEl)
 
     this.resizeListener = () => this.setGridSizing(this.gameGridEl)
+    this.scrollListener = () => {
+      if (this.state.loading) {
+        return
+      }
+
+      if (window.document.body.scrollTop + window.innerHeight > this.loaderEl.offsetTop) {
+        this.setState({
+          loading: true
+        })
+
+        if (this.props.loadNextPage) {
+          this.props.loadNextPage(() => this.setState({ loading: false }))
+        } {
+          console.warn("Missing props.loadNextPage")
+        }
+      }
+    }
+
     window.addEventListener("resize", this.resizeListener)
+    window.addEventListener("scroll", this.scrollListener)
   }
 
   componentDidUnmount() {
     window.removeEventListener("resize", this.resizeListener)
+    window.removeEventListener("scroll", this.scrollListener)
   }
 
   render() {
@@ -70,6 +90,7 @@ export default class GameGrid extends Component {
       {this.props.games.map(game => {
         return this.renderGame(game)
       })}
+      <div class="loader_cell" ref={ el => this.loaderEl = el}></div>
     </div>
   }
 
