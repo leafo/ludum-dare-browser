@@ -47,12 +47,49 @@ class GameCell extends Component {
 }
 
 export default class GameGrid extends Component {
+  componentDidMount() {
+    this.setGridSizing(this.gameGridEl)
+  }
+
   render() {
-    return <div class="game_grid">
+    return <div class="game_grid" ref={ el => this.gameGridEl = el }>
       {this.props.games.map(game => {
         return this.renderGame(game)
       })}
     </div>
+  }
+
+  setGridSizing(el) {
+    let expectedWidth = 300
+    let aspectRatio = 300/240
+
+    let realWidth = expectedWidth + 20 // cell margin
+    let pageWidth = el.clientWidth
+
+    console.warn(realWidth, pageWidth)
+
+    let numCells = pageWidth / realWidth
+    let fract = numCells - Math.floor(numCells)
+
+    let realNumCells
+
+    if (fract < 0.5) {
+      realNumCells = Math.floor(numCells)
+    } else {
+      realNumCells = Math.ceil(numCells)
+    }
+
+    let newWidth = (pageWidth / realNumCells) - 20 // remove cell margin
+    let newHeight = newWidth / aspectRatio
+
+    newWidth = Math.floor(newWidth)
+    newHeight = Math.floor(newHeight)
+
+    this.setState({
+      gameCellWidth: newWidth,
+      gameCellHeight: newWidth,
+    })
+
   }
 
   renderGame(game) {
