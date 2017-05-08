@@ -8,23 +8,26 @@ import GameGrid from "ld/components/game_grid"
 export default class Page extends Component {
   constructor(props) {
     super(props)
-    this.page = 0
+    this.state = {
+      page: 0,
+    }
   }
 
   componentDidMount() {
-    this.fetchGames({}, res => {
+    this.fetchGames(res => {
       this.setState({
         loading: false,
+        page: this.state.page + 1,
         games: res.games,
       })
     })
   }
 
-  fetchGames(filter, callback) {
+  fetchGames(callback) {
     this.setState({loading: true })
 
     let xhr = new XMLHttpRequest()
-    xhr.open("GET", `/games/ludum-dare-37?page=${this.page}`)
+    xhr.open("GET", `/games/ludum-dare-37?page=${this.state.page}`)
 
     xhr.addEventListener("readystatechange", e => {
       if (xhr.readyState != 4) return
@@ -38,9 +41,9 @@ export default class Page extends Component {
   }
 
   loadNextPage(done) {
-    this.page += 1
-    this.fetchGames({}, res => {
+    this.fetchGames(res => {
       this.setState({
+        page: this.state.page + 1,
         games: this.state.games.concat(res.games)
       })
       done()
