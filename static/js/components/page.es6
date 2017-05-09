@@ -5,11 +5,25 @@ import PillPicker from "ld/components/pill_picker"
 import DropDownPicker from "ld/components/drop_down_picker"
 import GameGrid from "ld/components/game_grid"
 
+function encodeQueryString(obj) {
+  let out = []
+  for (let k in obj) {
+    if (!obj.hasOwnProperty(k)) {
+      continue
+    }
+
+    out.push(`${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`)
+  }
+
+  return out.join("&")
+}
+
 export default class Page extends Component {
   constructor(props) {
     super(props)
     this.state = {
       page: 0,
+      filter: {},
     }
   }
 
@@ -26,8 +40,10 @@ export default class Page extends Component {
   fetchGames(callback) {
     this.setState({loading: true })
 
+    let params = {page: this.state.page, ...this.state.filter}
+
     let xhr = new XMLHttpRequest()
-    xhr.open("GET", `/games/ludum-dare-37?page=${this.state.page}`)
+    xhr.open("GET", `/games/ludum-dare-37?${encodeQueryString(params)}`)
 
     xhr.addEventListener("readystatechange", e => {
       if (xhr.readyState != 4) return
