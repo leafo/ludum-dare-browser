@@ -28,6 +28,10 @@ export default class DropDownPicker extends Component {
       currentOption: opt.value,
       open: false,
     })
+
+    if (this.props.onChange) {
+      this.props.onChange(opt.value)
+    }
   }
 
   renderOptions() {

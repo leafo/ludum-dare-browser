@@ -5,7 +5,6 @@ export default class PillPicker extends Component {
   constructor(props) {
     super(props)
     let current = this.props.options.find(e => e.default) || this.props.options[0]
-    console.log(current)
     this.state = {
       currentOption: current.value,
     }

@@ -23,18 +23,13 @@ export default class Page extends Component {
     super(props)
     this.state = {
       page: 0,
+      games: [],
       filter: {},
     }
   }
 
   componentDidMount() {
-    this.fetchGames(res => {
-      this.setState({
-        loading: false,
-        page: this.state.page + 1,
-        games: res.games,
-      })
-    })
+    this.loadNextPage()
   }
 
   fetchGames(callback) {
@@ -62,8 +57,18 @@ export default class Page extends Component {
         page: this.state.page + 1,
         games: this.state.games.concat(res.games)
       })
-      done()
+      if (done) {
+        done()
+      }
     })
+  }
+
+  updateFilter(update) {
+    this.setState({
+      page: 0,
+      games: [],
+      filter: {...this.state.filter, ...update},
+    }, () => this.loadNextPage())
   }
 
   render() {
@@ -84,22 +89,23 @@ export default class Page extends Component {
 
         <div class="tools">
           <span class="icon icon-paragraph-justify"></span>
-          <DropDownPicker options={[
-            {value: "all", label: "All Games"},
-            "divider",
-            {value: "windows", label: "Windows"},
-            {value: "osx", label: "OSX"},
-            {value: "linux", label: "Linux"},
-            {value: "android", label: "Android"},
-            "divider",
-            {value: "flash", label: "Flash"},
-            {value: "html5", label: "HTML5"},
-            {value: "java", label: "Java"},
-            {value: "love", label: "LÖVE"},
-            {value: "unity", label: "Unity"},
-            {value: "xna", label: "XNA"},
-
-          ]}/>
+          <DropDownPicker
+            onChange={val => this.updateFilter({platform: val})}
+            options={[
+              {value: "all", label: "All Games"},
+              "divider",
+              {value: "windows", label: "Windows"},
+              {value: "osx", label: "OSX"},
+              {value: "linux", label: "Linux"},
+              {value: "android", label: "Android"},
+              "divider",
+              {value: "flash", label: "Flash"},
+              {value: "html5", label: "HTML5"},
+              {value: "java", label: "Java"},
+              {value: "love", label: "LÖVE"},
+              {value: "unity", label: "Unity"},
+              {value: "xna", label: "XNA"},
+            ]}/>
 
           <DropDownPicker options={[
             {value: "random", label: "Random"},
