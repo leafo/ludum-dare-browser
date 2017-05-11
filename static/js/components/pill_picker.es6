@@ -14,6 +14,10 @@ export default class PillPicker extends Component {
     this.setState({
       currentOption: opt.value
     })
+
+    if (this.props.onChange) {
+      this.props.onChange(opt.value)
+    }
   }
 
   renderOptions() {

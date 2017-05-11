@@ -23,6 +23,9 @@ export default class Page extends Component {
     super(props)
     this.state = {
       page: 0,
+      showDetails: false,
+      cellSize: "medium",
+      randomSeed: Math.floor(Math.random() * 100000),
       games: [],
       filter: {},
     }
@@ -36,6 +39,9 @@ export default class Page extends Component {
     this.setState({loading: true })
 
     let params = {page: this.state.page, ...this.state.filter}
+    if (params.sort == "random") {
+      params.seed = this.state.randomSeed
+    }
 
     let xhr = new XMLHttpRequest()
     xhr.open("GET", `/games/ludum-dare-37?${encodeQueryString(params)}`)
@@ -107,23 +113,30 @@ export default class Page extends Component {
               {value: "xna", label: "XNA"},
             ]}/>
 
-          <DropDownPicker options={[
-            {value: "random", label: "Random"},
-            {value: "votes", label: "Most Rated", default: true},
-            {value: "votes_reverse", label: "Least rated"},
-            {value: "coolness", label: "Most Coolness"},
-            {value: "coolness_reverse", label: "Least Coolness"},
-          ]}/>
+          <DropDownPicker
+            onChange={val => this.updateFilter({sort: val})}
+            options={[
+              {value: "random", label: "Random"},
+              {value: "votes", label: "Most Rated", default: true},
+              {value: "votes_reverse", label: "Least rated"},
+              {value: "coolness", label: "Most Coolness"},
+              {value: "coolness_reverse", label: "Least Coolness"},
+            ]}/>
 
           <span class="icon icon-expand"></span>
-          <PillPicker options={[
-            {value: "small", label: "Small"},
-            {value: "medium", label: "Medium"},
-            {value: "large", label: "Large"},
-          ]} />
+          <PillPicker
+            onChange={val => this.setState({cellSize: val})}
+            options={[
+              {value: "small", label: "Small"},
+              {value: "medium", label: "Medium"},
+              {value: "large", label: "Large"},
+            ]} />
 
           <label title="Show Details">
-            <input type="checkbox" class="toggle_details" />
+            <input
+              onChange={e => this.setState({showDetails: e.target.checked})}
+              value={this.state.showDetails}
+              type="checkbox" class="toggle_details" />
             <span class="icon-eye"></span>
           </label>
         </div>
