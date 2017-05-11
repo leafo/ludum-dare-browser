@@ -1,11 +1,31 @@
 import { h, render, Component } from "preact"
 import classNames from "classnames"
 
+function isDifferent(a, b) {
+  for (let key in a) {
+    if (a[key]!==b[key]) {
+      return true
+    }
+  }
+
+  for (let key in b) {
+    if (!(key in a)) {
+      return true
+    }
+  }
+
+  return false;
+}
+
 class GameCell extends Component {
   componentDidMount() {
     let image = new Image()
     image.src = this.props.game.screenshot_url
     image.onload = () => this.setState({imageLoaded: true})
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return isDifferent(this.props, nextProps) || isDifferent(this.state, nextState)
   }
 
   render() {
