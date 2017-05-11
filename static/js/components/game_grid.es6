@@ -85,6 +85,12 @@ export default class GameGrid extends Component {
     window.removeEventListener("scroll", this.scrollListener)
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.cellSize != prevProps.cellSize) {
+      this.setGridSizing(this.gameGridEl)
+    }
+  }
+
   render() {
     return <div
       class={classNames("game_grid details_enabled", {show_labels: this.props.showDetails})}
@@ -98,7 +104,12 @@ export default class GameGrid extends Component {
   }
 
   setGridSizing(el) {
-    let expectedWidth = 300
+    let expectedWidth = ({
+      small: 180,
+      medium: 300,
+      large: 500,
+    })[this.props.cellSize || "medium"]
+
     let aspectRatio = 300/240
 
     let realWidth = expectedWidth + 20 // cell margin
