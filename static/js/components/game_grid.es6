@@ -86,7 +86,10 @@ export default class GameGrid extends Component {
   }
 
   render() {
-    return <div class="game_grid" ref={ el => this.gameGridEl = el }>
+    return <div
+      class={classNames("game_grid details_enabled", {show_labels: this.props.showDetails})}
+      ref={ el => this.gameGridEl = el }
+    >
       {this.props.games.map(game => {
         return this.renderGame(game)
       })}

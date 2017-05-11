@@ -151,6 +151,7 @@ export default class Page extends Component {
       {
         this.state.games ? <GameGrid
           games={this.state.games}
+          showDetails={this.state.showDetails}
           loadNextPage={this.loadNextPage.bind(this)}
         /> : null
       }
