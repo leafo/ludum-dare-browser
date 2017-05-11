@@ -90,7 +90,7 @@ export default class Page extends Component {
         <div class="tools">
           <span class="icon icon-paragraph-justify"></span>
           <DropDownPicker
-            onChange={val => this.updateFilter({platform: val})}
+            onChange={val => this.updateFilter({collection: val})}
             options={[
               {value: "all", label: "All Games"},
               "divider",
