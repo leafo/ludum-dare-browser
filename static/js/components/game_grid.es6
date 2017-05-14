@@ -28,11 +28,27 @@ class GameCell extends Component {
     return isDifferent(this.props, nextProps) || isDifferent(this.state, nextState)
   }
 
+  toggleDownloadMenu() {
+    this.setState({
+      downloadMenuOpen: true
+    })
+  }
+
   render() {
     let {
       url, user, user_url, title, uid, screenshot_url, votes_received,
       votes_given
     } = this.props.game
+
+    let downloadsMenu
+
+    if (this.state.downloadMenuOpen) {
+      downloadsMenu = <div class="downloader arrow_box visible">
+        {this.props.game.downloads.map(download => {
+          return <a href={download.url}>{download.label}</a>
+        })}
+      </div>
+    }
 
     return <div
       class={classNames("game_cell", { image_loading: !this.state.imageLoaded})}
@@ -57,7 +73,10 @@ class GameCell extends Component {
         </div>
 
         <div class="downloads">
-          <span class="icon icon-box-add" title="Show Downloads"></span>
+          <button
+            onClick={e => this.toggleDownloadMenu() }
+            class="icon icon-box-add" title="Show Downloads"></button>
+          {downloadsMenu}
         </div>
       </div>
 
