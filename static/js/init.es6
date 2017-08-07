@@ -1,7 +1,9 @@
 
 import Page from "ld/components/page"
+import NotFoundPage from "ld/components/not_found_page"
 
 import { render, h } from "preact"
+import { Router } from "preactRouter"
 
 export function init() {
   let props = {
@@ -10,5 +12,10 @@ export function init() {
     event_short_name: "LD39",
   }
 
-  render(<Page {...props} />, document.body)
+  let page = <Router>
+    <Page path="/" {...props} />
+    <NotFoundPage default />
+  </Router>
+
+  render(page, document.body)
 }

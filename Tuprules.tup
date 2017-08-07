@@ -2,6 +2,6 @@ TOP = $(TUP_CWD)
 
 !babel_amd = |> $(TOP)/node_modules/.bin/babel --module-root 'ld' -M %f > %o |>
 !scss = |> ^ scss %o^ sassc -I scss/ < %f > %o |>
-!join = |> ^ join %o^ cat %f > %o |>
+!join = |> ^ join %o^ sed -s '$G' %f > %o |>
 
 : foreach *.moon |> moonc %f |> %B.lua

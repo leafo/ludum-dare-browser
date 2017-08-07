@@ -26,7 +26,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "preact": "^8.1.0",
-    "preact-router": "^2.5.2",
+    "preact-router": "^2.5.5",
     "requirejs": "^2.3.3"
   }
 }
