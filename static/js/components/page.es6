@@ -119,10 +119,10 @@ export default class Page extends Component {
             onChange={val => this.updateFilter({sort: val})}
             options={[
               {value: "random", label: "Random"},
-              {value: "votes", label: "Most Rated", default: true},
+              {value: "votes", label: "Most rated", default: true},
               {value: "votes_reverse", label: "Least rated"},
-              {value: "coolness", label: "Most Coolness"},
-              {value: "coolness_reverse", label: "Least Coolness"},
+              {value: "coolness", label: "Most ratings given"},
+              {value: "coolness_reverse", label: "Least ratings given"},
             ]}/>
 
           <span class="icon icon-expand"></span>
