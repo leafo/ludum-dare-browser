@@ -60,7 +60,7 @@ class Events extends Model
       when @@types.ldjam
         count = 0
         key = assert @key, "missing event id"
-        for game in client\each_game key
+        for game in client\each_game key, preload_authors: true
           Games\create_from_ldjam @, game
           count += 1
 
@@ -69,7 +69,12 @@ class Events extends Model
           games_count: count
         }
 
-    @refresh_collections!
+    -- don't let authors stick around
+    client\purge_cache!
+    if ngx
+      @refresh_collections!
+
+    true
 
   refresh_collections: =>
     games = @get_games!

@@ -5,6 +5,9 @@ cjson = require "cjson"
 class LDJam extends require "clients.base"
   api_url: "https://api.ldjam.com/vx"
 
+  purge_cache: =>
+    @node_cache = nil
+
   request: (...) =>
     @http!.request ...
 
@@ -63,8 +66,9 @@ class LDJam extends require "clients.base"
 
     have
 
-  each_game: (event, offset=0) =>
+  each_game: (event, opts={}) =>
     limit = 50
+    offset = opts.offset or 0
 
     coroutine.wrap ->
       while true
@@ -74,7 +78,12 @@ class LDJam extends require "clients.base"
 
         ids = [f.id for f in *feed]
 
-        for game in *@fetch_objects ids
+        games = @fetch_objects ids
+
+        if opts.preload_authors
+          @fetch_objects [g.author for g in *games], cache: true
+
+        for game in *games
           coroutine.yield game
 
         offset += limit
