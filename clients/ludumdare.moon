@@ -93,7 +93,6 @@ class LudumDare extends require "clients.base"
 
 if ... == "games"
   games = LudumDare!\fetch_list 30
-
   -- file = io.open "games.html"
   -- res = with file\read "*a"
   --   file\close!

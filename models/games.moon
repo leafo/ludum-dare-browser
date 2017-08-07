@@ -66,9 +66,9 @@ class Games extends Model
 
   fetch_details: (force=false)=>
     return if @have_details and not force
-    import fetch_game from require "game_list"
+    import ludumdare from require "clients"
 
-    detailed = fetch_game @uid, assert @get_comp_id!
+    detailed = ludumdare\fetch_game @uid, assert @get_comp_id!
     detailed.have_details = true
     @@create_or_update detailed, @
 

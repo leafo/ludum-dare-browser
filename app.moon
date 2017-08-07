@@ -1,9 +1,4 @@
 lapis = require "lapis"
-
-http = require "lapis.nginx.http"
-game_list = require "game_list"
-game_list.set_http http
-
 db = require "lapis.db"
 
 import to_json, from_json from require "lapis.util"
@@ -184,7 +179,9 @@ class LudumDare extends lapis.Application
     json: { games: games, count: games and #games }
 
   "/admin/scrape_games": =>
-    games = game_list.fetch_list config.comp_id
+    import ludumdare from require "clients"
+
+    games = ludumdare\fetch_list config.comp_id
 
     import gettime from require "socket"
     start = gettime!
