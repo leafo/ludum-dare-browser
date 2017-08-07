@@ -130,7 +130,15 @@ export default class Page extends Component {
 
           <span class="icon icon-expand"></span>
           <PillPicker
-            onChange={val => this.setState({cellSize: val}) }
+            onChange={val => {
+              this.setState({
+                cellSize: val
+              }, () => {
+                if (this.currentGrid) {
+                  this.currentGrid.scrollListener()
+                }
+              })
+            }}
             options={[
               {value: "small", label: "Small"},
               {value: "medium", label: "Medium", default: true},
@@ -156,6 +164,7 @@ export default class Page extends Component {
       {
         this.state.games ? <GameGrid
           cellSize={this.state.cellSize}
+          ref={grid => this.currentGrid = grid}
           games={this.state.games}
           showDetails={this.state.showDetails}
           loadNextPage={this.loadNextPage.bind(this)}
