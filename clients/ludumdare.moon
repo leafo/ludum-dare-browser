@@ -2,14 +2,6 @@ import P, C, Cg, S, Ct, R from require "lpeg"
 
 trim = (str) -> tostring(str)\match "^%s*(.-)%s*$"
 
-local _http
-http = ->
-  unless _http
-    _http = require "socket.http"
-  _http
-
-set_http = (h) -> _http = h
-
 decode_entities = do
   entities = { amp: '&', gt: '>', lt: '<', quot: '"', apos: "'" }
   -- entities = require "entities"
@@ -86,32 +78,30 @@ parse_game_page = (content) ->
   is_jam = content\match("Jam Entry") and true or false
   { :uid, :screenshots, :is_jam }
 
-fetch_list = (ld=26)->
-  url = "http://ludumdare.com/compo/ludum-dare-#{ld}/?action=misc_links"
-  res, status = http!.request url
-  assert status == 200, "#{url} failed with #{status}"
-  parse_list res
+class LudumDare extends require "clients.base"
+  fetch_list: (ld) =>
+    url = "http://ludumdare.com/compo/ludum-dare-#{ld}/?action=misc_links"
+    res, status = @http!.request url
+    assert status == 200, "#{url} failed with #{status}"
+    parse_list res
 
--- get screenshots, determine if jam or comp
-fetch_game = (uid, ld=26) ->
-  url = "http://ludumdare.com/compo/ludum-dare-#{ld}/?action=preview&uid=#{uid}"
-  res, status = http!.request url
-  assert status == 200, "#{url} failed with #{status}"
-
-  parse_game_page res
+  fetch_game: (uid, ld) =>
+    url = "http://ludumdare.com/compo/ludum-dare-#{ld}/?action=preview&uid=#{uid}"
+    res, status = @http!.request url
+    assert status == 200, "#{url} failed with #{status}"
+    parse_game_page res
 
 if ... == "games"
-  -- games = fetch_list!
+  games = LudumDare!\fetch_list 30
 
-  file = io.open "games.html"
-  res = with file\read "*a"
-    file\close!
-
-  games = parse_list res
+  -- file = io.open "games.html"
+  -- res = with file\read "*a"
+  --   file\close!
+  -- games = parse_list res
   require("moon").p games
 
 if ... == "game"
-  game = fetch_game 22909
+  game = LudumDare!\fetch_game 22909, 26
   require("moon").p game
 
-{ :fetch_list, :fetch_game, :set_http, :parse_list, :parse_game_page }
+{ :parse_list, :parse_game_page, LudumDare }
