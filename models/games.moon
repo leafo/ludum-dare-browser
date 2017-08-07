@@ -43,6 +43,7 @@ class Games extends Model
 
   @relations: {
     {"event", belongs_to: "Events"}
+    {"collection_games", has_many: "CollectionGames"}
   }
 
   @create_from_ludumdare: (event, data, additional_data) =>
@@ -105,6 +106,26 @@ class Games extends Model
 
     @refresh!
     @
+
+  refresh_collections: =>
+    import CollectionGames from require "models"
+    existing = {cg.name, true for cg in *@get_collection_games!}
+
+    for c in *CollectionGames\scan_game @
+      if existing[c]
+        existing[c] = nil
+        continue
+
+      CollectionGames\create {
+        name: c
+        game_id: @id
+        event_id: @event_id
+      }
+
+    for to_delete in pairs existing
+      to_delete\delete!
+
+    true
 
   get_comp_slug: =>
     if @event_id

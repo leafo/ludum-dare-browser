@@ -16,36 +16,6 @@ CONTENT_TYPES = {
   gif: "image/gif"
 }
 
-COLLECTIONS = {
-  love: { "Love", {"love", "love2d"} }
-  python: { "Python", {"python", "pygame"} }
-  unity: { "Unity", {"unity"} }
-  xna: { "XNA", {"xna"} }
-  flash: { "Flash", {"flash", "swf"} }
-  html5: { "HTML5", {"html5"} }
-  java: { "Java", {"java", "jar"} }
-
-  linux: { "Linux", {"linux"} }
-  windows: { "Windows", {"windows", "win32"} }
-  osx: { "OSX", {"os/x", "osx", "os x"} }
-  android: { "Android", {"android"} }
-}
-
--- eg. search for love games:
--- love_games = search_downloads("\\blove\\b", "i")
-search_downloads = (games=Games\select!, ...) ->
-  match = ngx.re.match
-
-  found = {}
-  for game in *games
-    for d in *game.downloads
-      if match(d.href, ...) or match(d.label, ...)
-        table.insert found, game
-        break
-
-  found
-
-
 class LudumDare extends lapis.Application
   "/game/:event_slug/:uid": =>
     event = Events\find slug: @params.event_slug
@@ -192,24 +162,31 @@ class LudumDare extends lapis.Application
 
   --
   "/admin/make_collections": =>
-    games = Games\select "where comp = ?", config.comp_name
+    event_slug = @params.event_slug or "ludum-dare-#{config.comp_id}"
+
+    import Events, CollectionGames from require "models"
+
+    events = if event_slug
+      {(assert Events\find(slug: event_slug), "invalid event: #{event_slug}")}
+    else
+      Events\select!
 
     import gettime from require "socket"
     start = gettime!
 
-    total = 0
-    regexes = {}
-    for collection_name, {_, words} in pairs COLLECTIONS
-      regex = "\\b(?:#{table.concat words, "|"})\\b"
-      filtered = search_downloads games, regex, "i"
-      regexes[regex] = #filtered
+    for event in *events
+      games = event\get_games!
+      for game in *games
+        game\refresh_collections!
 
-      for game in *filtered
-        total += 1
-        Collections\add_game collection_name, config.comp_name, game
+    counts = db.query "
+      select name, count(*) from #{db.escape_identifier CollectionGames\table_name!} where event_id in ? group by 1
+    ", db.list [e.id for e in *events]
 
-    @html ->
-      pre "inserted #{total} rows"
-      pre "took #{gettime! - start} sec"
+    counts = {row.name, row.count for row in *counts}
 
+    json: {
+      time_taken: gettime! - start
+      :counts
+    }
 

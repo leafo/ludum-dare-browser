@@ -94,5 +94,19 @@ import create_table, create_index, drop_table, add_column from schema
   [6]: =>
     add_column "events", "games_count", integer null: true, default: db.NULL
     add_column "events", "last_refreshed_at", time null: true
+
+  [7]: =>
+    drop_table "collections"
+
+    create_table "collection_games", {
+      {"name", varchar}
+      {"event_id", foreign_key}
+      {"game_id", foreign_key}
+
+      "PRIMARY KEY(name, game_id)"
+    }
+
+    create_index "collection_games", "event_id", "name"
+    create_index "collection_games", "game_id"
 }
 

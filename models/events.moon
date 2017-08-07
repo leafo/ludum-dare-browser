@@ -28,9 +28,14 @@ class Events extends Model
     ldjam: 2 -- new style
   }
 
-  @create: (opts) =>
-    super opts
+  @relations: {
+    {"games", has_many: "Games"}
+    {"collection_games", has_many: "CollectionGames"}
+  }
 
+  @create: (opts) =>
+    opts.type = @types\for_db opts.type
+    super opts
 
   is_ludumdare: => @type == @@types.ludumdare
   is_ldjam: => @type == @@types.ldjam

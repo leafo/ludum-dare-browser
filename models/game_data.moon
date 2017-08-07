@@ -18,7 +18,6 @@ class GameData extends Model
   @create: (opts) =>
     import insert_on_conflict_update from require "helpers.model"
 
-
     update = {k,v for k,v in pairs opts}
     update.game_id = nil
 
