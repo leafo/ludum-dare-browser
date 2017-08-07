@@ -171,13 +171,14 @@ class LudumDare extends lapis.Application
     json: { games: games, count: games and #games }
 
   "/admin/scrape_games": =>
-    event = Events\find "ludum-dare-#{config.comp_id}"
+    event = Events\find slug: "ludum-dare-#{config.comp_id}"
     import gettime from require "socket"
     start = gettime!
     event\full_refresh!
 
     json: {
       event_id: event.id
+      games_count: event.games_count
       time_taken: gettime! - start
     }
 
@@ -187,8 +188,7 @@ class LudumDare extends lapis.Application
 
     -- TODO: purge image cache
     -- sizes = {"220x220", "340x340", "560x560"}
-
-    json: commands
+    json: {}
 
   --
   "/admin/make_collections": =>
