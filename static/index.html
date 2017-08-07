@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ludum Dare 36 Game Browser - itch.io</title>
+  <title>Ludum Dare Games Browser</title>
   <link rel="stylesheet" href="/static/style.css?3" />
   <link rel="stylesheet" href="/static/icons/style.css" />
+
   <script type="text/javascript">
     if (window.location.hostname != "localhost") {
       var _gaq = _gaq || [];
@@ -20,125 +21,9 @@
   </script>
 </head>
 <body>
-  <div class="sticky" id="toolbar">
-    <div class="inner">
-      <div class="tools">
-        <span class="icon icon-paragraph-justify"></span>
-        <div id="collection_picker" class="collection_picker dropdown_picker">
-          <div class="current_option">
-            <span class="label">All Games</span>
-            <span class="tri_down"></span>
-          </div>
-
-          <div class="select_popup">
-            <div class="option" data-value="all">All Games</div>
-            <hr />
-            <div class="option" data-value="windows">Windows</div>
-            <div class="option" data-value="osx">OSX</div>
-            <div class="option" data-value="linux">Linux</div>
-            <div class="option" data-value="android">Android</div>
-            <hr />
-            <div class="option" data-value="flash">Flash</div>
-            <div class="option" data-value="html5">HTML5</div>
-            <div class="option" data-value="java">Java</div>
-            <div class="option" data-value="love">LÖVE</div>
-            <div class="option" data-value="python">Python</div>
-            <div class="option" data-value="unity">Unity</div>
-            <div class="option" data-value="xna">XNA</div>
-          </div>
-
-        </div>
-
-        <div id="sort_picker" class="sort_picker dropdown_picker">
-          <div class="current_option">
-            <span class="label">Most Rated</span>
-            <span class="tri_down"></span>
-          </div>
-
-          <div class="select_popup">
-            <div class="option" data-value="random">Random</div>
-            <div class="option" data-value="votes">Most Rated</div>
-            <div class="option" data-value="votes_reverse">Least Rated</div>
-
-            <div class="option" data-value="coolness">Most Coolness</div>
-            <div class="option" data-value="coolness_reverse">Least Coolness</div>
-          </div>
-        </div>
-
-        <span class="icon icon-expand"></span>
-        <div class="size_picker" id="size_picker">
-          <span class="picker left_picker" data-size="small">Small</span>
-          <span class="picker current" data-size="medium">Medium</span>
-          <span class="picker right_picker" data-size="large">Large</span>
-        </div>
-
-        <label title="Show Details">
-          <input type="checkbox" class="toggle_details" />
-          <span class="icon-eye"></span>
-        </label>
-      </div>
-
-      <h1 class="long_header">Ludum Dare 37 Games</h1>
-      <h1 class="short_header">LD37</h1>
-      <div class="social_buttons">
-        <a href="https://twitter.com/moonscript" class="twitter-follow-button" data-show-screen-name="false" data-show-count="false">Follow @moonscript</a>
-
-        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ludumdare.itch.io" data-text="Ludum Dare 37 Game Browser" data-via="moonscript" data-related="moonscript">Tweet</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="itch_banner">
-    <span class="icon-heart icon"></span>
-    Into indie game development? Check out my other
-    site, <a href="http://itch.io">itch.io</a>, host and sell your games with
-    pay-what-you-want pricing. Thanks!</div>
-
-  <div id="game_list" class="details_enabled">
-    <div class="loader_cell"></div>
-  </div>
-
-  <script type="text/template" id="game_template">
-    <div class="game_cell image_loading" data-uid="{{ uid }}">
-      <a href="{{ url }}" target="_blank" class="thumb" style="background-image: url({{ screenshot_url }});"></a>
-      <div class="top_label">
-        <div class="votes">
-          <span title="Votes Received">
-            <span class="icon icon-star"></span> {{ votes_received }}
-          </span>
-          <span class="divider"> </span>
-          <span title="Coolness">
-            <span class="icon icon-cool"></span> {{ votes_given }}
-          </span>
-        </div>
-
-        <div class="downloads">
-          <span class="icon icon-box-add" title="Show Downloads"></span>
-        </div>
-      </div>
-
-
-      <div class="label">
-        <div class="text">
-          <a href="{{ user_url }}" target="_blank" class="author">{{ user }}</a>
-          <a href="{{ url }}" target="_blank" title="{{ title }}" class="title">{{ title }}</a>
-        </div>
-      </div>
-    </div>
-  </script>
-
-  <div class="downloader arrow_box" id="download_tooltip"></div>
-
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-  <script type="text/javascript" src="/static/main.js?3"></script>
+  <script type="text/javascript" src="/static/bundle.js"></script>
   <script type="text/javascript">
-  new I.GamePage({
-    comp_name: "ludum-dare-37"
-  });
+    require(["ld/init"], function(m) { m.init() })
   </script>
-
-
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </body>
 </html>

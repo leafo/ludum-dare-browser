@@ -78,10 +78,10 @@ class GameCell extends Component {
         height: this.props.height ? `${this.props.height}px` : null,
       }}
     >
-      <a href={url} target="_blank" class="thumb" style={{
-        backgroundImage: `url('${screenshot_url}')`
-      }}></a>
       <div class="cell_crop">
+        <a href={url} target="_blank" class="thumb" style={{
+          backgroundImage: `url('${screenshot_url}')`
+        }}></a>
         <div class="top_label">
           <div class="votes">
             <span title="Votes Received">
