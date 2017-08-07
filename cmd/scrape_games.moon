@@ -1,28 +1,30 @@
 
--- import Games from require "models"
--- 
--- fetch_jam = (id) ->
---   import ludumdare from require "clients"
---   comp_name = "ludum-dare-#{id}"
---   games = ludumdare\fetch_list comp_name
---   return nil, "invalid comp" unless games and next games
--- 
---   for game in *games
---     game.comp_name = comp_name
---     Games\create_or_update game
--- 
---   true
--- 
--- jamid = assert ..., "missing jam id"
--- if jamid == "all"
---   for id=37,1,-1
---     print "Fetching #{id}"
---     assert fetch_jam id
--- else
---   fetch_jam jamid
+
+event_slug, uid = ...
+
 
 import Events from require "models"
-for event in *Events\select!
+
+unless event_slug
+  for event in *Events\select!
+    print "Refreshing #{event.name}"
+    event\full_refresh!
+
+  return
+
+
+event = assert Events\find(slug: event_slug), "invalid event: #{event_slug}"
+if uid
+  print "Refreshing #{event.name} -> #{uid}"
+  import Games from require "models"
+  game = Games\find uid: uid, event_id: event.id
+  assert game, "invalid game: #{uid}"
+  res = game\fetch_details true
+  require("moon").p res
+else
   print "Refreshing #{event.name}"
   event\full_refresh!
+
+
+
 
