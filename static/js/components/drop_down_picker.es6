@@ -54,6 +54,7 @@ export default class DropDownPicker extends Component {
     return <div class={classNames("dropdown_picker", {open: this.state.open})}>
       <button class="current_option" onClick={e => this.onClick(e)}>
         <span class="label">{current.label}</span>
+        {" "}
         <span class="tri_down"></span>
       </button>
       {this.state.open ? this.renderOptions() : null}

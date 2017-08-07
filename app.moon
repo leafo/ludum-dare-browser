@@ -205,6 +205,7 @@ class LudumDare extends lapis.Application
     counts = {row.name, row.count for row in *counts}
 
     json: {
+      events: [event.name for event in *events]
       time_taken: gettime! - start
       :counts
     }
