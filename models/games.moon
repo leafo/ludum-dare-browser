@@ -102,7 +102,14 @@ class Games extends Model
       votes_received: math.floor data.magic.grade
     }
 
-    @insert_on_conflict_update primary, update
+    game = @insert_on_conflict_update primary, update
+
+    import GameData from require "models"
+    if game
+      GameData\create {
+        game_id: game.id
+        data: data
+      }
 
   @create_from_ludumdare: (event, data) =>
     import insert_on_conflict_update, filter_update from require "helpers.model"
@@ -123,16 +130,7 @@ class Games extends Model
       update[field] = data[field]
       update["num_#{field}"] = #(data[field] or {})
 
-    game = @insert_on_conflict_update primary, update
-
-    import GameData from require "models"
-
-    GameData\create {
-      game_id: game.id
-      data: data
-    }
-
-    game
+    @insert_on_conflict_update primary, update
 
   @insert_on_conflict_update: (primary, update) =>
     import insert_on_conflict_update, filter_update from require "helpers.model"

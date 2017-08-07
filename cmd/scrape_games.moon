@@ -4,7 +4,7 @@ event_slug, uid = ...
 import Events from require "models"
 
 events = if event_slug
-  {assert Events\find(slug: event_slug), "invalid event: #{event_slug}"}
+  {(assert Events\find(slug: event_slug), "invalid event: #{event_slug}")}
 else
   Events\select!
 

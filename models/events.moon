@@ -69,8 +69,9 @@ class Events extends Model
           games_count: count
         }
 
+        client\purge_cache!
+
     -- don't let authors stick around
-    client\purge_cache!
     if ngx
       @refresh_collections!
 
