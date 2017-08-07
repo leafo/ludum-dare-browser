@@ -87,5 +87,9 @@ import create_table, create_index, drop_table, add_column from schema
      db.query "alter table games alter column downloads type json using downloads::json"
      db.query "alter table games alter column screenshots type json using screenshots::json"
 
+  [5]: =>
+    create_index "games", "event_id", "uid", unique: true
+    db.query "alter table games alter column comp drop not null"
+
 }
 

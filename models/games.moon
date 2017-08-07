@@ -7,7 +7,7 @@ import to_json, from_json from require "lapis.util"
 --
 -- CREATE TABLE games (
 --   id integer NOT NULL,
---   comp character varying(255) NOT NULL,
+--   comp character varying(255),
 --   uid character varying(255) NOT NULL,
 --   "user" text NOT NULL,
 --   url character varying(255) NOT NULL,
@@ -28,6 +28,7 @@ import to_json, from_json from require "lapis.util"
 --   ADD CONSTRAINT games_pkey PRIMARY KEY (id);
 -- CREATE INDEX games_comp_title_idx ON games USING btree (comp, title);
 -- CREATE UNIQUE INDEX games_comp_uid_idx ON games USING btree (comp, uid);
+-- CREATE UNIQUE INDEX games_event_id_uid_idx ON games USING btree (event_id, uid);
 -- CREATE INDEX games_votes_given_idx ON games USING btree (votes_given);
 -- CREATE INDEX games_votes_received_idx ON games USING btree (votes_received);
 --
