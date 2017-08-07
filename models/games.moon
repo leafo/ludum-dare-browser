@@ -98,6 +98,8 @@ class Games extends Model
       num_screenshots: #screenshots
       screenshots: screenshots
       have_details: true
+      votes_given: data.magic.given
+      votes_received: math.floor data.magic.grade
     }
 
     @insert_on_conflict_update primary, update

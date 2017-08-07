@@ -50,6 +50,11 @@ class GameCell extends Component {
       </div>
     }
 
+    let coolnessLabel = "Coolness"
+    if (this.props.game.type == "ldjam") {
+      coolnessLabel = "Votes given"
+    }
+
     return <div
       class={classNames("game_cell", { image_loading: !this.state.imageLoaded})}
       data-uid={ uid }
@@ -67,7 +72,7 @@ class GameCell extends Component {
             <span class="icon icon-star"></span> { votes_received }
           </span>
           <span class="divider"> </span>
-          <span title="Coolness">
+          <span title={coolnessLabel}>
             <span class="icon icon-cool"></span> { votes_given }
           </span>
         </div>
