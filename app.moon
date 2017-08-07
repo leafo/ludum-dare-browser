@@ -2,7 +2,7 @@ lapis = require "lapis"
 db = require "lapis.db"
 config = require("lapis.config").get!
 
-import Games, Events, Collections from require "models"
+import Games, Events, CollectionGames from require "models"
 import preload from require "lapis.db.model"
 import respond_to from require "lapis.application"
 import image_signature from require "helpers.image_signature"
@@ -88,11 +88,14 @@ class LudumDare extends lapis.Application
     sort = sorts[@params.sort] or sorts.votes
 
     collection = @params.collection
+    import COLLECTIONS from CollectionGames
     inner_join = if collection and COLLECTIONS[collection]
-      "inner join collections on
-        collections.name = #{db.escape_literal @params.collection} and
-        collections.comp = games.comp and
-        games.uid = collections.uid"
+      db.interpolate_query "
+        inner join collection_games cgs on
+          cgs.name = #{db.escape_literal @params.collection} and
+          cgs.game_id = games.id and
+          cgs.event_id = ?
+      ", event.id
     else
       ""
 
@@ -171,8 +174,6 @@ class LudumDare extends lapis.Application
   --
   "/admin/make_collections": =>
     event_slug = @params.event_slug or "ludum-dare-#{config.comp_id}"
-
-    import Events, CollectionGames from require "models"
 
     events = if event_slug
       {(assert Events\find(slug: event_slug), "invalid event: #{event_slug}")}
