@@ -96,6 +96,13 @@
   }
 
   {
+    name: "Ludum Dare 30"
+    slug: "ludum-dare-30"
+    type: "ludumdare"
+  }
+
+
+  {
     name: "Ludum Dare 31"
     slug: "ludum-dare-31"
     type: "ludumdare"
