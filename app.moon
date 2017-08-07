@@ -1,12 +1,9 @@
 lapis = require "lapis"
 db = require "lapis.db"
-
-import to_json, from_json from require "lapis.util"
-json = require "cjson"
-
 config = require("lapis.config").get!
-import Games, Events, Collections from require "models"
 
+import Games, Events, Collections from require "models"
+import preload from require "lapis.db.model"
 import respond_to from require "lapis.application"
 import image_signature from require "helpers.image_signature"
 
@@ -124,6 +121,8 @@ class LudumDare extends lapis.Application
         #{sort}
         limit ? offset ?", event.id, limit, offset
 
+    preload games, "event"
+
     sizes = {
       small: "220x220"
       medium: "340x340"
@@ -132,13 +131,19 @@ class LudumDare extends lapis.Application
 
     thumb_size = sizes[@params.thumb_size] or sizes.medium
 
-    for game in *games
-      game.screenshot_url = game\screenshot_url @, thumb_size
-      game.url = "http://ludumdare.com/compo/#{event.slug}/" .. game.url
-      game.user_url = "http://ludumdare.com/compo/author/#{game.user}/"
+    fields = {
+      "id", "downloads", "title", "votes_given", "votes_received", "is_jam", "user", "uid", "screenshots"
+    }
 
-    games = nil unless next games
-    json: { games: games, count: games and #games }
+    formatted = for game in *games
+      row = {f, game[f] for f in *fields}
+      row.screenshot_url = game\screenshot_url @, thumb_size
+      row.url = "http://ludumdare.com/compo/#{event.slug}/" .. game.url
+      row.user_url = "http://ludumdare.com/compo/author/#{game.user}/"
+      row
+
+    formatted = nil unless next formatted
+    json: { games: formatted, count: formatted and #formatted }
 
   "/admin/scrape_games": =>
     event = Events\find slug: "ludum-dare-#{config.comp_id}"
