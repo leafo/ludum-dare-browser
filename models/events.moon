@@ -45,6 +45,11 @@ class Events extends Model
         for game in *games
           Games\create_from_ludumdare @, game
 
+        @update {
+          last_refreshed_at: db.raw "now() at time zone 'utc'"
+          games_count: #games
+        }
+
       when @@types.ldjam
         error "not yet"
 

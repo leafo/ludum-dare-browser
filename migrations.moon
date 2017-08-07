@@ -91,5 +91,8 @@ import create_table, create_index, drop_table, add_column from schema
     create_index "games", "event_id", "uid", unique: true
     db.query "alter table games alter column comp drop not null"
 
+  [6]: =>
+    add_column "events", "games_count", integer null: true, default: db.NULL
+    add_column "events", "last_refreshed_at", time null: true
 }
 
