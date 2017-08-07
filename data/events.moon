@@ -2,6 +2,19 @@
 
 {
   -- ldjam dares
+  {
+    name: "Ludum Dare 39"
+    slug: "ludum-dare-39"
+    type: "ldjam"
+    key: "32802"
+  }
+
+  {
+    name: "Ludum Dare 38"
+    slug: "ludum-dare-38"
+    type: "ldjam"
+    key: "9405"
+  }
 
   -- classic ludum dares
   {
