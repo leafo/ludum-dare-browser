@@ -52,6 +52,16 @@ class GameCell extends Component {
       </ul>
     }
 
+    let downloadsButton
+
+    if (this.props.game.downloads) {
+      downloadsButton = <div class="downloads">
+        <button
+          onClick={e => this.toggleDownloadMenu() }
+          class="icon icon-box-add" title="Show Downloads"></button>
+      </div>
+    }
+
     let coolnessLabel = "Coolness"
     if (this.props.game.type == "ldjam") {
       coolnessLabel = "Votes given"
@@ -71,28 +81,26 @@ class GameCell extends Component {
       <a href={url} target="_blank" class="thumb" style={{
         backgroundImage: `url('${screenshot_url}')`
       }}></a>
-      <div class="top_label">
-        <div class="votes">
-          <span title="Votes Received">
-            <span class="icon icon-star"></span> { votes_received }
-          </span>
-          <span class="divider"> </span>
-          <span title={coolnessLabel}>
-            <span class="icon icon-cool"></span> { votes_given }
-          </span>
+      <div class="cell_crop">
+        <div class="top_label">
+          <div class="votes">
+            <span title="Votes Received">
+              <span class="icon icon-star"></span> { votes_received }
+            </span>
+            <span class="divider"> </span>
+            <span title={coolnessLabel}>
+              <span class="icon icon-cool"></span> { votes_given }
+            </span>
+          </div>
+
+          {downloadsButton}
         </div>
 
-        <div class="downloads">
-          <button
-            onClick={e => this.toggleDownloadMenu() }
-            class="icon icon-box-add" title="Show Downloads"></button>
-        </div>
-      </div>
-
-      <div class="label">
-        <div class="text">
-          <a href={user_url} target="_blank" class="author">{user}</a>
-          <a href={url} target="_blank" title={title} class="title">{title}</a>
+        <div class="label">
+          <div class="text">
+            <a href={user_url} target="_blank" class="author">{user}</a>
+            <a href={url} target="_blank" title={title} class="title">{title}</a>
+          </div>
         </div>
       </div>
 
