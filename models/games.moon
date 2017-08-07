@@ -84,7 +84,7 @@ class Games extends Model
     return nil, "invalid type" unless event\is_ludumdare!
 
     client = event\get_client!
-    data = client\fetch_game(@uid, event.slug)
+    data, raw_page = client\fetch_game(@uid, event.slug)
 
     screenshots = data.screenshots or {}
 
@@ -93,6 +93,14 @@ class Games extends Model
       screenshots: next(screenshots) and to_json(screenshots) or db.NULL
       is_jam: data.is_jam
       have_details: true
+    }
+
+    import GameData from require "models"
+    GameData\create {
+      game_id: @id
+      data: {
+        page: raw_page
+      }
     }
 
     @refresh!

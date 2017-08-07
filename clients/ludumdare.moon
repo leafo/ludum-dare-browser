@@ -91,7 +91,7 @@ class LudumDare extends require "clients.base"
     url = "http://ludumdare.com/compo/#{comp}/?action=preview&uid=#{uid}"
     res, status = @http!.request url
     assert status == 200, "#{url} failed with #{status}"
-    parse_game_page res
+    parse_game_page(res), res
 
 if ... == "games"
   games = LudumDare!\fetch_list "ludum-dare-30"
