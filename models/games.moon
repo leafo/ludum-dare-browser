@@ -9,19 +9,20 @@ import to_json, from_json from require "lapis.util"
 --   id integer NOT NULL,
 --   comp character varying(255) NOT NULL,
 --   uid character varying(255) NOT NULL,
---   "user" character varying(255) NOT NULL,
+--   "user" text NOT NULL,
 --   url character varying(255) NOT NULL,
---   title character varying(255) NOT NULL,
---   downloads text NOT NULL,
+--   title text NOT NULL,
+--   downloads json,
 --   num_downloads integer DEFAULT 0 NOT NULL,
---   screenshots text,
+--   screenshots json,
 --   num_screenshots integer DEFAULT 0 NOT NULL,
 --   votes_received integer DEFAULT 0 NOT NULL,
 --   votes_given integer DEFAULT 0 NOT NULL,
 --   is_jam boolean,
 --   have_details boolean DEFAULT false NOT NULL,
 --   created_at timestamp without time zone NOT NULL,
---   updated_at timestamp without time zone NOT NULL
+--   updated_at timestamp without time zone NOT NULL,
+--   event_id integer
 -- );
 -- ALTER TABLE ONLY games
 --   ADD CONSTRAINT games_pkey PRIMARY KEY (id);
