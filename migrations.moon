@@ -2,7 +2,7 @@
 db = require "lapis.db.postgres"
 schema = require "lapis.db.schema"
 
-import create_table, create_index, drop_table from schema
+import create_table, create_index, drop_table, add_column from schema
 
 {
   :boolean, :varchar, :integer, :text, :foreign_key, :double, :time, :numeric, :serial, :enum
@@ -54,5 +54,34 @@ import create_table, create_index, drop_table from schema
   [2]: =>
     db.query "alter table games alter column title type text"
     db.query 'alter table games alter column "user" type text'
+
+  [3]: =>
+    create_table "events", {
+      {"id", serial}
+      {"slug", varchar null: true}
+      {"type", enum}
+      {"key", varchar null: true}
+      {"name", text}
+
+      {"start_date", time null: true}
+      {"end_date", time null: true}
+
+      {"created_at", time}
+      {"updated_at", time}
+
+      "PRIMARY KEY(id)"
+    }
+
+    create_index "events", "slug", unique: true
+
+    add_column "games", "event_id", foreign_key null: true
+
+    create_table "game_data", {
+      {"game_id", serial}
+      {"data", "json"}
+      "PRIMARY KEY (game_id)"
+    }
+
+
 }
 
