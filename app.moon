@@ -179,43 +179,22 @@ class LudumDare extends lapis.Application
     json: { games: games, count: games and #games }
 
   "/admin/scrape_games": =>
-    import ludumdare from require "clients"
-
-    games = ludumdare\fetch_list "ludum-dare-#{config.comp_id}"
-
+    event = Events\find "ludum-dare-#{config.comp_id}"
     import gettime from require "socket"
     start = gettime!
-    count = 0
-    @html ->
-      for game in *games
-        game.comp_name = config.comp_name
-        success, err = pcall ->
-          g, new_record = Games\create_or_update game
-          count += 1 if g
+    event\full_refresh!
 
-        unless success
-          pre "ERR: #{game.title}: #{err}"
+    json: {
+      event_id: event.id
+      time_taken: gettime! - start
+    }
 
-      pre "\n"
-      pre "Games: #{count}"
-      pre "Elapsed: #{gettime! - start}"
-
-  "/admin/game/:comp/:uid/image/:image_id/:size": =>
-    path = @req.parsed_url.path\match "^/admin(.*)"
-    signature = image_signature path
-    redirect_to: path .. "?sig=" .. signature
-
-  "/admin/refresh_image/:uid": =>
-    game = assert Games\find(comp: config.comp_name, uid: @params.uid), "missing game"
+  "/admin/refresh_image/:game_id": =>
+    game = assert Games\find(@params.game_id), "missing game"
     game\load_screenshot nil, true -- update master image
 
-    image_id = 1
-    commands = for size in *{"220x220", "340x340", "560x560"}
-      path = "/game/#{config.comp_name}/#{@params.uid}/image/#{image_id}/#{size}"
-      cache_name = "resized_" .. ngx.md5(path) .. ".png"
-
-      cmd = "rm cache/#{cache_name}"
-      { cmd, os.execute cmd }
+    -- TODO: purge image cache
+    -- sizes = {"220x220", "340x340", "560x560"}
 
     json: commands
 
