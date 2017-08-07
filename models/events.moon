@@ -12,7 +12,9 @@ import Model, enum, preload from require "lapis.db.model"
 --   start_date timestamp without time zone,
 --   end_date timestamp without time zone,
 --   created_at timestamp without time zone NOT NULL,
---   updated_at timestamp without time zone NOT NULL
+--   updated_at timestamp without time zone NOT NULL,
+--   games_count integer,
+--   last_refreshed_at timestamp without time zone
 -- );
 -- ALTER TABLE ONLY events
 --   ADD CONSTRAINT events_pkey PRIMARY KEY (id);
