@@ -6,6 +6,7 @@ class LDJam extends require "clients.base"
   api_url: "https://api.ldjam.com/vx"
 
   events: {
+    ld38: 9405
     ld39: 32802
   }
 
