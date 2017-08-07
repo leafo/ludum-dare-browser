@@ -1,7 +1,5 @@
 
-
 event_slug, uid = ...
-
 
 import Events from require "models"
 
@@ -11,7 +9,6 @@ unless event_slug
     event\full_refresh!
 
   return
-
 
 event = assert Events\find(slug: event_slug), "invalid event: #{event_slug}"
 if uid

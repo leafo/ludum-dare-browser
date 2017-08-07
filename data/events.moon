@@ -1,6 +1,64 @@
 -- all the events, imported into events table
 
 {
+  -- ldjam dares
+
+  -- classic ludum dares
+  {
+    name: "Ludum Dare 15"
+    slug: "ludum-dare-15"
+    type: "ludumdare"
+  }
+  {
+    name: "Ludum Dare 16"
+    slug: "ludum-dare-16"
+    type: "ludumdare"
+  }
+  {
+    name: "Ludum Dare 17"
+    slug: "ludum-dare-17"
+    type: "ludumdare"
+  }
+  {
+    name: "Ludum Dare 18"
+    slug: "ludum-dare-18"
+    type: "ludumdare"
+  }
+  {
+    name: "Ludum Dare 19"
+    slug: "ludum-dare-19"
+    type: "ludumdare"
+  }
+  {
+    name: "Ludum Dare 20"
+    slug: "ludum-dare-20"
+    type: "ludumdare"
+  }
+  {
+    name: "Ludum Dare 21"
+    slug: "ludum-dare-21"
+    type: "ludumdare"
+  }
+  {
+    name: "Ludum Dare 22"
+    slug: "ludum-dare-22"
+    type: "ludumdare"
+  }
+  {
+    name: "Ludum Dare 23"
+    slug: "ludum-dare-23"
+    type: "ludumdare"
+  }
+  {
+    name: "Ludum Dare 24"
+    slug: "ludum-dare-24"
+    type: "ludumdare"
+  }
+  {
+    name: "Ludum Dare 25"
+    slug: "ludum-dare-25"
+    type: "ludumdare"
+  }
   {
     name: "Ludum Dare 26"
     slug: "ludum-dare-26"
