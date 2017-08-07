@@ -20,7 +20,7 @@ class LDJam extends require "clients.base"
 
   event_game_ids: (node_id, limit=50, offset=0) =>
     params = encode_query_string { :offset, :limit }
-    res, status = @http!.request "#{@api_url}/node/feed/#{event}/all/item/game?#{params}"
+    res, status = @http!.request "#{@api_url}/node/feed/#{event}/parent/item/game?#{params}"
     @handle_json_response res, status, "event_game_ids"
 
   fetch_object: (id, ...) =>
