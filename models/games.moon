@@ -63,7 +63,7 @@ class Games extends Model
         continue unless key\match "^link%-%d+$"
         tag_id = data.meta["#{key}-tag"]
         platform = platforms_by_id[tostring tag_id]
-        name = platform or "Unknown"
+        name = platform or "Source code" -- who knows if this is right
         {label: name, href: val}
 
     table.sort downloads, (a, b) -> a.label < b.label
