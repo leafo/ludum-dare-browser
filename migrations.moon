@@ -108,5 +108,9 @@ import create_table, create_index, drop_table, add_column from schema
 
     create_index "collection_games", "event_id", "name"
     create_index "collection_games", "game_id"
+
+  [8]: =>
+    add_column "games", "user_url", varchar null: true
+
 }
 

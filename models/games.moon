@@ -46,13 +46,66 @@ class Games extends Model
     {"collection_games", has_many: "CollectionGames"}
   }
 
-  @create_from_ludumdare: (event, data, additional_data) =>
+  @create_from_ldjam: (event, data) =>
+    client = event\get_client!
+
+    primary = {
+      event_id: event.id
+      uid: assert tostring(data.id), "missing game id"
+    }
+
+    downloads =  do
+      tag_ids = [val for key, val in pairs data.meta when key\match "%-tag$"]
+      tag_types = client\fetch_objects tag_ids, cache: true
+      platforms_by_id = {tostring(t.id), t.name for t in *tag_types}
+
+      for key, val in pairs data.meta
+        continue unless key\match "^link%-%d+$"
+        tag_id = data.meta["#{key}-tag"]
+        platform = platforms_by_id[tostring tag_id]
+        name = platform or "Unknown"
+        {label: name, href: val}
+
+    table.sort downloads, (a, b) -> a.label < b.label
+
+    author = client\fetch_object data.author
+
+    screenshots = do
+      out = {}
+      if cover = data.meta.cover
+        table.insert out, cover
+
+      for url in data.body\gmatch "///raw/[^)]+"
+        table.insert out, url
+
+      -- remove dupes, format
+      image_domain = "http://static.jam.vg/"
+      seen = {}
+      out = for url in *out
+        continue if seen[url]
+        seen[url] = true
+        url\gsub("^///", image_domain)
+
+      out
+
+    update = {
+      title: data.name
+      user: author.name
+      user_url: author.slug
+      url: data.path
+      num_downloads: #downloads
+      downloads: downloads
+      num_screenshots: #screenshots
+      screenshots: screenshots
+      have_details: true
+    }
+
+    @insert_on_conflict_update primary, update
+
+  @create_from_ludumdare: (event, data) =>
     import insert_on_conflict_update, filter_update from require "helpers.model"
 
     data = {k,v for k,v in pairs data}
-    if additional_data
-      for k,v in pairs additional_data
-        data[k] = v
 
     primary = {
       event_id: event.id
@@ -68,10 +121,17 @@ class Games extends Model
       update[field] = data[field]
       update["num_#{field}"] = #(data[field] or {})
 
+    @insert_on_conflict_update primary, update
+
+  @insert_on_conflict_update: (primary, update) =>
+    import insert_on_conflict_update, filter_update from require "helpers.model"
+
     -- see if there were actually any changes
     if existing = @find primary
       test_update = filter_update existing, {k,v for k,v in pairs update}
       return nil, "already updated" unless next test_update
+
+    array_fields = {"downloads", "screenshots"}
 
     for field in *array_fields
       continue unless update[field]
@@ -183,7 +243,7 @@ class Games extends Model
     if event\is_ludumdare!
       "http://ludumdare.com/compo/#{event.slug}/" .. @url
 
-  user_url: =>
+  full_user_url: =>
     event = @get_event!
     if event\is_ludumdare!
       "http://ludumdare.com/compo/author/#{@user}/"

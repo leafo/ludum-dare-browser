@@ -58,7 +58,15 @@ class Events extends Model
         }
 
       when @@types.ldjam
-        error "not yet"
+        count = 0
+        for game in client\each_game assert @key, "missing event id"
+          Games\create_from_ldjam @, game
+          count += 1
+
+        @update {
+          last_refreshed_at: db.raw "now() at time zone 'utc'"
+          games_count: count
+        }
 
   get_client: =>
     switch @type

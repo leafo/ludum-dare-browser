@@ -140,7 +140,7 @@ class LudumDare extends lapis.Application
 
       row.screenshot_url = game\screenshot_url @, thumb_size
       row.url = game\full_url!
-      row.user_url = game\user_url!
+      row.user_url = game\full_user_url!
 
       row
 
