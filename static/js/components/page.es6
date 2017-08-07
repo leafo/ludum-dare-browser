@@ -44,7 +44,7 @@ export default class Page extends Component {
     }
 
     let xhr = new XMLHttpRequest()
-    xhr.open("GET", `/games/ludum-dare-37?${encodeQueryString(params)}`)
+    xhr.open("GET", `/games/${this.props.event_slug}?${encodeQueryString(params)}`)
 
     xhr.addEventListener("readystatechange", e => {
       if (xhr.readyState != 4) return
@@ -78,16 +78,18 @@ export default class Page extends Component {
   }
 
   render() {
+    let shareTitle = `${this.props.event_name} Game Browser`
+
     return <div class="game_browser">
       <div id="toolbar" class="sticky">
-        <h1 class="long_header">Ludum Dare 37 Games</h1>
-        <h1 class="short_header">LD37</h1>
+        <h1 class="long_header">{this.props.event_name} Games</h1>
+        <h1 class="short_header">{this.props.event_short_name}</h1>
 
         <div class="social_buttons">
           <a href="https://twitter.com/moonscript" class="twitter-follow-button" data-show-screen-name="false" data-show-count="false">Follow @moonscript</a>
           {" "}
 
-          <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ludumdare.itch.io" data-text="Ludum Dare 37 Game Browser" data-via="moonscript" data-related="moonscript">Tweet</a>
+          <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ludumdare.itch.io" data-text={shareTitle} data-via="moonscript" data-related="moonscript">Tweet</a>
         </div>
 
 
