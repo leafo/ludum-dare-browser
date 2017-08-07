@@ -76,7 +76,7 @@ parse_game_page = (content) ->
     link.href
 
   is_jam = content\match("Jam Entry") and true or false
-  { :uid, :screenshots, :is_jam }
+  { :screenshots, :is_jam }
 
 class LudumDare extends require "clients.base"
   -- comp: ludum-dare-28

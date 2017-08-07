@@ -132,8 +132,7 @@ class Games extends Model
       data: data
     }
 
-    gamee
-
+    game
 
   @insert_on_conflict_update: (primary, update) =>
     import insert_on_conflict_update, filter_update from require "helpers.model"
