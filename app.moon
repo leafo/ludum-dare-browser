@@ -57,14 +57,14 @@ class LudumDare extends lapis.Application
     game\fetch_details!
     json: game
 
-  [screenshot_sized: "/game/:comp/:uid/image/:image_id/:size"]: =>
+  [screenshot_sized: "/game/:game_id/image/:image_id/:size"]: =>
     image_id = tonumber(@params.image_id) or 1
 
-    signature = image_signature @req.parsed_url.path, false
+    signature = image_signature @req.parsed_url.path
     if @params.sig != signature
       return status: 403, "invalid signature"
 
-    game = Games\find comp: @params.comp, uid: @params.uid
+    game = Games\find @params.game_id
     return status: 404, "missing game" unless game
 
     cache_name = "resized_" .. ngx.md5(@req.parsed_url.path) .. ".png"
@@ -96,9 +96,9 @@ class LudumDare extends lapis.Application
     content_type: CONTENT_TYPES.png, layout: false, resized_blob
 
   -- get the raw image cached on our side
-  [screnshot_raw: "/game/:comp/:uid/image/:image_id"]: =>
+  [screnshot_raw: "/game/:game_id/image/:image_id"]: =>
     image_id = tonumber(@params.image_id) or 1
-    game = Games\find comp: @params.comp, uid: @params.uid
+    game = Games\find @params.game_id
     return status: 404, "missing game" unless game
 
     image_blob, ext_or_err, cache_hit = game\load_screenshot image_id

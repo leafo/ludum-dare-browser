@@ -112,13 +112,14 @@ class Games extends Model
     else
       @comp
 
-  parse_screenshots: =>
-    @fetch_details!
-    return nil unless @num_screenshots > 0 and @screenshots
-    from_json @screenshots
+  fetch_screenshots: =>
+    unless @screenshots
+      @fetch_details!
+
+    @screenshots
 
   load_screenshot: (i=1, skip_cache=false) =>
-    screens = @parse_screenshots!
+    screens = @fetch_screenshots!
     return nil, "no screenshots" unless screens
 
     original_url = screens[i]
@@ -147,10 +148,11 @@ class Games extends Model
 
     image_blob, raw_ext, cache_hit
 
+  -- gets the nth screenshot
   screenshot_url: (r, size, image_id=1) =>
     if size
       import image_signature from require "helpers.image_signature"
-      path = r\url_for "screenshot_sized", comp: @comp, uid: @uid, :image_id, :size
+      path = r\url_for "screenshot_sized", game_id: @id, :image_id, :size
       path .. "?sig=" .. image_signature path
     else
-      r\url_for "screnshot_raw", comp: @comp, uid: @uid, :image_id
+      r\url_for "screnshot_raw", game_id: @id, :image_id
