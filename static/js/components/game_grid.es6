@@ -131,6 +131,11 @@ export default class GameGrid extends Component {
   }
 
   render() {
+    let size = {
+      width: `${this.state.gameCellWidth}px`,
+      height: `${this.state.gameCellHeight}px`,
+    }
+
     return <div
       class={classNames("game_grid details_enabled", {show_labels: this.props.showDetails})}
       ref={ el => this.gameGridEl = el }
@@ -138,7 +143,7 @@ export default class GameGrid extends Component {
       {this.props.games.map(game => {
         return this.renderGame(game)
       })}
-      <div class="loader_cell" ref={ el => this.loaderEl = el}></div>
+      <div class="loader_cell" style={size} ref={ el => this.loaderEl = el}></div>
     </div>
   }
 
