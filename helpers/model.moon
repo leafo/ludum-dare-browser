@@ -46,5 +46,38 @@ insert_on_conflict_update = (model, primary, create, update) ->
   else
     nil, res
 
+values_equivalent = (a,b) ->
+  return true if a == b
 
-{ :insert_on_conflict_update }
+  if type(a) == "table" and type(b) == "table"
+    seen_keys = {}
+
+    for k,v in pairs a
+      seen_keys[k] = true
+      return false unless values_equivalent v, b[k]
+
+    for k,v in pairs b
+      continue if seen_keys[k]
+      return false unless values_equivalent v, a[k]
+
+    true
+  else
+    false
+
+-- remove fields that haven't changed
+filter_update = (model, update) ->
+  for key,val in pairs update
+    if model[key] == val
+      update[key] = nil
+
+    if val == db.NULL and model[key] == nil
+      update[key] = nil
+
+    if type(val) == "table"
+      if values_equivalent model[key], val
+        update[key] = nil
+
+  update
+
+
+{ :insert_on_conflict_update, :filter_update }
