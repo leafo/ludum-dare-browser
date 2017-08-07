@@ -4,7 +4,7 @@ import Games from require "models"
 fetch_jam = (id) ->
   import ludumdare from require "clients"
   comp_name = "ludum-dare-#{id}"
-  games = ludumdare\fetch_list id
+  games = ludumdare\fetch_list comp_name
   return nil, "invalid comp" unless games and next games
 
   for game in *games

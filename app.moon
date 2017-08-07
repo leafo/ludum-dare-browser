@@ -181,7 +181,7 @@ class LudumDare extends lapis.Application
   "/admin/scrape_games": =>
     import ludumdare from require "clients"
 
-    games = ludumdare\fetch_list config.comp_id
+    games = ludumdare\fetch_list "ludum-dare-#{config.comp_id}"
 
     import gettime from require "socket"
     start = gettime!

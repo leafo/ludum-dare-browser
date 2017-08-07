@@ -39,6 +39,10 @@ class Games extends Model
     "have_details"
   }
 
+  @relations: {
+    {"event", belongs_to: "Events"}
+  }
+
   @create_or_update: (data, game=nil) =>
     game = game or @find {
       comp: assert(data.comp_name, "missing comp_name from data")
@@ -69,12 +73,15 @@ class Games extends Model
     return if @have_details and not force
     import ludumdare from require "clients"
 
-    detailed = ludumdare\fetch_game @uid, assert @get_comp_id!
+    detailed = ludumdare\fetch_game @uid, assert @get_comp_slug!
     detailed.have_details = true
     @@create_or_update detailed, @
 
-  get_comp_id: =>
-    @comp\match "^ludum%-dare%-(%d+)$"
+  get_comp_slug: =>
+    if @event_id
+      @get_event!.slug
+    else
+      @comp
 
   parse_screenshots: =>
     @fetch_details!

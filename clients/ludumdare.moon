@@ -79,20 +79,22 @@ parse_game_page = (content) ->
   { :uid, :screenshots, :is_jam }
 
 class LudumDare extends require "clients.base"
-  fetch_list: (ld) =>
-    url = "http://ludumdare.com/compo/ludum-dare-#{ld}/?action=misc_links"
+  -- comp: ludum-dare-28
+  fetch_list: (comp) =>
+    url = "http://ludumdare.com/compo/#{comp}/?action=misc_links"
     res, status = @http!.request url
     assert status == 200, "#{url} failed with #{status}"
     parse_list res
 
-  fetch_game: (uid, ld) =>
-    url = "http://ludumdare.com/compo/ludum-dare-#{ld}/?action=preview&uid=#{uid}"
+  -- comp: ludum-dare-28
+  fetch_game: (uid, comp) =>
+    url = "http://ludumdare.com/compo/#{comp}/?action=preview&uid=#{uid}"
     res, status = @http!.request url
     assert status == 200, "#{url} failed with #{status}"
     parse_game_page res
 
 if ... == "games"
-  games = LudumDare!\fetch_list 30
+  games = LudumDare!\fetch_list "ludum-dare-30"
   -- file = io.open "games.html"
   -- res = with file\read "*a"
   --   file\close!
@@ -100,7 +102,7 @@ if ... == "games"
   require("moon").p games
 
 if ... == "game"
-  game = LudumDare!\fetch_game 22909, 26
+  game = LudumDare!\fetch_game 22909, "ludum-dare-36"
   require("moon").p game
 
 { :parse_list, :parse_game_page, :LudumDare }
