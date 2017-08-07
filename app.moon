@@ -38,9 +38,6 @@ search_downloads = (games=Games\select!, ...) ->
 
   found = {}
   for game in *games
-    if type(game.downloads) == "string"
-      game.downloads = json.decode game.downloads
-
     for d in *game.downloads
       if match(d.href, ...) or match(d.label, ...)
         table.insert found, game
@@ -114,7 +111,7 @@ class LudumDare extends lapis.Application
     event = Events\find slug: @params.event_slug
 
     unless event
-      return { status: 404, "not found" }
+      return { status: 404, "invalid event" }
 
     page = tonumber(@params.page) or 0
     limit = 40
@@ -174,7 +171,6 @@ class LudumDare extends lapis.Application
     thumb_size = sizes[@params.thumb_size] or sizes.medium
 
     for game in *games
-      game.downloads = json.decode game.downloads
       game.screenshot_url = game\screenshot_url @, thumb_size
       game.url = "http://ludumdare.com/compo/#{event.slug}/" .. game.url
       game.user_url = "http://ludumdare.com/compo/author/#{game.user}/"
