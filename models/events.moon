@@ -30,3 +30,30 @@ class Events extends Model
     super opts
 
 
+  is_ludumdare: => @type == @@types.ludumdare
+  is_ldjam: => @type == @@types.ldjam
+
+  -- refresh all the games and data
+  full_refresh: =>
+    import Games from require "models"
+    client = @get_client!
+
+    switch @type
+      when @@types.ludumdare
+        games = client\fetch_list @key or @slug
+
+        for game in *games
+          Games\create_from_ludumdare @, game
+
+      when @@types.ldjam
+        error "not yet"
+
+  get_client: =>
+    switch @type
+      when @@types.ludumdare
+        require("clients").ludumdare
+      when @@types.ldjam
+        require("clients").ldjam
+      else
+        error "no client"
+

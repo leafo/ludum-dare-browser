@@ -1,3 +1,4 @@
+db = require "lapis.db"
 import Model from require "lapis.db.model"
 
 config = require("lapis.config").get!
@@ -35,7 +36,7 @@ import to_json, from_json from require "lapis.util"
 class Games extends Model
   @timestamp: true
 
-  @simple_columns = {
+  @simple_fields = {
     "url", "title", "uid", "user", "votes_received", "votes_given", "is_jam",
     "have_details"
   }
@@ -44,39 +45,58 @@ class Games extends Model
     {"event", belongs_to: "Events"}
   }
 
-  @create_or_update: (data, game=nil) =>
-    game = game or @find {
-      comp: assert(data.comp_name, "missing comp_name from data")
-      uid: data.uid
+  @create_from_ludumdare: (event, data, additional_data) =>
+    import insert_on_conflict_update, filter_update from require "helpers.model"
+
+    data = {k,v for k,v in pairs data}
+    if additional_data
+      for k,v in pairs additional_data
+        data[k] = v
+
+    primary = {
+      event_id: event.id
+      uid: assert data.uid, "missing uuid"
     }
 
-    formatted = {k, data[k] for k in *@simple_columns}
+    array_fields = {"downloads", "screenshots"}
 
-    if downloads = data.downloads
-      formatted.downloads = to_json downloads
-      formatted.num_downloads = #downloads
+    update = {k, data[k] for k in *@simple_fields}
 
-    if screenshots = data.screenshots
-      formatted.screenshots = to_json screenshots
-      formatted.num_screenshots = #screenshots
+    for field in *array_fields
+      continue unless data[field]
+      update[field] = data[field]
+      update["num_#{field}"] = #(data[field] or {})
 
-    if game
-      for k,v in pairs formatted
-        formatted[k] = nil if v == game[k]
+    -- see if there were actually any changes
+    if existing = @find primary
+      test_update = filter_update existing, {k,v for k,v in pairs update}
+      return nil, "already updated" unless next test_update
 
-      game\update formatted
-      game, false
-    else
-      formatted.comp = data.comp_name
-      @create(formatted), true
+    for field in *array_fields
+      continue unless update[field]
+      update[field] = next(update[field]) and to_json(update[field]) or db.NULL
+
+    insert_on_conflict_update @, primary, update
 
   fetch_details: (force=false)=>
     return if @have_details and not force
-    import ludumdare from require "clients"
+    event = @get_event!
+    return nil, "invalid type" unless event\is_ludumdare!
 
-    detailed = ludumdare\fetch_game @uid, assert @get_comp_slug!
-    detailed.have_details = true
-    @@create_or_update detailed, @
+    client = event\get_client!
+    data = client\fetch_game(@uid, event.slug)
+
+    screenshots = data.screenshots or {}
+
+    @update {
+      num_screenshots: #screenshots
+      screenshots: next(screenshots) and to_json(screenshots) or db.NULL
+      is_jam: data.is_jam
+      have_details: true
+    }
+
+    @refresh!
+    @
 
   get_comp_slug: =>
     if @event_id
