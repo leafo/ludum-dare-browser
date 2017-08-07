@@ -30,24 +30,26 @@ class GameCell extends Component {
 
   toggleDownloadMenu() {
     this.setState({
-      downloadMenuOpen: true
+      downloadMenuOpen: !this.state.downloadMenuOpen
     })
   }
 
   render() {
     let {
-      url, user, user_url, title, uid, screenshot_url, votes_received,
+      url, user, user_url, title, id, screenshot_url, votes_received,
       votes_given
     } = this.props.game
 
     let downloadsMenu
 
     if (this.state.downloadMenuOpen) {
-      downloadsMenu = <div class="downloader arrow_box visible">
+      downloadsMenu = <ul class="downloader arrow_box visible">
         {this.props.game.downloads.map(download => {
-          return <a href={download.url}>{download.label}</a>
+          return <li>
+            <a href={download.href} target="_blank">{download.label}</a>
+          </li>
         })}
-      </div>
+      </ul>
     }
 
     let coolnessLabel = "Coolness"
@@ -56,8 +58,11 @@ class GameCell extends Component {
     }
 
     return <div
-      class={classNames("game_cell", { image_loading: !this.state.imageLoaded})}
-      data-uid={ uid }
+      class={classNames("game_cell", {
+        image_loading: !this.state.imageLoaded,
+        show_details: this.state.downloadMenuOpen
+      })}
+      data-id={ id }
       style={{
         width: this.props.width ? `${this.props.width}px` : null,
         height: this.props.height ? `${this.props.height}px` : null,
@@ -81,10 +86,8 @@ class GameCell extends Component {
           <button
             onClick={e => this.toggleDownloadMenu() }
             class="icon icon-box-add" title="Show Downloads"></button>
-          {downloadsMenu}
         </div>
       </div>
-
 
       <div class="label">
         <div class="text">
@@ -92,6 +95,8 @@ class GameCell extends Component {
           <a href={url} target="_blank" title={title} class="title">{title}</a>
         </div>
       </div>
+
+      {downloadsMenu}
     </div>
   }
 
