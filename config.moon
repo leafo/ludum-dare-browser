@@ -9,6 +9,7 @@ config {"development", "production", "test"}, ->
   num_connections 1024
 
   bypass_image_cache "0"
+  bypass_page_cache "0"
 
 config "development", ->
   code_cache "off"
@@ -18,6 +19,8 @@ config "development", ->
     backend: "pgmoon"
     database: "ludumdare"
   }
+
+  bypass_page_cache "1"
 
 config "production", ->
   port 10000
