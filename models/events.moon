@@ -59,7 +59,8 @@ class Events extends Model
 
       when @@types.ldjam
         count = 0
-        for game in client\each_game assert @key, "missing event id"
+        key = assert @key, "missing event id"
+        for game in client\each_game key
           Games\create_from_ldjam @, game
           count += 1
 
@@ -67,6 +68,21 @@ class Events extends Model
           last_refreshed_at: db.raw "now() at time zone 'utc'"
           games_count: count
         }
+
+    @refresh_collections!
+
+  refresh_collections: =>
+    games = @get_games!
+    for game in *games
+      game\refresh_collections!
+
+  summarize_collections: =>
+    import CollectionGames from require "models"
+    counts = db.query "
+      select name, count(*)
+      from #{db.escape_identifier CollectionGames\table_name!}
+      where event_id = ? group by 1
+    ", @id
 
   get_client: =>
     switch @type

@@ -184,9 +184,7 @@ class LudumDare extends lapis.Application
     start = gettime!
 
     for event in *events
-      games = event\get_games!
-      for game in *games
-        game\refresh_collections!
+      event\refresh_collections!
 
     counts = db.query "
       select name, count(*) from #{db.escape_identifier CollectionGames\table_name!} where event_id in ? group by 1
