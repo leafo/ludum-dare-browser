@@ -99,3 +99,8 @@ class Events extends Model
       else
         error "no client"
 
+
+  short_name: =>
+    num = @name\match "(%d+)$"
+    "LD#{num}"
+

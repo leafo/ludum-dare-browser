@@ -4,7 +4,7 @@ config = require("lapis.config").get!
 
 import Games, Events, CollectionGames from require "models"
 import preload from require "lapis.db.model"
-import respond_to from require "lapis.application"
+import respond_to, capture_errors_json, assert_error from require "lapis.application"
 import image_signature from require "helpers.image_signature"
 
 CONTENT_TYPES = {
@@ -65,6 +65,18 @@ class LudumDare extends lapis.Application
 
     ngx.header["x-image-cache"] = cache_hit and "hit" or "miss"
     content_type: CONTENT_TYPES[ext_or_err], layout: false, image_blob
+
+  "/events/:event_slug": capture_errors_json =>
+    event = Events\find slug: @params.event_slug
+    assert_error event, "invalid event"
+    json: {
+      event: {
+        id: event.id
+        slug: event.slug
+        name: event.name
+        short_name: event\short_name!
+      }
+    }
 
   "/games/:event_slug": =>
     event = Events\find slug: @params.event_slug
