@@ -242,11 +242,16 @@ class Games extends Model
     event = @get_event!
     if event\is_ludumdare!
       "http://ludumdare.com/compo/#{event.slug}/" .. @url
+    elseif event\is_ldjam!
+      "https://ldjam.com" .. @url
 
   full_user_url: =>
     event = @get_event!
     if event\is_ludumdare!
       "http://ludumdare.com/compo/author/#{@user}/"
+    elseif event\is_ldjam!
+      "https://ldjam.com/users/#{@user_url}"
+
 
 
 
