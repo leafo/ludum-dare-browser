@@ -8,6 +8,8 @@ config {"development", "production", "test"}, ->
   num_workers 1
   num_connections 1024
 
+  bypass_image_cache "0"
+
 config "development", ->
   code_cache "off"
   daemon "off"

@@ -57,6 +57,7 @@ class LudumDare extends lapis.Application
     game\fetch_details!
     json: game
 
+  -- this is cached by nginx
   [screenshot_sized: "/game/:game_id/image/:image_id/:size"]: =>
     image_id = tonumber(@params.image_id) or 1
 
@@ -67,17 +68,14 @@ class LudumDare extends lapis.Application
     game = Games\find @params.game_id
     return status: 404, "missing game" unless game
 
-    cache_name = "resized_" .. ngx.md5(@req.parsed_url.path) .. ".png"
-
     blob, err_or_ext = game\load_screenshot image_id
     return status: 404, err_or_ext unless blob
 
     -- bail on gif, we don't know how to resize
     if err_or_ext\lower! == "gif"
-      ngx.header["x-image-gif"] = "1"
       return content_type: CONTENT_TYPES.gif, layout: false, blob
 
-    magick = require "magick"
+    magick = require "magick.gmwand"
     img = magick.load_image_from_blob blob
     img\set_format "png"
     size = @params.size
@@ -87,12 +85,6 @@ class LudumDare extends lapis.Application
       size = size .. "#"
 
     resized_blob = magick.thumb img, size
-
-    with io.open "cache/#{cache_name}", "w"
-      \write resized_blob
-      \close!
-
-    ngx.header["x-image-cache"] = "miss"
     content_type: CONTENT_TYPES.png, layout: false, resized_blob
 
   -- get the raw image cached on our side
