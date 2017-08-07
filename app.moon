@@ -137,9 +137,11 @@ class LudumDare extends lapis.Application
 
     formatted = for game in *games
       row = {f, game[f] for f in *fields}
+
       row.screenshot_url = game\screenshot_url @, thumb_size
-      row.url = "http://ludumdare.com/compo/#{event.slug}/" .. game.url
-      row.user_url = "http://ludumdare.com/compo/author/#{game.user}/"
+      row.url = game\full_url!
+      row.user_url = game\user_url!
+
       row
 
     formatted = nil unless next formatted

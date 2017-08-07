@@ -177,3 +177,16 @@ class Games extends Model
       path .. "?sig=" .. image_signature path
     else
       r\url_for "screnshot_raw", game_id: @id, :image_id
+
+  full_url: =>
+    event = @get_event!
+    if event\is_ludumdare!
+      "http://ludumdare.com/compo/#{event.slug}/" .. @url
+
+  user_url: =>
+    event = @get_event!
+    if event\is_ludumdare!
+      "http://ludumdare.com/compo/author/#{@user}/"
+
+
+
