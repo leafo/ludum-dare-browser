@@ -22,7 +22,7 @@
 --   fetch_jam jamid
 
 import Events from require "models"
+for event in *Events\select!
+  print "Refreshing #{event.name}"
+  event\full_refresh!
 
-event = Events\find slug: "ludum-dare-28"
-require("moon").p event
-event\full_refresh!
