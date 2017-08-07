@@ -61,7 +61,7 @@ export default class Page extends Component {
     this.fetchGames(res => {
       this.setState({
         page: this.state.page + 1,
-        games: this.state.games.concat(res.games)
+        games: this.state.games.concat(res.games || [])
       })
       if (done) {
         done()
