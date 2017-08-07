@@ -88,4 +88,8 @@ class LDJam extends require "clients.base"
 
         offset += limit
 
+  fetch_platforms: =>
+    res, status = @request "#{@api_url}/tag/get/platform"
+    @handle_json_response res, status, "fetch_objects"
+
 {:LDJam}
