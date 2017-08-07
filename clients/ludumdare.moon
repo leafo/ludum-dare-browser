@@ -103,4 +103,4 @@ if ... == "game"
   game = LudumDare!\fetch_game 22909, 26
   require("moon").p game
 
-{ :parse_list, :parse_game_page, LudumDare }
+{ :parse_list, :parse_game_page, :LudumDare }

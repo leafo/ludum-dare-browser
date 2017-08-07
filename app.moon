@@ -5,7 +5,7 @@ import to_json, from_json from require "lapis.util"
 json = require "cjson"
 
 config = require("lapis.config").get!
-import Games, Collections from require "models"
+import Games, Events, Collections from require "models"
 
 import respond_to from require "lapis.application"
 import image_signature from require "helpers.image_signature"
@@ -50,9 +50,12 @@ search_downloads = (games=Games\select!, ...) ->
 
 
 class LudumDare extends lapis.Application
-  "/game/:comp/:uid": =>
-    game = Games\find comp: @params.comp, uid: @params.uid
-    return status: 404 unless game
+  "/game/:event_slug/:uid": =>
+    event = Events\find slug: @params.event_slug
+    return "invalid event", status: 404 unless event
+
+    game = Games\find event_id: event.id, uid: @params.uid
+    return "invalid game", status: 404 unless game
 
     game\fetch_details!
     json: game
@@ -107,8 +110,10 @@ class LudumDare extends lapis.Application
     ngx.header["x-image-cache"] = cache_hit and "hit" or "miss"
     content_type: CONTENT_TYPES[ext_or_err], layout: false, image_blob
 
-  "/games/:comp_name": =>
-    unless @params.comp_name\match "^ludum%-dare%-%d+$"
+  "/games/:event_slug": =>
+    event = Events\find slug: @params.event_slug
+
+    unless event
       return { status: 404, "not found" }
 
     page = tonumber(@params.page) or 0
@@ -145,21 +150,20 @@ class LudumDare extends lapis.Application
         select * from (
           select *, random() from #{Games\table_name!}
             #{inner_join}
-            where games.comp = ?
+            where games.event_id = ?
         ) g
           order by g.random asc
           limit ? offset ?;
         commit
-      ", seed, @params.comp_name, limit, offset
-
+      ", seed, event.id, limit, offset
 
       [Games\load(g) for g in *res[3]]
     else
       Games\select "
         #{inner_join}
-        where games.comp = ?
+        where games.event_id = ?
         #{sort}
-        limit ? offset ?", @params.comp_name, limit, offset
+        limit ? offset ?", event.id, limit, offset
 
     sizes = {
       small: "220x220"
@@ -172,7 +176,7 @@ class LudumDare extends lapis.Application
     for game in *games
       game.downloads = json.decode game.downloads
       game.screenshot_url = game\screenshot_url @, thumb_size
-      game.url = "http://ludumdare.com/compo/#{game.comp}/" .. game.url
+      game.url = "http://ludumdare.com/compo/#{event.slug}/" .. game.url
       game.user_url = "http://ludumdare.com/compo/author/#{game.user}/"
 
     games = nil unless next games
