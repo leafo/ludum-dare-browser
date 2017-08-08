@@ -186,7 +186,7 @@ class LudumDare extends lapis.Application
   "/admin/make_collections": =>
     event_slug = @params.event_slug or "ludum-dare-#{config.comp_id}"
 
-    events = if event_slug
+    events = if event_slug != "all"
       {(assert Events\find(slug: event_slug), "invalid event: #{event_slug}")}
     else
       Events\select!
