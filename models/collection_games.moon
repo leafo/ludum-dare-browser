@@ -31,7 +31,7 @@ class CollectionGames extends Model
 
     linux: { "Linux", {"linux"} }
     windows: { "Windows", {"windows", "win32"} }
-    osx: { "OSX", {"os/x", "osx", "os x"} }
+    osx: { "OSX", {"os/x", "osx", "os x", "macos"} }
     android: { "Android", {"android"} }
     itchio: {"itch.io", {"itch\\.io", "itch", "itchio"} }
   }
