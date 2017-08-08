@@ -3,6 +3,12 @@ $bg: #222;
 $sticky_height: 50px;
 $link_color: #a57393;
 
+
+:focus {
+    outline-color: $link_color;
+}
+
+
 @mixin unselectable {
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -88,6 +94,24 @@ body {
     }
 
     .tools {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+
+        .search_form {
+            display: inline-block;
+            margin: 0 20px 0 0;
+            input[type='text'] {
+                width: 230px;
+                font-size: 16px;
+                border-radius: 4px;
+                background: white;
+                border: 1px solid #dadada;
+                padding: 4px 12px;
+                margin: 0;
+            }
+        }
+
         .icon {
             color: #aaa;
             font-size: 16px;

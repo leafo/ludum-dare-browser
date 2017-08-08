@@ -39,6 +39,8 @@ export default class UserPage extends BaseGridPage {
       </div>
 
       <div class="jam_picker">
+        <a href="/">Return home</a>
+        <div class="spacer"></div>
         <strong>Profile links: </strong>
         <ul>
           {links.map(obj => {
@@ -48,8 +50,6 @@ export default class UserPage extends BaseGridPage {
           })}
           {links.length ? null : "None"}
         </ul>
-        <div class="spacer"></div>
-        <a href="/">Return home</a>
       </div>
 
       {

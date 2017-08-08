@@ -100,6 +100,8 @@ export default class Page extends BaseGridPage {
         <div class="spacer"></div>
 
         <div class="tools">
+          {this.renderSearchForm()}
+
           <span class="icon icon-paragraph-justify"></span>
           <DropDownPicker
             onChange={val => this.updateFilter({collection: val})}

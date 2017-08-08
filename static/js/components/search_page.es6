@@ -31,6 +31,7 @@ export default class SearchPage extends BaseGridPage {
         <h1>Searching for '{this.props.searchQuery}'</h1>
         <div class="spacer"></div>
         <div class="tools">
+          {this.renderSearchForm()}
           {this.renderSizePicker()}
           {this.renderDetailsToggle()}
         </div>

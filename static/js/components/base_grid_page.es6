@@ -19,6 +19,14 @@ export default class BaseGridPage extends Component {
     return out.join("&")
   }
 
+  renderSearchForm() {
+    return <form action="/search" class="search_form">
+      <input
+        placeholder="Search games or creators..."
+        type="text" name="q" defaultValue={this.props.searchQuery} />
+    </form>
+  }
+
   renderDetailsToggle() {
     return <label title="Show Details" class="details_toggle">
       <input
