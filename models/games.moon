@@ -178,7 +178,7 @@ class Games extends Model
 
   refresh_collections: =>
     import CollectionGames from require "models"
-    existing = {cg.name, true for cg in *@get_collection_games!}
+    existing = {cg.name, cg for cg in *@get_collection_games!}
 
     for c in *CollectionGames\scan_game @
       if existing[c]
@@ -191,7 +191,7 @@ class Games extends Model
         event_id: @event_id
       }
 
-    for to_delete in pairs existing
+    for _, to_delete in pairs existing
       to_delete\delete!
 
     true

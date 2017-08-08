@@ -79,6 +79,8 @@ class Events extends Model
 
   refresh_collections: =>
     games = @get_games!
+    preload games, "collection_games"
+
     for game in *games
       game\refresh_collections!
 
