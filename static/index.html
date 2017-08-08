@@ -21,6 +21,14 @@
   </script>
 </head>
 <body>
+  <script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    Raven.config("https://de4bf6d74e4546ae960c4ee57b6eefea@sentry.io/201288", {
+      whitelistUrls: [ /https?:\/\/([^.]+\.)?itch\.io/ ],
+      includePaths: [ /https?:\/\/([^.]+\.)?itch\.io/ ],
+      ignoreErrors: ['top.GLOBALS']
+    }).install()
+  </script>
   <script type="text/javascript" src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default&unknown=polyfill"></script>
   <script type="text/javascript" src="/static/bundle.min.js?<!--# echo var="cache_buster" -->"></script>
   <script type="text/javascript">
