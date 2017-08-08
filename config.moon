@@ -29,6 +29,7 @@ config "production", ->
   num_connections 1024*8
   code_cache "on"
   daemon "on"
+  logging false
 
   postgres {
     backend: "pgmoon"
