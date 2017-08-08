@@ -14,6 +14,10 @@ CONTENT_TYPES = {
 }
 
 class LudumDare extends lapis.Application
+  dispatch: (r, ...) =>
+    r.parsed_url.path = ngx.var.uri -- allow subrequest path to get sent down
+    super r, ...
+
   "/game/:event_slug/:uid": =>
     event = Events\find slug: @params.event_slug
     return "invalid event", status: 404 unless event
@@ -65,6 +69,9 @@ class LudumDare extends lapis.Application
 
     ngx.header["x-image-cache"] = cache_hit and "hit" or "miss"
     content_type: CONTENT_TYPES[ext_or_err], layout: false, image_blob
+
+  "/events": capture_errors_json =>
+    json: {}
 
   "/events/:event_slug": capture_errors_json =>
     event = Events\find slug: @params.event_slug
