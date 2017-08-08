@@ -71,19 +71,16 @@ class LudumDare extends lapis.Application
     content_type: CONTENT_TYPES[ext_or_err], layout: false, image_blob
 
   "/events": capture_errors_json =>
-    json: {}
+    events = Events\select "order by slug desc"
+    json: {
+      events: [@flow("formatter")\event e for e in *events]
+    }
 
   "/events/:event_slug": capture_errors_json =>
     event = Events\find slug: @params.event_slug
     assert_error event, "invalid event"
     json: {
-      event: {
-        id: event.id
-        slug: event.slug
-        name: event.name
-        short_name: event\short_name!
-        url: @url_for event
-      }
+      event: @flow("formatter")\event event
     }
 
   "/games/:event_slug": =>
@@ -159,14 +156,7 @@ class LudumDare extends lapis.Application
     }
 
     formatted = for game in *games
-      row = {f, game[f] for f in *fields}
-
-      row.screenshot_url = game\screenshot_url @, thumb_size
-      row.url = game\full_url!
-      row.user_url = game\full_user_url!
-      row.type = Events.types\to_name event.type
-
-      row
+      @flow("formatter")\game game, thumb_size
 
     formatted = nil unless next formatted
     json: { games: formatted, count: formatted and #formatted }
