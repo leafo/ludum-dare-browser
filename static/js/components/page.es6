@@ -25,6 +25,7 @@ export default class Page extends Component {
     super(props)
     this.state = {
       page: 0,
+      hasMore: true,
       showDetails: false,
       cellSize: "medium",
       randomSeed: Math.floor(Math.random() * 100000),
@@ -61,10 +62,17 @@ export default class Page extends Component {
 
   loadNextPage(done) {
     this.fetchGames(res => {
-      this.setState({
-        page: this.state.page + 1,
-        games: this.state.games.concat(res.games || [])
-      })
+      if (!res.games) {
+        this.setState({
+          hasMore: false
+        })
+      } else {
+        this.setState({
+          page: this.state.page + 1,
+          games: this.state.games.concat(res.games || [])
+        })
+      }
+
       if (done) {
         done()
       }
@@ -167,6 +175,7 @@ export default class Page extends Component {
       </div>
       {
         this.state.games ? <GameGrid
+          hasMore={this.state.hasMore}
           cellSize={this.state.cellSize}
           ref={grid => this.currentGrid = grid}
           games={this.state.games}

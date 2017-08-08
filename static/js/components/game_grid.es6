@@ -120,6 +120,10 @@ export default class GameGrid extends Component {
         return
       }
 
+      if (!this.loaderEl) {
+        return
+      }
+
       if (window.document.body.scrollTop + window.innerHeight > this.loaderEl.offsetTop) {
         this.setState({
           loading: true
@@ -154,6 +158,12 @@ export default class GameGrid extends Component {
       height: `${this.state.gameCellHeight}px`,
     }
 
+    let loader
+
+    if (this.props.hasMore) {
+      loader = <div class="loader_cell" style={size} ref={ el => this.loaderEl = el}></div>
+    }
+
     return <div
       class={classNames("game_grid details_enabled", {show_labels: this.props.showDetails})}
       ref={ el => this.gameGridEl = el }
@@ -161,7 +171,7 @@ export default class GameGrid extends Component {
       {this.props.games.map(game => {
         return this.renderGame(game)
       })}
-      <div class="loader_cell" style={size} ref={ el => this.loaderEl = el}></div>
+      {loader}
     </div>
   }
 
