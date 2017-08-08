@@ -84,11 +84,30 @@ class LudumDare extends lapis.Application
       event: @flow("formatter")\event event
     }
 
-  "/games/:event_slug": =>
+  "/users/:username/games": capture_errors_json =>
+    @res\add_header "Cache-Control", "no-store"
+
+    page = tonumber(@params.page) or 0
+    limit = 40
+    offset = page * limit
+
+    games = Games\select [[
+      inner join events on events.id = event_id
+      where "user" % ?
+      order by similarity("user", ?) desc, events.slug desc
+      limit ? offset ?
+    ]], @params.username, @params.username, limit, offset, {
+      fields: "games.*"
+    }
+
+    json: {
+      games: [@flow("formatter")\game g for g in *games]
+    }
+
+  "/games/:event_slug": capture_errors_json =>
     event = Events\find slug: @params.event_slug
 
-    unless event
-      return { status: 404, "invalid event" }
+    assert_error event, "invalid event"
 
     page = tonumber(@params.page) or 0
     limit = 40

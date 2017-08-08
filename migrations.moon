@@ -112,5 +112,10 @@ import create_table, create_index, drop_table, add_column from schema
   [8]: =>
     add_column "games", "user_url", varchar null: true
 
+  [9]: =>
+    db.query [[create extension if not exists pg_trgm]]
+    db.query [[create index games_user on games using gin("user" gin_trgm_ops)]]
+    db.query [[create index games_title on games using gin(title gin_trgm_ops)]]
+
 }
 
