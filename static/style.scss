@@ -553,7 +553,7 @@ body {
     }
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1100px) {
     .sticky {
         h1.long_header {
             display: none;
@@ -561,12 +561,6 @@ body {
         h1.short_header {
             display: inline-block;
         }
-    }
-}
-
-@media (max-width: 845px) {
-    .sticky .social_buttons {
-        display: none;
     }
 }
 
