@@ -183,7 +183,6 @@ export default class Page extends Component {
     }
 
     let displayEvents = events.filter(e => e.slug != this.props.event.slug)
-    console.log(displayEvents)
 
     let eventElements = displayEvents.map(e => {
       return <li class="event">
