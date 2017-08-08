@@ -98,7 +98,7 @@ class GameCell extends Component {
 
         <div class="label">
           <div class="text">
-            <a href={user_url} target="_blank" class="author">{user}</a>
+            <a href={`/u/${user}`} class="author">{user}</a>
             <a href={url} target="_blank" title={title} class="title">{title}</a>
           </div>
         </div>
