@@ -182,10 +182,35 @@ body {
     background: rgba(white, 0.1);
     font-size: 16px;
     margin-bottom: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 50px;
+    box-sizing: border-box;
+
+    &:hover {
+        overflow-x: auto;
+    }
+
+    ul {
+        list-style: none;
+        display: inline-block;
+        margin: 0;
+        padding: 0
+    }
+
+    li {
+        padding: 0;
+        margin: 0;
+        display: inline-block;
+    }
 
     a {
         color: inherit;
         margin-left: 10px;
+    }
+
+    .games_count {
+        opacity: 0.8;
     }
 }
 

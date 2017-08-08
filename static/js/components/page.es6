@@ -5,6 +5,8 @@ import PillPicker from "ld/components/pill_picker"
 import DropDownPicker from "ld/components/drop_down_picker"
 import GameGrid from "ld/components/game_grid"
 
+import {events} from "ld/events"
+
 function encodeQueryString(obj) {
   let out = []
   for (let k in obj) {
@@ -155,11 +157,7 @@ export default class Page extends Component {
         </div>
       </div>
 
-      <div class="jam_picker">
-        <strong>More jams:</strong>
-        <a href="/jam/ludum-dare-38">Ludum Dare 38</a>
-        <a href="/jam/ludum-dare-37">Ludum Dare 37</a>
-      </div>
+      {this.renderEventPicker()}
 
       <div class="itch_banner">
         <span class="icon-heart icon"></span>
@@ -176,6 +174,28 @@ export default class Page extends Component {
           loadNextPage={this.loadNextPage.bind(this)}
         /> : null
       }
+    </div>
+  }
+
+  renderEventPicker() {
+    if (!events || !events.length) {
+      return
+    }
+
+    let displayEvents = events.filter(e => e.slug != this.props.event.slug)
+    console.log(displayEvents)
+
+    let eventElements = displayEvents.map(e => {
+      return <li class="event">
+        <a href={e.url}>{e.short_name || e.name}</a>
+        {" "}
+        <span class="games_count">({e.games_count})</span>
+      </li>
+    })
+
+    return <div class="jam_picker">
+      <strong>Previous jams:</strong>
+      <ul>{eventElements}</ul>
     </div>
   }
 }

@@ -6,12 +6,10 @@ import NotFoundPage from "ld/components/not_found_page"
 import { render, h } from "preact"
 import { Router } from "preactRouter"
 
+import events from "ld/events"
+
 export function init() {
-  let defaultEvent = {
-    slug: "ludum-dare-39",
-    name: "Ludum Dare 39",
-    short_name: "LD39",
-  }
+  let defaultEvent = events.events.find(e => e.slug == events.default_event)
 
   let page = <Router>
     <Page path="/" key={defaultEvent.slug} event={defaultEvent} />

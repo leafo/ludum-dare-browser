@@ -73,6 +73,7 @@ class LudumDare extends lapis.Application
   "/events": capture_errors_json =>
     events = Events\select "order by slug desc"
     json: {
+      default_event: "ludum-dare-#{config.comp_id}"
       events: [@flow("formatter")\event e for e in *events]
     }
 

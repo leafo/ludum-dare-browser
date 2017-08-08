@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Ludum Dare Games Browser</title>
-  <link rel="stylesheet" href="/static/style.css?3" />
+  <link rel="stylesheet" href="/static/style.css?10" />
   <link rel="stylesheet" href="/static/icons/style.css" />
 
   <script type="text/javascript">
@@ -23,7 +23,7 @@
 <body>
   <script type="text/javascript" src="/static/bundle.js"></script>
   <script type="text/javascript">
-    define("events", { events: <!--# include virtual="/events" --> })
+    define("ld/events", <!--# include virtual="/events" -->)
     require(["ld/init"], function(m) { m.init() })
   </script>
 </body>

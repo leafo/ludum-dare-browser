@@ -13,7 +13,7 @@ class FormatterFlow extends Flow
       name: event.name
       short_name: event\short_name!
       games_count: event.games_count
-      last_refreshed_at: event.last_refreshed_at
+      last_refreshed_at: event.last_refreshed_at and event.last_refreshed_at\gsub "%.%d+$", ""
       url: @url_for event
     }
 
