@@ -221,14 +221,20 @@ class LudumDare extends lapis.Application
     json: { games: formatted, count: formatted and #formatted }
 
   "/admin/scrape_games": =>
-    event = Events\find slug: "ludum-dare-#{config.comp_id}"
+    event_slug = @params.event_slug or "ludum-dare-#{config.comp_id}"
+
+    events = if event_slug != "all"
+      {(assert Events\find(slug: event_slug), "invalid event: #{event_slug}")}
+    else
+      Events\select!
+
     import gettime from require "socket"
     start = gettime!
-    event\full_refresh!
+    for event in *events
+      event\full_refresh!
 
     json: {
-      event_id: event.id
-      games_count: event.games_count
+      events: {e.slug, e.games_count for e in *events}
       time_taken: gettime! - start
     }
 
