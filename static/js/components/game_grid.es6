@@ -124,7 +124,9 @@ export default class GameGrid extends Component {
         return
       }
 
-      if (window.document.body.scrollTop + window.innerHeight > this.loaderEl.offsetTop) {
+      let scroll = document.documentElement.scrollTop || document.body.scrollTop || 0
+
+      if (scroll + window.innerHeight > this.loaderEl.offsetTop) {
         this.setState({
           loading: true
         })
