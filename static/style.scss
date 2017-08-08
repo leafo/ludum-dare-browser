@@ -28,7 +28,7 @@ body {
     margin: 0;
     font-family: Lato, sans-serif;
 
-    padding-top: $sticky_height + 10px;
+    padding-top: $sticky_height;
 }
 
 .itch_banner {
@@ -179,7 +179,9 @@ body {
 .jam_picker {
     color: white;
     padding: 15px 20px 15px 20px;
+    background: rgba(white, 0.1);
     font-size: 16px;
+    margin-bottom: 10px;
 
     a {
         color: inherit;

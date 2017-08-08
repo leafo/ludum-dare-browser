@@ -75,6 +75,7 @@ class LudumDare extends lapis.Application
         slug: event.slug
         name: event.name
         short_name: event\short_name!
+        url: @url_for event
       }
     }
 
@@ -210,3 +211,6 @@ class LudumDare extends lapis.Application
       :counts
     }
 
+  -- routed by nginx
+  [home: "/"]: =>
+  [event: "/jam/:slug"]: =>
