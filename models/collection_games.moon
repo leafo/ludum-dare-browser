@@ -13,8 +13,6 @@ class CollectionGames extends Model
   @COLLECTIONS: {
     love: { "Love", {"love", "love2d"} }
     python: { "Python", {"python", "pygame"} }
-    unity: { "Unity", {"unity"} }
-    xna: { "XNA", {"xna"} }
     flash: { "Flash", {"flash", "swf"} }
     html5: { "HTML5", {"html5"} }
     java: { "Java", {"java", "jar"} }
@@ -23,6 +21,7 @@ class CollectionGames extends Model
     windows: { "Windows", {"windows", "win32"} }
     osx: { "OSX", {"os/x", "osx", "os x"} }
     android: { "Android", {"android"} }
+    itchio: {"itch.io", {"itch\\.io", "itch", "itchio"} }
   }
 
   @create: (opts) =>

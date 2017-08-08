@@ -124,8 +124,7 @@ export default class Page extends Component {
               {value: "html5", label: "HTML5"},
               {value: "java", label: "Java"},
               {value: "love", label: "LÖVE"},
-              {value: "unity", label: "Unity"},
-              {value: "xna", label: "XNA"},
+              {value: "itchio", label: "itch.io"},
             ]}/>
 
           <DropDownPicker
