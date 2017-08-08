@@ -176,6 +176,17 @@ body {
     }
 }
 
+.jam_picker {
+    color: white;
+    padding: 15px 20px 15px 20px;
+    font-size: 16px;
+
+    a {
+        color: inherit;
+        margin-left: 10px;
+    }
+}
+
 .game_grid {
     margin-left: 20px;
 }

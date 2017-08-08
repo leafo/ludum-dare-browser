@@ -155,6 +155,12 @@ export default class Page extends Component {
         </div>
       </div>
 
+      <div class="jam_picker">
+        <strong>More jams:</strong>
+        <a href="/jam/ludum-dare-38">Ludum Dare 38</a>
+        <a href="/jam/ludum-dare-37">Ludum Dare 37</a>
+      </div>
+
       <div class="itch_banner">
         <span class="icon-heart icon"></span>
         Into indie game development? Check out my other

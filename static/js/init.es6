@@ -14,7 +14,7 @@ export function init() {
   }
 
   let page = <Router>
-    <Page path="/" event={defaultEvent} />
+    <Page path="/" key={defaultEvent.slug} event={defaultEvent} />
     <AsyncEventPage path="/jam/:eventSlug" />
     <NotFoundPage default />
   </Router>

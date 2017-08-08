@@ -5,7 +5,22 @@ import NotFoundPage from "ld/components/not_found_page"
 
 export default class AsyncEventPage extends Component {
   componentDidMount() {
-    this.loadEvent(res => {
+    this.loadEvent()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.eventSlug != this.props.eventSlug) {
+      this.loadEvent()
+    }
+  }
+
+  loadEvent() {
+    this.setState({
+      event: null,
+      notFound: false
+    })
+
+    this.getEvent(res => {
       if (res.event) {
         this.setState({ event: res.event })
       } else {
@@ -14,7 +29,7 @@ export default class AsyncEventPage extends Component {
     })
   }
 
-  loadEvent(callback) {
+  getEvent(callback) {
     let xhr = new XMLHttpRequest()
     xhr.open("GET", `/events/${this.props.eventSlug}`)
 
@@ -31,7 +46,7 @@ export default class AsyncEventPage extends Component {
 
   render() {
     if (this.state.event) {
-      return <Page event={this.state.event} />
+      return <Page key={this.state.event.slug} event={this.state.event} />
     }
 
     if (this.state.notFound) {
