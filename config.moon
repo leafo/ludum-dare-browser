@@ -9,10 +9,12 @@ config {"development", "production", "test"}, ->
 
   bypass_image_cache "0"
   bypass_page_cache "0"
+  notice_log "logs/notice.log"
 
 config "development", ->
   code_cache "off"
   daemon "off"
+  notice_log "stderr"
 
   postgres {
     backend: "pgmoon"
@@ -40,6 +42,7 @@ config "production", ->
 config "test", ->
   code_cache "on"
   daemon "off"
+  notice_log "stderr"
 
   postgres {
     database: "ludumdare_test"
