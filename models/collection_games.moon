@@ -2,6 +2,18 @@ db = require "lapis.db"
 import Model from require "lapis.db.model"
 
 
+-- Generated schema dump: (do not edit)
+--
+-- CREATE TABLE collection_games (
+--   name character varying(255) NOT NULL,
+--   event_id integer NOT NULL,
+--   game_id integer NOT NULL
+-- );
+-- ALTER TABLE ONLY collection_games
+--   ADD CONSTRAINT collection_games_pkey PRIMARY KEY (name, game_id);
+-- CREATE INDEX collection_games_event_id_name_idx ON collection_games USING btree (event_id, name);
+-- CREATE INDEX collection_games_game_id_idx ON collection_games USING btree (game_id);
+--
 class CollectionGames extends Model
   @primary_key: {"name", "game_id"}
 

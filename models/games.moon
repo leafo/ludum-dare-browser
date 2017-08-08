@@ -23,13 +23,16 @@ import to_json, from_json from require "lapis.util"
 --   have_details boolean DEFAULT false NOT NULL,
 --   created_at timestamp without time zone NOT NULL,
 --   updated_at timestamp without time zone NOT NULL,
---   event_id integer
+--   event_id integer,
+--   user_url character varying(255)
 -- );
 -- ALTER TABLE ONLY games
 --   ADD CONSTRAINT games_pkey PRIMARY KEY (id);
 -- CREATE INDEX games_comp_title_idx ON games USING btree (comp, title);
 -- CREATE UNIQUE INDEX games_comp_uid_idx ON games USING btree (comp, uid);
 -- CREATE UNIQUE INDEX games_event_id_uid_idx ON games USING btree (event_id, uid);
+-- CREATE INDEX games_title ON games USING gin (title gin_trgm_ops);
+-- CREATE INDEX games_user ON games USING gin ("user" gin_trgm_ops);
 -- CREATE INDEX games_votes_given_idx ON games USING btree (votes_given);
 -- CREATE INDEX games_votes_received_idx ON games USING btree (votes_received);
 --
