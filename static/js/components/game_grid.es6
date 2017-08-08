@@ -137,7 +137,7 @@ export default class GameGrid extends Component {
     window.addEventListener("scroll", this.scrollListener)
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     window.removeEventListener("resize", this.resizeListener)
     window.removeEventListener("scroll", this.scrollListener)
   }
