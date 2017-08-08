@@ -6,6 +6,14 @@ import Games, Events, CollectionGames from require "models"
 import preload from require "lapis.db.model"
 import respond_to, capture_errors_json, assert_error from require "lapis.application"
 import image_signature from require "helpers.image_signature"
+import assert_valid from require "lapis.validate"
+
+THUMB_SIZES = {
+  small: "220x220"
+  medium: "340x340"
+  large: "560x560"
+}
+
 
 CONTENT_TYPES = {
   jpg: "image/jpeg"
@@ -84,6 +92,36 @@ class LudumDare extends lapis.Application
       event: @flow("formatter")\event event
     }
 
+  "/search/games": capture_errors_json =>
+    assert_valid @params, {
+      {"q", exists: true, type: "string"}
+    }
+
+    query = @params.q
+
+    page = tonumber(@params.page) or 0
+    limit = 40
+    offset = page * limit
+
+    games = Games\select [[
+      inner join events on events.id = event_id
+      where title % ? or "user" % ?
+      order by greatest(similarity(title, ?), similarity("user", ?)) desc, events.slug desc
+      limit ? offset ?
+    ]], query, query, query, query, limit, offset, {
+      fields: "games.*"
+    }
+
+    preload games, "event"
+
+    thumb_size = THUMB_SIZES[@params.thumb_size] or THUMB_SIZES.medium
+    formatted_games = [@flow("formatter")\game g, thumb_size for g in *games]
+
+    json: {
+      games: next(formatted_games) and formatted_games or nil
+    }
+
+
   "/users/:username/games": capture_errors_json =>
     @res\add_header "Cache-Control", "no-store"
 
@@ -102,7 +140,10 @@ class LudumDare extends lapis.Application
       fields: "games.*"
     }
 
-    formatted_games = [@flow("formatter")\game g for g in *games]
+    preload games, "event"
+
+    thumb_size = THUMB_SIZES[@params.thumb_size] or THUMB_SIZES.medium
+    formatted_games = [@flow("formatter")\game g, thumb_size for g in *games]
 
     json: {
       games: next(formatted_games) and formatted_games or nil
@@ -167,13 +208,7 @@ class LudumDare extends lapis.Application
 
     preload games, "event"
 
-    sizes = {
-      small: "220x220"
-      medium: "340x340"
-      large: "560x560"
-    }
-
-    thumb_size = sizes[@params.thumb_size] or sizes.medium
+    thumb_size = THUMB_SIZES[@params.thumb_size] or THUMB_SIZES.medium
 
     fields = {
       "id", "downloads", "title", "votes_given", "votes_received", "is_jam", "user", "uid", "screenshots"
@@ -202,7 +237,6 @@ class LudumDare extends lapis.Application
     game\load_screenshot nil, true -- update master image
 
     -- TODO: purge image cache
-    -- sizes = {"220x220", "340x340", "560x560"}
     json: {}
 
   --

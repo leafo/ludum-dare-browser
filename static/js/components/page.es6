@@ -8,18 +8,6 @@ import GameGrid from "ld/components/game_grid"
 
 import {events} from "ld/events"
 
-function encodeQueryString(obj) {
-  let out = []
-  for (let k in obj) {
-    if (!obj.hasOwnProperty(k)) {
-      continue
-    }
-
-    out.push(`${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`)
-  }
-
-  return out.join("&")
-}
 
 export default class Page extends BaseGridPage {
   constructor(props) {
@@ -48,7 +36,7 @@ export default class Page extends BaseGridPage {
     }
 
     let xhr = new XMLHttpRequest()
-    xhr.open("GET", `/games/${this.props.event.slug}?${encodeQueryString(params)}`)
+    xhr.open("GET", `/games/${this.props.event.slug}?${this.encodeQueryString(params)}`)
 
     xhr.addEventListener("readystatechange", e => {
       if (xhr.readyState != 4) return

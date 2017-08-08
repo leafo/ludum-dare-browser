@@ -6,6 +6,19 @@ import PillPicker from "ld/components/pill_picker"
 import DropDownPicker from "ld/components/drop_down_picker"
 
 export default class BaseGridPage extends Component {
+  encodeQueryString(obj) {
+    let out = []
+    for (let k in obj) {
+      if (!obj.hasOwnProperty(k)) {
+        continue
+      }
+
+      out.push(`${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`)
+    }
+
+    return out.join("&")
+  }
+
   renderDetailsToggle() {
     return <label title="Show Details" class="details_toggle">
       <input
