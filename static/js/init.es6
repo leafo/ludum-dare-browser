@@ -1,5 +1,6 @@
 
 import Page from "ld/components/page"
+import UserPage from "ld/components/user_page"
 import AsyncEventPage from "ld/components/async_event_page"
 import NotFoundPage from "ld/components/not_found_page"
 
@@ -14,6 +15,7 @@ export function init() {
   let page = <Router>
     <Page path="/" key={defaultEvent.slug} event={defaultEvent} />
     <AsyncEventPage path="/jam/:eventSlug" />
+    <UserPage path="/u/:userSlug" />
     <NotFoundPage default />
   </Router>
 

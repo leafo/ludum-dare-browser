@@ -91,17 +91,21 @@ class LudumDare extends lapis.Application
     limit = 40
     offset = page * limit
 
+    username = @params.username\lower!
+
     games = Games\select [[
       inner join events on events.id = event_id
-      where "user" % ?
-      order by similarity("user", ?) desc, events.slug desc
+      where "user" % ? and lower("user") = ?
+      order by events.slug desc
       limit ? offset ?
-    ]], @params.username, @params.username, limit, offset, {
+    ]], username, username, limit, offset, {
       fields: "games.*"
     }
 
+    formatted_games = [@flow("formatter")\game g for g in *games]
+
     json: {
-      games: [@flow("formatter")\game g for g in *games]
+      games: next(formatted_games) and formatted_games or nil
     }
 
   "/games/:event_slug": capture_errors_json =>

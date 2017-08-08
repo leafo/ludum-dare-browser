@@ -1,6 +1,7 @@
 import { h, render, Component } from "preact"
 import classNames from "classnames"
 
+import BaseGridPage from "ld/components/base_grid_page"
 import PillPicker from "ld/components/pill_picker"
 import DropDownPicker from "ld/components/drop_down_picker"
 import GameGrid from "ld/components/game_grid"
@@ -20,7 +21,7 @@ function encodeQueryString(obj) {
   return out.join("&")
 }
 
-export default class Page extends Component {
+export default class Page extends BaseGridPage {
   constructor(props) {
     super(props)
     this.state = {
@@ -51,6 +52,8 @@ export default class Page extends Component {
 
     xhr.addEventListener("readystatechange", e => {
       if (xhr.readyState != 4) return
+      this.setState({loading: false })
+
       let res = JSON.parse(xhr.responseText)
       if (callback) {
         callback(res)
@@ -137,30 +140,8 @@ export default class Page extends Component {
               {value: "coolness_reverse", label: "Least ratings given"},
             ]}/>
 
-          <span class="icon icon-expand"></span>
-          <PillPicker
-            onChange={val => {
-              this.setState({
-                cellSize: val
-              }, () => {
-                if (this.currentGrid) {
-                  this.currentGrid.scrollListener()
-                }
-              })
-            }}
-            options={[
-              {value: "small", label: "Small"},
-              {value: "medium", label: "Medium", default: true},
-              {value: "large", label: "Large"},
-            ]} />
-
-          <label title="Show Details">
-            <input
-              onChange={e => this.setState({showDetails: e.target.checked})}
-              value={this.state.showDetails}
-              type="checkbox" class="toggle_details" />
-            <span class="icon-eye"></span>
-          </label>
+          {this.renderSizePicker()}
+          {this.renderDetailsToggle()}
         </div>
       </div>
 

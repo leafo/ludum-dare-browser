@@ -214,6 +214,18 @@ body {
     }
 }
 
+.user_page {
+    .jam_picker {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .spacer {
+            flex: 1;
+        }
+    }
+}
+
 .game_grid {
     margin-left: 20px;
 }
@@ -540,4 +552,10 @@ body {
     a {
         color: white;
     }
+}
+
+.empty_message {
+    color: white;
+    text-align: center;
+    padding: 40px;
 }
