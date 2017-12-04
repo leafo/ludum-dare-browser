@@ -52,9 +52,9 @@ class LDJam extends require "clients.base"
 
     if next dont_have
       idstring = table.concat dont_have, "+"
+      url = "#{@api_url}/node/get/#{idstring}"
       res, status = @request "#{@api_url}/node/get/#{idstring}"
-      result = @handle_json_response res, status, "fetch_objects"
-      result.node
+      result = assert @handle_json_response res, status, "fetch_objects: #{url}"
 
       if opts and opts.cache
         @node_cache or= {}
@@ -89,7 +89,7 @@ class LDJam extends require "clients.base"
         offset += limit
 
   fetch_platforms: =>
-    res, status = @request "#{@api_url}/tag/get/platform"
+    res, status = assert @request "#{@api_url}/tag/get/platform"
     @handle_json_response res, status, "fetch_objects"
 
 {:LDJam}

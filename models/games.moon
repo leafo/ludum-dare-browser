@@ -58,7 +58,8 @@ class Games extends Model
     }
 
     downloads =  do
-      tag_ids = [val for key, val in pairs data.meta when key\match "%-tag$"]
+      tag_ids = [val for key, val in pairs data.meta when key\match("%-tag$") when val != "0"]
+
       tag_types = client\fetch_objects tag_ids, cache: true
       platforms_by_id = {tostring(t.id), t.name for t in *tag_types}
 
