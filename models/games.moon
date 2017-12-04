@@ -101,8 +101,8 @@ class Games extends Model
       num_screenshots: #screenshots
       screenshots: screenshots
       have_details: true
-      votes_given: data.magic.given
-      votes_received: math.floor data.magic.grade
+      votes_given: data.magic and data.magic.given or 0
+      votes_received: math.floor data.magic and data.magic.grade or 0
     }
 
     game = @insert_on_conflict_update primary, update
