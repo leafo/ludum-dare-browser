@@ -17,16 +17,16 @@
   },
   "homepage": "https://github.com/leafo/ludum-dare-browser#readme",
   "devDependencies": {
-    "babel-cli": "^6.24.1",
+    "babel-cli": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
-    "uglify-js": "^2.8.22"
+    "uglify-js": "^2.8.29"
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "preact": "^8.1.0",
-    "preact-router": "^2.5.5",
-    "requirejs": "^2.3.3"
+    "preact": "^8.2.6",
+    "preact-router": "^2.6.0",
+    "requirejs": "^2.3.5"
   }
 }
