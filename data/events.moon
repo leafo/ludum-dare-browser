@@ -1,7 +1,13 @@
 -- all the events, imported into events table
-
 {
   -- ldjam dares
+  {
+    name: "Ludum Dare 41"
+    slug: "ludum-dare-41"
+    type: "ldjam"
+    key: "73256"
+  }
+
   {
     name: "Ludum Dare 40"
     slug: "ludum-dare-40"
