@@ -1,6 +1,28 @@
 -- all the events, imported into events table
 {
   -- ldjam dares
+  -- ids can be found here: https://ldjam.com/events/ludum-dare
+  -- https://api.ldjam.com/vx/node/feed/9/parent/event
+  {
+
+    name: "Ludum Dare 45"
+    slug: "ludum-dare-45"
+    type: "ldjam"
+    key: "159347"
+  }
+  {
+
+    name: "Ludum Dare 44"
+    slug: "ludum-dare-44"
+    type: "ldjam"
+    key: "139254"
+  }
+  {
+    name: "Ludum Dare 43"
+    slug: "ludum-dare-43"
+    type: "ldjam"
+    key: "120415"
+  }
   {
 
     name: "Ludum Dare 42"
