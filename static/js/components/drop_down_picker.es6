@@ -74,13 +74,18 @@ export default class DropDownPicker extends Component {
         }
 
         let inside = opt.label
-        if (opt.href) {
-          inside = <a href={opt.href}>{inside}</a>
-        }
+        let classes = classNames("option", { selected: opt.value == this.state.currentOption})
 
-        return <button type="button" class={classNames("option", { selected: opt.value == this.state.currentOption})} onClick={e => this.setOption(opt)}>
-          {inside}
-        </button>
+
+        if (opt.href) {
+          return <a href={opt.href} class={classes} onClick={e => this.setOption(opt)}>
+            {inside}
+          </a>
+        } else {
+          return <button type="button" class={classes} onClick={e => this.setOption(opt)}>
+            {inside}
+          </button>
+        }
       })}
     </div>
   }

@@ -95,13 +95,6 @@ body {
     margin-right: 10px;
     font-size: 16px;
 
-    .select_popup {
-        top: 100%;
-        left: 50%;
-        transform: translate(-50%, 0);
-        z-index: 1;
-    }
-
     .current_option {
         height: 30px;
         line-height: 30px;
@@ -128,6 +121,78 @@ body {
         border-width: 5px 5px 0 5px;
         border-color: #ffffff transparent transparent transparent;
     }
+
+    .select_popup {
+        background: #ffffff;
+        color: #222;
+
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        z-index: 1;
+
+        box-shadow: 0 0 10px rgba(0,0,0, 0.5);
+        border-radius: 4px;
+        padding: 4px 0;
+
+        margin-top: 5px;
+
+        transition: opacity 0.20s ease-in-out;
+
+        a.option {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .option {
+            display: block;
+            width: 100%;
+            border: 0;
+            cursor: pointer;
+            padding: 4px 12px;
+            background: white;
+            transition: all 0.1s ease-in-out;
+            text-align: left;
+            white-space: nowrap;
+            box-sizing: border-box;
+
+            &.selected {
+                font-weight: bold;
+            }
+
+            &:hover {
+                background: #222;
+                color: white;
+            }
+        }
+
+
+        &:after {
+            bottom: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        &:after {
+            border-color: rgba(255, 255, 255, 0);
+            border-bottom-color: #ffffff;
+            border-width: 10px;
+            left: 50%;
+            margin-left: -10px;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #d6d6d6;
+            margin: 4px 0;
+        }
+    }
 }
 
 
@@ -147,28 +212,27 @@ body {
         margin: 0;
         font-size: 18px;
         font-weight: 900;
+        > a {
+            color: inherit;
+            text-decoration: none;
+        }
     }
 
-    a {
+    a.nav_link {
         color: $link_color;
-    }
-
-    .social_buttons, h1 {
-        display: inline-block;
-    }
-
-    .social_buttons {
-        line-height: normal;
-        vertical-align: middle;
-        position: relative;
-        top: 1px;
-        margin-left: 12px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+        &:hover {
+            box-shadow: 0 2px 0 $link_color;
+        }
     }
 
     .search_form {
         width: 100%;
         margin-left: auto;
-        max-width: 330px;
+        margin-right: auto;
+        max-width: 400px;
         font-size: 16px;
 
         input[type='text'] {
@@ -179,6 +243,7 @@ body {
             background: white;
             border: 1px solid #dadada;
             padding: 4px 12px;
+            height: 32px;
             margin: 0;
             box-sizing: border-box;
         }
@@ -497,73 +562,6 @@ body {
             display: block;
             margin-bottom: 2px;
         }
-    }
-}
-
-.select_popup {
-    position: absolute;
-    left: 100px;
-    top: 100px;
-    background: #ffffff;
-
-    box-shadow: 0 0 10px rgba(0,0,0, 0.5);
-    border-radius: 4px;
-    padding: 4px 0;
-
-    margin-top: 5px;
-
-    transition: opacity 0.20s ease-in-out;
-
-    .option {
-        display: block;
-        width: 100%;
-        border: 0;
-        cursor: pointer;
-        padding: 4px 12px;
-        background: white;
-        transition: all 0.1s ease-in-out;
-        text-align: left;
-        white-space: nowrap;
-
-        > a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        &.selected {
-            font-weight: bold;
-        }
-
-        &:hover {
-            background: #222;
-            color: white;
-        }
-    }
-
-
-    &:after {
-        bottom: 100%;
-        border: solid transparent;
-        content: " ";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-    }
-
-    &:after {
-        border-color: rgba(255, 255, 255, 0);
-        border-bottom-color: #ffffff;
-        border-width: 10px;
-        left: 50%;
-        margin-left: -10px;
-    }
-
-    hr {
-        border: 0;
-        height: 1px;
-        background: #d6d6d6;
-        margin: 4px 0;
     }
 }
 

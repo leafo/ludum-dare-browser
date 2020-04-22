@@ -91,9 +91,12 @@ export default class Page extends BaseGridPage {
 
     return <div class="game_browser">
       <div id="toolbar" class="sticky">
-        <h1>Ludum Dare Games</h1>
-
+        <h1>
+          <a href="/">Ludum Dare Games</a>
+        </h1>
         {this.renderSearchForm()}
+
+        <a class="nav_link" href="/charts">Charts</a>
       </div>
 
       <div className="event_filters">
