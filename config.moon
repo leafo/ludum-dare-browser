@@ -2,7 +2,7 @@
 import config from require "lapis.config"
 
 config {"development", "production", "test"}, ->
-  comp_id 45
+  comp_id 46
 
   num_workers 1
   num_connections 1024
@@ -15,6 +15,8 @@ config "development", ->
   code_cache "off"
   daemon "off"
   notice_log "stderr"
+
+  port 9091
 
   postgres {
     backend: "pgmoon"

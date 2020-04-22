@@ -5,6 +5,13 @@
   -- https://api.ldjam.com/vx/node/feed/9/parent/event
   {
 
+    name: "Ludum Dare 46"
+    slug: "ludum-dare-46"
+    type: "ldjam"
+    key: "176557"
+  }
+  {
+
     name: "Ludum Dare 45"
     slug: "ludum-dare-45"
     type: "ldjam"
