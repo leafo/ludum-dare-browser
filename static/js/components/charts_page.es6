@@ -7,6 +7,8 @@ export default class ChartsPage extends Component {
     return <div className="charts_page">
       <div class="event_filters">
         <h2>Charts</h2>
+        {" "}
+        <a href="/">Return home</a>
       </div>
 
       <div className="page_column">
