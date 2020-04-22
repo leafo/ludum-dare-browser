@@ -88,6 +88,13 @@ class GameCell extends Component {
     })
   }
 
+  // for formatting domain on downloads menhu
+  parseDomain(url) {
+    let el = document.createElement("a")
+    el.href = url
+    return el.hostname
+  }
+
   render() {
     let {
       url, user, user_url, title, id, screenshot_url, votes_received,
@@ -97,10 +104,14 @@ class GameCell extends Component {
     let downloadsMenu
 
     if (this.state.downloadMenuOpen) {
-      downloadsMenu = <ul class="downloader arrow_box visible">
+      downloadsMenu = <ul class="downloader arrow_box visible toggle_dropdown">
         {this.props.game.downloads.map(download => {
+          let hostname = this.parseDomain(download.href)
+
           return <li>
             <a href={download.href} target="_blank">{download.label}</a>
+            {" "}
+            {hostname ? <span class="hostname">({hostname})</span> : null}
           </li>
         })}
       </ul>
