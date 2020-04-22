@@ -19,17 +19,7 @@ export default class BaseGridPage extends Component {
     return out.join("&")
   }
 
-  renderDetailsToggle() {
-    return <label title="Show Details" class="details_toggle">
-      <input
-        onChange={e => this.setState({showDetails: e.target.checked})}
-        value={this.state.showDetails}
-        type="checkbox" class="toggle_details" />
-      <span class="icon-eye"></span>
-    </label>
-
-  }
-  renderSizePicker() {
+  renderDisplayOptions() {
     return <span class="size_picker">
       <span class="icon icon-expand"></span>
       <PillPicker
@@ -47,6 +37,16 @@ export default class BaseGridPage extends Component {
           {value: "medium", label: "Medium", default: true},
           {value: "large", label: "Large"},
         ]} />
+
+      {" "}
+      <label title="Show Details" class="details_toggle">
+        <input
+          onChange={e => this.setState({showDetails: e.target.checked})}
+          value={this.state.showDetails}
+          type="checkbox" class="toggle_details" />
+        <span class="icon-eye"></span>
+      </label>
+
     </span>
   }
 

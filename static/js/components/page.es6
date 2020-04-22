@@ -83,36 +83,37 @@ export default class Page extends BaseGridPage {
       <div className="event_filters">
         {this.renderEventPicker()}
 
-        <span class="icon icon-paragraph-justify"></span>
-        <DropDownPicker
-          onChange={val => this.updateFilter({collection: val})}
-          options={[
-            {value: "all", label: "All Games"},
-            "divider",
-            {value: "windows", label: "Windows"},
-            {value: "osx", label: "OSX"},
-            {value: "linux", label: "Linux"},
-            {value: "android", label: "Android"},
-            "divider",
-            {value: "flash", label: "Flash"},
-            {value: "html5", label: "HTML5"},
-            {value: "java", label: "Java"},
-            {value: "love", label: "LÖVE"},
-            {value: "itchio", label: "itch.io"},
-          ]}/>
+        <div class="input_group">
+          <span class="icon icon-paragraph-justify"></span>
+          <DropDownPicker
+            onChange={val => this.updateFilter({collection: val})}
+            options={[
+              {value: "all", label: "All Games"},
+              "divider",
+              {value: "windows", label: "Windows"},
+              {value: "osx", label: "OSX"},
+              {value: "linux", label: "Linux"},
+              {value: "android", label: "Android"},
+              "divider",
+              {value: "flash", label: "Flash"},
+              {value: "html5", label: "HTML5"},
+              {value: "java", label: "Java"},
+              {value: "love", label: "LÖVE"},
+              {value: "itchio", label: "itch.io"},
+            ]}/>
 
-        <DropDownPicker
-          onChange={val => this.updateFilter({sort: val})}
-          options={[
-            {value: "random", label: "Random"},
-            {value: "votes", label: "Most rated", default: true},
-            {value: "votes_reverse", label: "Least rated"},
-            {value: "coolness", label: "Most ratings given"},
-            {value: "coolness_reverse", label: "Least ratings given"},
-          ]}/>
+          <DropDownPicker
+            onChange={val => this.updateFilter({sort: val})}
+            options={[
+              {value: "random", label: "Random"},
+              {value: "votes", label: "Most rated", default: true},
+              {value: "votes_reverse", label: "Least rated"},
+              {value: "coolness", label: "Most ratings given"},
+              {value: "coolness_reverse", label: "Least ratings given"},
+            ]}/>
+        </div>
 
-        {this.renderSizePicker()}
-        {this.renderDetailsToggle()}
+        {this.renderDisplayOptions()}
       </div>
 
       <div class="itch_banner">

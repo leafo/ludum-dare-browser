@@ -217,6 +217,10 @@ body {
         font-weight: 900;
         white-space: nowrap;
 
+        @media (max-width: 600px) {
+            font-size: 14px;
+        }
+
         > a {
             color: inherit;
             text-decoration: none;
@@ -296,15 +300,39 @@ body {
         margin-left: 10px;
     }
 
-    .size_picker {
+    .display_options {
         margin-left: auto;
+        display: flex;
+        align-items: center;
+
+        .details_toggle {
+            margin-left: 7px;
+            white-space: nowrap;
+        }
+    }
+
+    .input_group {
         display: flex;
         align-items: center;
     }
 
-    .details_toggle {
-        margin-left: 7px;
-        white-space: nowrap;
+    @media (max-width: 600px) {
+        position: static;
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        padding: 10px;
+
+        > * {
+            margin-bottom: 10px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .icon {
+            margin-left: 0;
+        }
     }
 }
 

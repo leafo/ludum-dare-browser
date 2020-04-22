@@ -32,8 +32,7 @@ export default class SearchPage extends BaseGridPage {
         {"  "}
         <a href="/">Return home</a>
         {"  "}
-        {this.renderSizePicker()}
-        {this.renderDetailsToggle()}
+        {this.renderDisplayOptions()}
       </div>
 
       {

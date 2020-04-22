@@ -47,8 +47,7 @@ export default class UserPage extends BaseGridPage {
         </span>
 
         {" "}
-        {this.renderSizePicker()}
-        {this.renderDetailsToggle()}
+        {this.renderDisplayOptions()}
       </div>
 
       {
