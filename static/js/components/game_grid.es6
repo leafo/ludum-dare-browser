@@ -21,14 +21,49 @@ function isDifferent(a, b) {
 
 class GameCell extends Component {
   componentDidMount() {
+    bindMenusBodyClick()
+    if (this.supportsLazyImages()) {
+      let handleIntersect = (entities) => {
+        for (let entity of entities) {
+          if (entity.isIntersecting) {
+            this.displayImage()
+          }
+        }
+      }
+      this.observer = new IntersectionObserver(handleIntersect, {})
+      this.observer.observe(this.base)
+    } else {
+      this.displayImage()
+    }
+  }
+
+  displayImage() {
+    if (this.state.displayImage) {
+      return
+    }
+
+    if (this.observer) {
+      this.observer.unobserve(this.base)
+    }
+
+    this.setState({
+      displayImage: true
+    })
+
     let image = new Image()
     image.src = this.props.game.screenshot_url
     image.onload = () => this.setState({imageLoaded: true})
-    bindMenusBodyClick()
+  }
+
+  supportsLazyImages() {
+    return "IntersectionObserver" in window
   }
 
   componentWillUnmount() {
     removeClosedMenu(this)
+    if (this.observer) {
+      this.observer.disconnect()
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -86,6 +121,14 @@ class GameCell extends Component {
       coolnessLabel = "Votes given"
     }
 
+    let thumbStyle = {}
+
+    if (this.state.displayImage) {
+      thumbStyle = {
+        backgroundImage: `url('${screenshot_url}')`
+      }
+    }
+
     return <div
       class={classNames("game_cell", {
         image_loading: !this.state.imageLoaded,
@@ -98,9 +141,7 @@ class GameCell extends Component {
       }}
     >
       <div class="cell_crop">
-        <a href={url} target="_blank" class="thumb" style={{
-          backgroundImage: `url('${screenshot_url}')`
-        }}></a>
+        <a href={url} target="_blank" class="thumb" style={thumbStyle}></a>
         <div class="top_label">
           <div class="votes">
             <span title="Votes Received">
