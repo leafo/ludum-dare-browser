@@ -52,6 +52,49 @@ body {
     }
 }
 
+
+.dropdown_picker {
+    display: inline-flex;
+    position: relative;
+    margin-right: 10px;
+    font-size: 16px;
+
+    .select_popup {
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        z-index: 1;
+    }
+
+    .current_option {
+        height: 30px;
+        line-height: 30px;
+        margin: 0;
+        border: 0;
+        background: #313131;
+        border-radius: 4px;
+        box-shadow: 0 0 0 2px rgba(white, 0.2);
+
+        padding: 0 12px;
+        color: white;
+        text-shadow: 0 0 4px rgba(0,0,0, 0.5);
+        cursor: pointer;
+    }
+
+    .tri_down {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 2px;
+        margin-top: -2px;
+        width: 0px;
+        height: 0px;
+        border-style: solid;
+        border-width: 5px 5px 0 5px;
+        border-color: #ffffff transparent transparent transparent;
+    }
+}
+
+
 .sticky {
     position: sticky;
     color: #222;
@@ -116,49 +159,6 @@ body {
             margin-left: 10px;
         }
 
-        .dropdown_picker {
-            display: inline-block;
-            position: relative;
-            margin-right: 10px;
-
-            &.open {
-                .select_popup {
-                    opacity: 1.0;
-                }
-            }
-
-            .select_popup {
-                opacity: 0;
-                top: 100%;
-                left: 50%;
-                transform: translate(-50%, 0);
-            }
-
-            .current_option {
-                height: 30px;
-                line-height: 30px;
-                margin: 0;
-                border: 0;
-                background: #313131;
-                border-radius: 6px;
-                padding: 0 12px;
-                color: white;
-                text-shadow: 0 0 4px rgba(0,0,0, 0.5);
-                cursor: pointer;
-            }
-
-            .tri_down {
-                display: inline-block;
-                vertical-align: middle;
-                margin-left: 2px;
-                margin-top: -2px;
-                width: 0px;
-                height: 0px;
-                border-style: solid;
-                border-width: 5px 5px 0 5px;
-                border-color: #ffffff transparent transparent transparent;
-            }
-        }
 
         .size_picker {
             display: inline-block;
@@ -194,6 +194,15 @@ body {
                 border-radius: 0 6px 6px 0;
             }
         }
+    }
+}
+
+.event_filters {
+    padding: 15px 20px 15px 20px;
+    background: rgba(white, 0.1);
+
+    .games_count {
+        opacity: 0.6;
     }
 }
 
@@ -504,6 +513,11 @@ body {
         transition: all 0.1s ease-in-out;
         text-align: left;
         white-space: nowrap;
+
+        > a {
+            color: inherit;
+            text-decoration: none;
+        }
 
         &.selected {
             font-weight: bold;

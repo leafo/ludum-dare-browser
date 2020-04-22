@@ -1,3 +1,4 @@
+
 import { h, render, Component } from "preact"
 import classNames from "classnames"
 
@@ -7,7 +8,6 @@ import DropDownPicker from "ld/components/drop_down_picker"
 import GameGrid from "ld/components/game_grid"
 
 import {events} from "ld/events"
-
 
 export default class Page extends BaseGridPage {
   constructor(props) {
@@ -135,7 +135,9 @@ export default class Page extends BaseGridPage {
         </div>
       </div>
 
-      {this.renderEventPicker()}
+      <div className="event_filters">
+        {this.renderEventPicker()}
+      </div>
 
       <div class="itch_banner">
         <span class="icon-heart icon"></span>
@@ -160,6 +162,23 @@ export default class Page extends BaseGridPage {
     if (!events || !events.length) {
       return
     }
+
+    let options = events.map(e => {
+      let count = e.games_count || 0
+
+      return {
+        value: e.slug,
+        href: e.url,
+        default: e.slug == this.props.event.slug,
+        label: <span>
+          {e.name}
+          {" "}
+          <span className="games_count">({count.toLocaleString()})</span>
+        </span>
+      }
+    })
+
+    return <DropDownPicker options={options} />
 
     let displayEvents = events.filter(e => e.slug != this.props.event.slug)
 
