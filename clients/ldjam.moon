@@ -67,7 +67,7 @@ class LDJam extends require "clients.base"
     have
 
   each_game: (event, opts={}) =>
-    limit = 50
+    limit = opts.per_page or 10
     offset = opts.offset or 0
 
     coroutine.wrap ->
