@@ -38,23 +38,23 @@ export default class BaseGridPage extends Component {
 
   }
   renderSizePicker() {
-    return <span clas="size_picker">
-    <span class="icon icon-expand"></span>
-    <PillPicker
-      onChange={val => {
-        this.setState({
-          cellSize: val
-        }, () => {
-          if (this.currentGrid) {
-            this.currentGrid.scrollListener()
-          }
-        })
-      }}
-      options={[
-        {value: "small", label: "Small"},
-        {value: "medium", label: "Medium", default: true},
-        {value: "large", label: "Large"},
-      ]} />
+    return <span class="size_picker">
+      <span class="icon icon-expand"></span>
+      <PillPicker
+        onChange={val => {
+          this.setState({
+            cellSize: val
+          }, () => {
+            if (this.currentGrid) {
+              this.currentGrid.scrollListener()
+            }
+          })
+        }}
+        options={[
+          {value: "small", label: "Small"},
+          {value: "medium", label: "Medium", default: true},
+          {value: "large", label: "Large"},
+        ]} />
     </span>
   }
 

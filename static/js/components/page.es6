@@ -85,64 +85,55 @@ export default class Page extends BaseGridPage {
       <a href="https://twitter.com/moonscript" class="twitter-follow-button" data-show-screen-name="false" data-show-count="false">Follow @moonscript</a>
       {" "}
 
-      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://ludumdare.itch.io" data-text={shareTitle} data-via="moonscript" data-related="moonscript">Tweet</a>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://ludumdare.itch.io" data-text={shareTitle} data-via="moonscript" data-related="moonscript">Tweet</a>
     </div>
 
-    socialButtons = null // hide for now
 
     return <div class="game_browser">
       <div id="toolbar" class="sticky">
-        <h1 class="long_header">{this.props.event.name} Games</h1>
-        <h1 class="short_header">{this.props.event.short_name}</h1>
+        <h1>Ludum Dare Games</h1>
 
-        {socialButtons}
-
-        <div class="spacer"></div>
-
-        <div class="tools">
-          {this.renderSearchForm()}
-
-          <span class="icon icon-paragraph-justify"></span>
-          <DropDownPicker
-            onChange={val => this.updateFilter({collection: val})}
-            options={[
-              {value: "all", label: "All Games"},
-              "divider",
-              {value: "windows", label: "Windows"},
-              {value: "osx", label: "OSX"},
-              {value: "linux", label: "Linux"},
-              {value: "android", label: "Android"},
-              "divider",
-              {value: "flash", label: "Flash"},
-              {value: "html5", label: "HTML5"},
-              {value: "java", label: "Java"},
-              {value: "love", label: "LÖVE"},
-              {value: "itchio", label: "itch.io"},
-            ]}/>
-
-          <DropDownPicker
-            onChange={val => this.updateFilter({sort: val})}
-            options={[
-              {value: "random", label: "Random"},
-              {value: "votes", label: "Most rated", default: true},
-              {value: "votes_reverse", label: "Least rated"},
-              {value: "coolness", label: "Most ratings given"},
-              {value: "coolness_reverse", label: "Least ratings given"},
-            ]}/>
-
-          {this.renderSizePicker()}
-          {this.renderDetailsToggle()}
-        </div>
+        {this.renderSearchForm()}
       </div>
 
       <div className="event_filters">
         {this.renderEventPicker()}
+
+        <span class="icon icon-paragraph-justify"></span>
+        <DropDownPicker
+          onChange={val => this.updateFilter({collection: val})}
+          options={[
+            {value: "all", label: "All Games"},
+            "divider",
+            {value: "windows", label: "Windows"},
+            {value: "osx", label: "OSX"},
+            {value: "linux", label: "Linux"},
+            {value: "android", label: "Android"},
+            "divider",
+            {value: "flash", label: "Flash"},
+            {value: "html5", label: "HTML5"},
+            {value: "java", label: "Java"},
+            {value: "love", label: "LÖVE"},
+            {value: "itchio", label: "itch.io"},
+          ]}/>
+
+        <DropDownPicker
+          onChange={val => this.updateFilter({sort: val})}
+          options={[
+            {value: "random", label: "Random"},
+            {value: "votes", label: "Most rated", default: true},
+            {value: "votes_reverse", label: "Least rated"},
+            {value: "coolness", label: "Most ratings given"},
+            {value: "coolness_reverse", label: "Least ratings given"},
+          ]}/>
+
+        {this.renderSizePicker()}
+        {this.renderDetailsToggle()}
       </div>
 
       <div class="itch_banner">
         <span class="icon-heart icon"></span>
-        Into indie game development? Check out my other
-        site, <a href="http://itch.io">itch.io</a>, host and sell your games with
+        Into indie game development? Check <a href="https://itch.io">itch.io</a>, host and sell your games with
         pay-what-you-want pricing. Thanks!
       </div>
       {

@@ -29,7 +29,7 @@ export default class PillPicker extends Component {
   }
 
   render() {
-    return <div class="size_picker">
+    return <div class="pill_picker">
       {this.renderOptions()}
     </div>
   }
