@@ -26,19 +26,14 @@ export default class SearchPage extends BaseGridPage {
       emptyMessage = <p class="empty_message">Nothing found :(</p>
     }
 
-    return <div class="game_browser user_page">
-      <div id="toolbar" class="sticky">
-        <h1>Searching for '{this.props.searchQuery}'</h1>
-        <div class="spacer"></div>
-        <div class="tools">
-          {this.renderSearchForm()}
-          {this.renderSizePicker()}
-          {this.renderDetailsToggle()}
-        </div>
-      </div>
-
-      <div class="jam_picker">
+    return <div class="game_browser search_page">
+      <div class="event_filters">
+        <h2 class="current_query">Searching for '{this.props.searchQuery}'</h2>
+        {"  "}
         <a href="/">Return home</a>
+        {"  "}
+        {this.renderSizePicker()}
+        {this.renderDetailsToggle()}
       </div>
 
       {

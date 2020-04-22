@@ -29,27 +29,26 @@ export default class UserPage extends BaseGridPage {
     }
 
     return <div class="game_browser user_page">
-      <div id="toolbar" class="sticky">
-        <h1>Ludum Dare Submissions by {this.props.userSlug}</h1>
-        <div class="spacer"></div>
-        <div class="tools">
-          {this.renderSizePicker()}
-          {this.renderDetailsToggle()}
-        </div>
-      </div>
+      <div class="event_filters">
+        <h2>Submissions by {this.props.userSlug}</h2>
 
-      <div class="jam_picker">
-        <a href="/">Return home</a>
-        <div class="spacer"></div>
-        <strong>Profile links: </strong>
-        <ul>
-          {links.map(obj => {
-            return <li>
-              <a href={obj.href} target="_blank">{obj.label}</a>
-            </li>
-          })}
-          {links.length ? null : "None"}
-        </ul>
+        {" "}
+
+        <span class="profile_links">
+          <span>Profile links: </span>
+          <ul>
+            {links.map(obj => {
+              return <li>
+                <a href={obj.href} target="_blank">{obj.label}</a>
+              </li>
+            })}
+            {links.length ? null : "None"}
+          </ul>
+        </span>
+
+        {" "}
+        {this.renderSizePicker()}
+        {this.renderDetailsToggle()}
       </div>
 
       {

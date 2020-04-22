@@ -79,26 +79,7 @@ export default class Page extends BaseGridPage {
   }
 
   render() {
-    let shareTitle = `${this.props.event.name} Game Browser`
-
-    let socialButtons = <div class="social_buttons">
-      <a href="https://twitter.com/moonscript" class="twitter-follow-button" data-show-screen-name="false" data-show-count="false">Follow @moonscript</a>
-      {" "}
-
-      <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://ludumdare.itch.io" data-text={shareTitle} data-via="moonscript" data-related="moonscript">Tweet</a>
-    </div>
-
-
     return <div class="game_browser">
-      <div id="toolbar" class="sticky">
-        <h1>
-          <a href="/">Ludum Dare Games</a>
-        </h1>
-        {this.renderSearchForm()}
-
-        <a class="nav_link" href="/charts">Charts</a>
-      </div>
-
       <div className="event_filters">
         {this.renderEventPicker()}
 
@@ -173,20 +154,5 @@ export default class Page extends BaseGridPage {
     })
 
     return <DropDownPicker options={options} alwaysInDom={true} />
-
-    let displayEvents = events.filter(e => e.slug != this.props.event.slug)
-
-    let eventElements = displayEvents.map(e => {
-      return <li class="event">
-        <a href={e.url}>{e.short_name || e.name}</a>
-        {" "}
-        <span class="games_count">({e.games_count})</span>
-      </li>
-    })
-
-    return <div class="jam_picker">
-      <strong>Previous jams:</strong>
-      <ul>{eventElements}</ul>
-    </div>
   }
 }

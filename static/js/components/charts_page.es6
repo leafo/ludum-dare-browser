@@ -5,15 +5,14 @@ import {events} from "ld/events"
 export default class ChartsPage extends Component {
   render() {
     return <div className="charts_page">
-      <div id="toolbar" class="sticky">
-        <h1>Ludum Dare Charts</h1>
+      <div class="event_filters">
+        <h2>Charts</h2>
       </div>
 
       <div className="page_column">
         <h2>Games Per Event</h2>
         {this.renderEventsGraph()}
       </div>
-
     </div>;
   }
 
