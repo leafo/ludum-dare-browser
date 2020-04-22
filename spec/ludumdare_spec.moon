@@ -5,7 +5,7 @@ import types from require "tableshape"
 describe "clients.ludumdare.", ->
   use_test_env!
 
-  import Games, Collections from require "spec.models"
+  import Games, CollectionGames from require "spec.models"
 
   it "parses misc links", ->
     file = io.open("spec/data/ld-37.html")\read "*a"
