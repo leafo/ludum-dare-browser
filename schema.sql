@@ -2,33 +2,22 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.4
--- Dumped by pg_dump version 9.5.4
+-- Dumped from database version 12.2
+-- Dumped by pg_dump version 12.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
---
--- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: 
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
 CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
@@ -41,30 +30,28 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
 COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
 
 
-SET search_path = public, pg_catalog;
-
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: collection_games; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE collection_games (
+CREATE TABLE public.collection_games (
     name character varying(255) NOT NULL,
     event_id integer NOT NULL,
     game_id integer NOT NULL
 );
 
 
-ALTER TABLE collection_games OWNER TO postgres;
+ALTER TABLE public.collection_games OWNER TO postgres;
 
 --
 -- Name: events; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE events (
+CREATE TABLE public.events (
     id integer NOT NULL,
     slug character varying(255),
     type smallint NOT NULL,
@@ -79,13 +66,13 @@ CREATE TABLE events (
 );
 
 
-ALTER TABLE events OWNER TO postgres;
+ALTER TABLE public.events OWNER TO postgres;
 
 --
 -- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE events_id_seq
+CREATE SEQUENCE public.events_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -93,32 +80,32 @@ CREATE SEQUENCE events_id_seq
     CACHE 1;
 
 
-ALTER TABLE events_id_seq OWNER TO postgres;
+ALTER TABLE public.events_id_seq OWNER TO postgres;
 
 --
 -- Name: events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE events_id_seq OWNED BY events.id;
+ALTER SEQUENCE public.events_id_seq OWNED BY public.events.id;
 
 
 --
 -- Name: game_data; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE game_data (
+CREATE TABLE public.game_data (
     game_id integer NOT NULL,
     data json
 );
 
 
-ALTER TABLE game_data OWNER TO postgres;
+ALTER TABLE public.game_data OWNER TO postgres;
 
 --
 -- Name: game_data_game_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE game_data_game_id_seq
+CREATE SEQUENCE public.game_data_game_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -126,20 +113,20 @@ CREATE SEQUENCE game_data_game_id_seq
     CACHE 1;
 
 
-ALTER TABLE game_data_game_id_seq OWNER TO postgres;
+ALTER TABLE public.game_data_game_id_seq OWNER TO postgres;
 
 --
 -- Name: game_data_game_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE game_data_game_id_seq OWNED BY game_data.game_id;
+ALTER SEQUENCE public.game_data_game_id_seq OWNED BY public.game_data.game_id;
 
 
 --
 -- Name: games; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE games (
+CREATE TABLE public.games (
     id integer NOT NULL,
     comp character varying(255),
     uid character varying(255) NOT NULL,
@@ -161,13 +148,13 @@ CREATE TABLE games (
 );
 
 
-ALTER TABLE games OWNER TO postgres;
+ALTER TABLE public.games OWNER TO postgres;
 
 --
 -- Name: games_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE games_id_seq
+CREATE SEQUENCE public.games_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -175,165 +162,203 @@ CREATE SEQUENCE games_id_seq
     CACHE 1;
 
 
-ALTER TABLE games_id_seq OWNER TO postgres;
+ALTER TABLE public.games_id_seq OWNER TO postgres;
 
 --
 -- Name: games_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE games_id_seq OWNED BY games.id;
+ALTER SEQUENCE public.games_id_seq OWNED BY public.games.id;
 
 
 --
 -- Name: lapis_migrations; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE lapis_migrations (
+CREATE TABLE public.lapis_migrations (
     name character varying(255) NOT NULL
 );
 
 
-ALTER TABLE lapis_migrations OWNER TO postgres;
+ALTER TABLE public.lapis_migrations OWNER TO postgres;
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: trash; Type: TABLE; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
+CREATE TABLE public.trash (
+    id integer NOT NULL,
+    name character varying
+);
+
+
+ALTER TABLE public.trash OWNER TO postgres;
+
+--
+-- Name: trash_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.trash_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.trash_id_seq OWNER TO postgres;
+
+--
+-- Name: trash_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.trash_id_seq OWNED BY public.trash.id;
 
 
 --
--- Name: game_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: events id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY game_data ALTER COLUMN game_id SET DEFAULT nextval('game_data_game_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY games ALTER COLUMN id SET DEFAULT nextval('games_id_seq'::regclass);
+ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.events_id_seq'::regclass);
 
 
 --
--- Name: collection_games_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: game_data game_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY collection_games
+ALTER TABLE ONLY public.game_data ALTER COLUMN game_id SET DEFAULT nextval('public.game_data_game_id_seq'::regclass);
+
+
+--
+-- Name: games id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.games ALTER COLUMN id SET DEFAULT nextval('public.games_id_seq'::regclass);
+
+
+--
+-- Name: trash id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.trash ALTER COLUMN id SET DEFAULT nextval('public.trash_id_seq'::regclass);
+
+
+--
+-- Name: collection_games collection_games_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.collection_games
     ADD CONSTRAINT collection_games_pkey PRIMARY KEY (name, game_id);
 
 
 --
--- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY events
+ALTER TABLE ONLY public.events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
 
 
 --
--- Name: game_data_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: game_data game_data_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY game_data
+ALTER TABLE ONLY public.game_data
     ADD CONSTRAINT game_data_pkey PRIMARY KEY (game_id);
 
 
 --
--- Name: games_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: games games_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY games
+ALTER TABLE ONLY public.games
     ADD CONSTRAINT games_pkey PRIMARY KEY (id);
 
 
 --
--- Name: lapis_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: lapis_migrations lapis_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY lapis_migrations
+ALTER TABLE ONLY public.lapis_migrations
     ADD CONSTRAINT lapis_migrations_pkey PRIMARY KEY (name);
+
+
+--
+-- Name: trash trash_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.trash
+    ADD CONSTRAINT trash_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: collection_games_event_id_name_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX collection_games_event_id_name_idx ON collection_games USING btree (event_id, name);
+CREATE INDEX collection_games_event_id_name_idx ON public.collection_games USING btree (event_id, name);
 
 
 --
 -- Name: collection_games_game_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX collection_games_game_id_idx ON collection_games USING btree (game_id);
+CREATE INDEX collection_games_game_id_idx ON public.collection_games USING btree (game_id);
 
 
 --
 -- Name: events_slug_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX events_slug_idx ON events USING btree (slug);
+CREATE UNIQUE INDEX events_slug_idx ON public.events USING btree (slug);
 
 
 --
 -- Name: games_comp_title_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX games_comp_title_idx ON games USING btree (comp, title);
+CREATE INDEX games_comp_title_idx ON public.games USING btree (comp, title);
 
 
 --
 -- Name: games_comp_uid_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX games_comp_uid_idx ON games USING btree (comp, uid);
+CREATE UNIQUE INDEX games_comp_uid_idx ON public.games USING btree (comp, uid);
 
 
 --
 -- Name: games_event_id_uid_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX games_event_id_uid_idx ON games USING btree (event_id, uid);
+CREATE UNIQUE INDEX games_event_id_uid_idx ON public.games USING btree (event_id, uid);
 
 
 --
 -- Name: games_title; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX games_title ON games USING gin (title gin_trgm_ops);
+CREATE INDEX games_title ON public.games USING gin (title public.gin_trgm_ops);
 
 
 --
 -- Name: games_user; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX games_user ON games USING gin ("user" gin_trgm_ops);
+CREATE INDEX games_user ON public.games USING gin ("user" public.gin_trgm_ops);
 
 
 --
 -- Name: games_votes_given_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX games_votes_given_idx ON games USING btree (votes_given);
+CREATE INDEX games_votes_given_idx ON public.games USING btree (votes_given);
 
 
 --
 -- Name: games_votes_received_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX games_votes_received_idx ON games USING btree (votes_received);
-
-
---
--- Name: public; Type: ACL; Schema: -; Owner: postgres
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
+CREATE INDEX games_votes_received_idx ON public.games USING btree (votes_received);
 
 
 --
@@ -344,24 +369,25 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.4
--- Dumped by pg_dump version 9.5.4
+-- Dumped from database version 12.2
+-- Dumped by pg_dump version 12.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
-SET search_path = public, pg_catalog;
 
 --
 -- Data for Name: lapis_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY lapis_migrations (name) FROM stdin;
+COPY public.lapis_migrations (name) FROM stdin;
 1
 2
 3
