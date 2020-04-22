@@ -1,6 +1,8 @@
 import { h, render, Component } from "preact"
 import classNames from "classnames"
 
+import {bindMenusBodyClick, pushOpenMenu, removeClosedMenu} from 'ld/menus'
+
 export default class DropDownPicker extends Component {
   constructor(props) {
     super(props)
@@ -12,15 +14,45 @@ export default class DropDownPicker extends Component {
     }
   }
 
+  componentDidMount() {
+    bindMenusBodyClick()
+  }
+
+  componentWillUnmount() {
+    removeClosedMenu(this)
+  }
+
   getCurrentOption() {
     return this.props.options.find(e => e.value == this.state.currentOption)
   }
 
+  close() {
+    this.setState({
+      open: false
+    }, () => {
+      if (!this.state.open) {
+        removeClosedMenu(this)
+      }
+    })
+  }
+
+  open() {
+    this.setState({
+      open: true
+    }, () => {
+      if (this.state.open) {
+        pushOpenMenu(this)
+      }
+    })
+  }
+
   onClick(e) {
     e.preventDefault()
-    this.setState({
-      open: !this.state.open
-    })
+    if (this.state.open) {
+      this.close()
+    } else {
+      this.open()
+    }
   }
 
   setOption(opt) {
@@ -41,8 +73,13 @@ export default class DropDownPicker extends Component {
           return <hr />
         }
 
+        let inside = opt.label
+        if (opt.href) {
+          inside = <a href={opt.href}>{inside}</a>
+        }
+
         return <button type="button" class={classNames("option", { selected: opt.value == this.state.currentOption})} onClick={e => this.setOption(opt)}>
-          {opt.label}
+          {inside}
         </button>
       })}
     </div>
