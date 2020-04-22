@@ -5,6 +5,10 @@ export function bindMenusBodyClick() {
   bodyListener = function(e) {
     let picker = e.target.closest(".dropdown_picker")
     if (!picker) {
+      picker = e.target.closest(".toggle_dropdown")
+    }
+
+    if (!picker) {
       openPickers.forEach(p => p.close())
     }
   }

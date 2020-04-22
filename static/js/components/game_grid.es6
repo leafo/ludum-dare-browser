@@ -1,6 +1,8 @@
 import { h, render, Component } from "preact"
 import classNames from "classnames"
 
+import {bindMenusBodyClick, pushOpenMenu, removeClosedMenu} from 'ld/menus'
+
 function isDifferent(a, b) {
   for (let key in a) {
     if (a[key]!==b[key]) {
@@ -22,15 +24,32 @@ class GameCell extends Component {
     let image = new Image()
     image.src = this.props.game.screenshot_url
     image.onload = () => this.setState({imageLoaded: true})
+    bindMenusBodyClick()
+  }
+
+  componentWillUnmount() {
+    removeClosedMenu(this)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return isDifferent(this.props, nextProps) || isDifferent(this.state, nextState)
   }
 
+  close() { // for the menu manager callback
+    if (this.state.downloadMenuOpen) {
+      this.toggleDownloadMenu()
+    }
+  }
+
   toggleDownloadMenu() {
     this.setState({
       downloadMenuOpen: !this.state.downloadMenuOpen
+    }, () => {
+      if (this.state.downloadMenuOpen) {
+        pushOpenMenu(this)
+      } else {
+        removeClosedMenu(this)
+      }
     })
   }
 
@@ -58,7 +77,7 @@ class GameCell extends Component {
       downloadsButton = <div class="downloads">
         <button
           onClick={e => this.toggleDownloadMenu() }
-          class="icon icon-box-add" title="Show Downloads"></button>
+          class="icon icon-box-add toggle_dropdown" title="Show Downloads"></button>
       </div>
     }
 
