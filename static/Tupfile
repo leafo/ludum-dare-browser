@@ -6,7 +6,7 @@ include_rules
 
 : $(TOP)/node_modules/preact/dist/preact.umd.js $(TOP)/node_modules/preact-router/dist/preact-router.js $(TOP)/node_modules/requirejs/require.js $(TOP)/node_modules/classnames/index.js js/define_libs.js js/*.js |> !join |> bundle.js
 
-: foreach *.js |> $(TOP)/node_modules/uglify-js/bin/uglifyjs %f > %o |> %B.min.js
+: foreach *.js |> npx uglifyjs %f > %o |> %B.min.js
 
 
 
