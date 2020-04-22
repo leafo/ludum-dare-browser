@@ -123,6 +123,10 @@ body {
     }
 
     .select_popup {
+        &.hidden {
+            display: none;
+        }
+
         background: #ffffff;
         color: #222;
 

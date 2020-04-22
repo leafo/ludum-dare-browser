@@ -1,5 +1,5 @@
 
-import { h, render, Component } from "preact"
+import { h, render, Component, Fragment } from "preact"
 import classNames from "classnames"
 
 import BaseGridPage from "ld/components/base_grid_page"
@@ -164,15 +164,15 @@ export default class Page extends BaseGridPage {
         value: e.slug,
         href: e.url,
         default: e.slug == this.props.event.slug,
-        label: <span>
+        label: <Fragment>
           {e.name}
           {" "}
           <span className="games_count">({count.toLocaleString()})</span>
-        </span>
+        </Fragment>
       }
     })
 
-    return <DropDownPicker options={options} />
+    return <DropDownPicker options={options} alwaysInDom={true} />
 
     let displayEvents = events.filter(e => e.slug != this.props.event.slug)
 

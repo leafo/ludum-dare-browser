@@ -67,7 +67,11 @@ export default class DropDownPicker extends Component {
   }
 
   renderOptions() {
-    return <div class="select_popup">
+    let classes = classNames("select_popup", {
+      hidden: !this.state.open
+    })
+
+    return <div class={classes}>
       {this.props.options.map(opt => {
         if (opt == "divider") {
           return <hr />
@@ -75,7 +79,6 @@ export default class DropDownPicker extends Component {
 
         let inside = opt.label
         let classes = classNames("option", { selected: opt.value == this.state.currentOption})
-
 
         if (opt.href) {
           return <a href={opt.href} class={classes} onClick={e => this.setOption(opt)}>
@@ -99,7 +102,7 @@ export default class DropDownPicker extends Component {
         {" "}
         <span class="tri_down"></span>
       </button>
-      {this.state.open ? this.renderOptions() : null}
+      {(this.state.open || this.props.alwaysInDom) ? this.renderOptions() : null}
     </div>
   }
 }
