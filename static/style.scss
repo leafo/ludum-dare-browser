@@ -3,7 +3,6 @@ $bg: #222;
 $sticky_height: 50px;
 $link_color: #a57393;
 
-
 :focus {
     outline-color: $link_color;
 }
@@ -29,12 +28,10 @@ html {
 
 body {
     background: $bg;
-    color: #222;
+    color: white;
     font-size: $font_size;
     margin: 0;
     font-family: Lato, sans-serif;
-
-    padding-top: $sticky_height;
 }
 
 .itch_banner {
@@ -56,11 +53,10 @@ body {
 }
 
 .sticky {
-    position: fixed;
+    position: sticky;
+    color: #222;
     z-index: 2;
     top: 0;
-    left: 0;
-    right: 0;
     height: $sticky_height;
     background: #F1F1F1;
     box-shadow: 0 0 10px rgba(0,0,0, 0.5);
@@ -578,3 +574,80 @@ body {
     text-align: center;
     padding: 40px;
 }
+
+.charts_page {
+    color: white;
+
+    .events_graph {
+        display: inline-flex;
+        background: rgba(white, 0.05);
+        border-radius: 4px;
+        padding: 10px;
+        height: 600px;
+        max-width: 100%;
+        max-height: calc(100vh - 100px);
+        box-sizing: border-box;
+        overflow: auto;
+
+        > .event_column {
+            margin-right: 5px;
+            width: 25px;
+            &:last-child {
+                margin-right: 0;
+            }
+
+            display: flex;
+            flex-direction: column;
+
+            .event_bar {
+                min-height: 1px;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 10px;
+
+                .bar_inner {
+                    margin-top: auto;
+                    background: $link_color;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: flex-end;
+                    padding: 5px;
+                    box-sizing: border-box;
+
+                    > span {
+                        writing-mode: vertical-rl;
+                        transform: rotate(180deg);
+                        margin-bottom: auto;
+                        font-weight: bold;
+                        font-size: 13px;
+                        text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+                    }
+                }
+            }
+
+            .event_name {
+                order: 2;
+                font-weight: bold;
+                font-size: 14px;
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+
+                > a {
+                    writing-mode: vertical-rl;
+                    transform: rotate(180deg);
+                    color: inherit;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+.page_column {
+    margin: 0 20px;
+}
+
+

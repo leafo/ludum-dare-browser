@@ -4,6 +4,7 @@ import UserPage from "ld/components/user_page"
 import AsyncEventPage from "ld/components/async_event_page"
 import NotFoundPage from "ld/components/not_found_page"
 import SearchPage from "ld/components/search_page"
+import ChartsPage from "ld/components/charts_page"
 
 import { render, h } from "preact"
 import { Router } from "preactRouter"
@@ -26,6 +27,7 @@ export function init() {
     <AsyncEventPage path="/jam/:eventSlug" />
     <UserPage path="/u/:userSlug" />
     <SearchPage path="/search" searchQuery={getQueryParam("q")} />
+    <ChartsPage path="/charts" />
     <NotFoundPage default />
   </Router>
 
