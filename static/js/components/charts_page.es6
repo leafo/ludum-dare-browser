@@ -81,7 +81,7 @@ export default class ChartsPage extends Component {
 
         {this.renderEventsGraph()}
 
-        <AsyncData url="/stats/events" renderData={this.renderAsyncStats.bind(this)} callback={d => this.setState({data: d})}>
+        <AsyncData url="/stats/charts" renderData={this.renderAsyncStats.bind(this)} callback={d => this.setState({data: d})}>
           <div>Loading…</div>
         </AsyncData>
 
@@ -96,6 +96,32 @@ export default class ChartsPage extends Component {
       {this.renderTopSubmitters(data.top_users_submissions)}
       {this.renderTopVotesGiven(data.top_users_votes_given)}
       {this.renderTopVotesReceived(data.top_users_votes_received)}
+      {this.renderTopCollections(data.top_collections)}
+    </Fragment>
+  }
+
+  renderTopCollections(collections) {
+    return <Fragment>
+      <h2>Most Frequent Types</h2>
+      <p>Note: This data is collected by parsing file download names, it is not accurate but should give you an estimate.</p>
+
+      <table cellSpacing="0" cellPadding="0">
+        <thead>
+          <tr>
+            <td>Tag</td>
+            <td>Count</td>
+          </tr>
+        </thead>
+        <tbody>
+          {collections.map(c => {
+            return <tr>
+              <td>{c.name}</td>
+              <td>{(c.count || 0).toLocaleString()}</td>
+            </tr>
+          })}
+        </tbody>
+      </table>
+
     </Fragment>
   }
 
@@ -150,7 +176,7 @@ export default class ChartsPage extends Component {
 
     return <Fragment>
       <h2>Top Users By Ratings Given</h2>
-      <table>
+      <table cellSpacing="0" cellPadding="0">
         <thead>
           <tr>
             <td>User</td>
@@ -180,7 +206,7 @@ export default class ChartsPage extends Component {
 
     return <Fragment>
       <h2>Top Users By Ratings Received</h2>
-      <table>
+      <table cellSpacing="0" cellPadding="0">
         <thead>
           <tr>
             <td>User</td>
@@ -234,7 +260,7 @@ export default class ChartsPage extends Component {
 
       <details>
         <summary>Show event details</summary>
-        <table>
+        <table cellSpacing="0" cellPadding="0">
           <thead>
             <tr>
               <td>Event</td>

@@ -85,7 +85,7 @@ class LudumDare extends lapis.Application
       events: [@flow("formatter")\event e for e in *events]
     }
 
-  "/stats/events": capture_errors_json =>
+  "/stats/charts": capture_errors_json =>
     -- total
     event_votes = db.query "select id, slug, name,
       coalesce((select sum(votes_received) from games where games.event_id = events.id), 0) as total_votes
@@ -130,12 +130,18 @@ class LudumDare extends lapis.Application
       group by 1 order by 2 desc limit 30
     ]]
 
+    top_collections = db.query [[
+      select name, count(*) from collection_games
+      group by 1 order by 2 desc limit 30
+    ]]
+
     json: {
       generated_at: db.format_date!
       :event_votes
       :top_users_submissions
       :top_users_votes_received
       :top_users_votes_given
+      :top_collections
     }
 
   "/events/:event_slug": capture_errors_json =>
