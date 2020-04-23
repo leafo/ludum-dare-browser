@@ -15,6 +15,7 @@ class FormatterFlow extends Flow
       games_count: event.games_count
       last_refreshed_at: event.last_refreshed_at and event.last_refreshed_at\gsub "%.%d+$", ""
       url: @url_for event
+      type: Events.types\to_name event.type
     }
 
   game: (game, thumb_size) =>

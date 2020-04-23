@@ -38,6 +38,15 @@ class AsyncData extends Component {
 
 
 export default class ChartsPage extends Component {
+  getEventRatingsCount(slug) {
+    if (this.state.data && this.state.data.event_votes) {
+      let res = this.state.data.event_votes.find((e) => e.slug == slug)
+      if (res) {
+        return res.total_votes || 0
+      }
+    }
+  }
+
   render() {
     let totalSubmissions = events.reduce((v, e) => v + (e.games_count || 0), 0)
     let totalRatings = null
@@ -53,7 +62,10 @@ export default class ChartsPage extends Component {
       </div>
 
       <div className="page_column">
-        <p>Note: All data limited to the events that were able to be scraped, from Ludum Dare 15 onwards.</p>
+        <p>
+          Note: All data limited to the events that were able to be scraped, from Ludum Dare 15 onwards.
+          {this.state.data?.generated_at ? " Generated at " + new Date(this.state.data.generated_at + " UTC").toLocaleString() + "." : ""}
+        </p>
 
         <div class="aggregate_stats">
           <div class="stat_box">
@@ -70,7 +82,7 @@ export default class ChartsPage extends Component {
         {this.renderEventsGraph()}
 
         <AsyncData url="/stats/events" renderData={this.renderAsyncStats.bind(this)} callback={d => this.setState({data: d})}>
-          <div>Loading...</div>
+          <div>Loading…</div>
         </AsyncData>
 
         <p>Ideas for more charts or graphs? <a href="https://github.com/leafo/ludum-dare-browser/issues">Open a request on GitHub</a>.</p>
@@ -94,7 +106,7 @@ export default class ChartsPage extends Component {
 
     return <Fragment>
       <h2>Most Submissions by Username</h2>
-      <p>Note: This will not handle when a username was changed for Ludum Dare site migration</p>
+      <p>Note: This will not handle when a username was changed for Ludum Dare site migration.</p>
       <table cellSpacing="0" cellPadding="0">
         <thead>
           <tr>
@@ -219,6 +231,46 @@ export default class ChartsPage extends Component {
     return <Fragment>
       <h2>Games Per Event</h2>
       {this._renderBarGraph(events, "games_count")}
+
+      <details>
+        <summary>Show event details</summary>
+        <table>
+          <thead>
+            <tr>
+              <td>Event</td>
+              <td>Last refreshed at</td>
+              <td>Games count</td>
+              <td>Ratings count</td>
+              <td>Type</td>
+            </tr>
+          </thead>
+          <tbody>
+            {events.map(e => {
+              let ratingsCount = this.getEventRatingsCount(e.slug)
+
+              return <tr>
+                <td>
+                  <a href={e.url}>{e.name}</a>
+                </td>
+                <td>
+                  {e.last_refreshed_at ? new Date(e.last_refreshed_at + " UTC").toLocaleString() : <em>n/a</em>}
+                </td>
+                <td>
+                  {(e.games_count || 0).toLocaleString()}
+                </td>
+                <td>
+                  {ratingsCount != null ? ratingsCount.toLocaleString() : "…"}
+                </td>
+                <td>
+                  {e.type}
+                </td>
+              </tr>
+            })}
+          </tbody>
+        </table>
+
+      </details>
+
     </Fragment>
   }
 
