@@ -621,6 +621,35 @@ body {
 .charts_page {
     color: white;
 
+    .aggregate_stats {
+        display: flex;
+
+        .stat_box {
+            border: 2px solid rgba(white, 0.2);
+            border-radius: 4px;
+            padding: 5px 10px;
+            margin-right: 10px;
+            display: flex;
+            flex-direction: column;
+
+            .value {
+                font-size: 26px;
+                font-weight: bold;
+            }
+
+            .label {
+                font-size: 14px;
+                opacity: 0.8;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+
+
     table {
         border: 1px solid rgba(white, 0.5);
         box-shadow: 2px 2px 0 rgba(white, 0.2);

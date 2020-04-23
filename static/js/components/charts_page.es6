@@ -39,6 +39,12 @@ class AsyncData extends Component {
 
 export default class ChartsPage extends Component {
   render() {
+    let totalSubmissions = events.reduce((v, e) => v + (e.games_count || 0), 0)
+    let totalRatings = null
+    if (this.state.data) {
+      totalRatings = this.state.data.event_votes.reduce((v, e) => v + (e.total_votes || 0), 0)
+    }
+
     return <div className="charts_page">
       <div class="event_filters">
         <h2>Charts</h2>
@@ -47,9 +53,23 @@ export default class ChartsPage extends Component {
       </div>
 
       <div className="page_column">
+        <p>Note: All data limited to the events that were able to be scraped, from Ludum Dare 15 onwards.</p>
+
+        <div class="aggregate_stats">
+          <div class="stat_box">
+            <span class="value">{totalSubmissions.toLocaleString()}</span>
+            <span class="label">Total Games</span>
+          </div>
+
+          <div class="stat_box">
+            <span class="value">{totalRatings != null ? totalRatings.toLocaleString() : "…"}</span>
+            <span class="label">Total Ratings</span>
+          </div>
+        </div>
+
         {this.renderEventsGraph()}
 
-        <AsyncData url="/stats/events" renderData={this.renderAsyncStats.bind(this)}>
+        <AsyncData url="/stats/events" renderData={this.renderAsyncStats.bind(this)} callback={d => this.setState({data: d})}>
           <div>Loading...</div>
         </AsyncData>
 
