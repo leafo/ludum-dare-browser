@@ -60,7 +60,7 @@ class Events extends Model
       when @@types.ldjam
         count = 0
         key = assert @key, "missing event id"
-        for game in client\each_game key, preload_authors: true
+        for game in client\each_game key, preload_authors: true, per_page: 100
           Games\create_from_ldjam @, game
           count += 1
 
