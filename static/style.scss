@@ -238,7 +238,7 @@ body {
             margin-right: 0;
         }
 
-        &:hover {
+        &:hover, &.active {
             box-shadow: 0 2px 0 $link_color;
         }
     }

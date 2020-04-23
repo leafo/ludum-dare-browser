@@ -62,12 +62,19 @@ export default class ChartsPage extends Component {
     return <Fragment>
       {this.renderVotesGraph(data.event_votes)}
       {this.renderTopSubmitters(data.top_users_submissions)}
+      {this.renderTopVotesGiven(data.top_users_votes_given)}
+      {this.renderTopVotesReceived(data.top_users_votes_received)}
     </Fragment>
   }
 
   renderTopSubmitters(users) {
+    if (!users) {
+      return null
+    }
+
     return <Fragment>
       <h2>Most Submissions by Username</h2>
+      <p>Note: This will not handle when a username was changed for Ludum Dare site migration</p>
       <table cellSpacing="0" cellPadding="0">
         <thead>
           <tr>
@@ -76,7 +83,7 @@ export default class ChartsPage extends Component {
             <td>First seen</td>
             <td>Last seen</td>
             <td>Ratings given</td>
-            <td>Ratings recieved</td>
+            <td>Ratings received</td>
           </tr>
         </thead>
 
@@ -103,7 +110,65 @@ export default class ChartsPage extends Component {
         </tbody>
       </table>
     </Fragment>
+  }
+  renderTopVotesGiven(users) {
+    if (!users) {
+      return null
+    }
 
+    return <Fragment>
+      <h2>Top Users By Ratings Given</h2>
+      <table>
+        <thead>
+          <tr>
+            <td>User</td>
+            <td>Ratings Given</td>
+            <td>Ratings Received</td>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => {
+            return <tr>
+              <td>
+                <a href={`/u/${encodeURIComponent(user.user)}`}>{user.user}</a>
+              </td>
+              <td>{(user.votes_given || 0).toLocaleString()}</td>
+              <td>{(user.votes_received || 0).toLocaleString()}</td>
+            </tr>
+          })}
+        </tbody>
+      </table>
+    </Fragment>
+  }
+
+  renderTopVotesReceived(users) {
+    if (!users) {
+      return null
+    }
+
+    return <Fragment>
+      <h2>Top Users By Ratings Received</h2>
+      <table>
+        <thead>
+          <tr>
+            <td>User</td>
+            <td>Ratings Given</td>
+            <td>Ratings Received</td>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => {
+            return <tr>
+              <td>
+                <a href={`/u/${encodeURIComponent(user.user)}`}>{user.user}</a>
+              </td>
+              <td>{(user.votes_given || 0).toLocaleString()}</td>
+              <td>{(user.votes_received || 0).toLocaleString()}</td>
+            </tr>
+          })}
+        </tbody>
+      </table>
+    </Fragment>
   }
 
   renderVotesGraph(votes) {

@@ -18,7 +18,6 @@ function getQueryParam(name) {
   } catch(e) { }
 }
 
-
 export function init() {
   let defaultEvent = events.events.find(e => e.slug == events.default_event)
 
@@ -34,7 +33,10 @@ export function init() {
           type="text" name="q" defaultValue={getQueryParam("q")} />
       </form>
 
-      <a class="nav_link" href="/charts">Charts</a>
+      <Router>
+        <a path="/charts" class="nav_link active" href="/charts">Charts</a>
+        <a default class="nav_link" href="/charts">Charts</a>
+      </Router>
       {" "}
       <a class="nav_link" href="https://github.com/leafo/ludum-dare-browser">GitHub</a>
     </header>

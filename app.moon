@@ -110,31 +110,32 @@ class LudumDare extends lapis.Application
       group by 1 order by 2 desc limit 30
     ]]
 
-    -- top users by coolness
-    top_users_coolness = db.query [[
+    top_users_votes_given = db.query [[
       select
         "user",
-        sum(votes_given)
+        sum(votes_given) votes_given,
+        sum(votes_received) votes_received
       from games
       where "user" is not null
       group by 1 order by 2 desc limit 30
     ]]
 
-    -- top users by ratings
-    top_users_rated = db.query [[
+    top_users_votes_received = db.query [[
       select
         "user",
-        sum(votes_received)
+        sum(votes_received) votes_received,
+        sum(votes_given) votes_given
       from games
       where "user" is not null
       group by 1 order by 2 desc limit 30
     ]]
 
     json: {
+      generated_at: db.format_date!
       :event_votes
       :top_users_submissions
-      :top_users_coolness
-      :top_users_rated
+      :top_users_votes_received
+      :top_users_votes_given
     }
 
   "/events/:event_slug": capture_errors_json =>
