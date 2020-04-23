@@ -85,6 +85,58 @@ class LudumDare extends lapis.Application
       events: [@flow("formatter")\event e for e in *events]
     }
 
+  "/stats/events": capture_errors_json =>
+    -- total
+    event_votes = db.query "select id, slug, name,
+      coalesce((select sum(votes_received) from games where games.event_id = events.id), 0) as total_votes
+      from events
+      order by slug desc"
+
+    for row in *event_votes
+      row.short_name = Events.short_name { name: row.name }
+
+    -- top users
+    top_users_submissions = db.query [[
+      select
+        games."user",
+        count(*) submissions_count,
+        sum(votes_given) votes_given,
+        sum(votes_received) votes_received,
+        min(events.slug) as first_seen,
+        max(events.slug) as last_seen
+      from games
+      inner join events on events.id = games.event_id
+      where "user" is not null
+      group by 1 order by 2 desc limit 30
+    ]]
+
+    -- top users by coolness
+    top_users_coolness = db.query [[
+      select
+        "user",
+        sum(votes_given)
+      from games
+      where "user" is not null
+      group by 1 order by 2 desc limit 30
+    ]]
+
+    -- top users by ratings
+    top_users_rated = db.query [[
+      select
+        "user",
+        sum(votes_received)
+      from games
+      where "user" is not null
+      group by 1 order by 2 desc limit 30
+    ]]
+
+    json: {
+      :event_votes
+      :top_users_submissions
+      :top_users_coolness
+      :top_users_rated
+    }
+
   "/events/:event_slug": capture_errors_json =>
     event = Events\find slug: @params.event_slug
     assert_error event, "invalid event"
