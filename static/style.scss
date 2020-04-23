@@ -621,12 +621,43 @@ body {
 .charts_page {
     color: white;
 
+    table {
+        border: 1px solid rgba(white, 0.5);
+        box-shadow: 2px 2px 0 rgba(white, 0.2);
+
+        a {
+            color: inherit;
+        }
+
+        td {
+            padding: 5px;
+        }
+
+        thead {
+            background: rgba(white, 0.1);
+            td {
+                font-weight: bold;
+                font-size: 14px;
+            }
+        }
+
+        tbody {
+            tr {
+                &:hover {
+                    td {
+                        background: rgba(white, 0.05);
+                    }
+                }
+            }
+        }
+    }
+
     .events_graph {
         display: inline-flex;
         background: rgba(white, 0.05);
         border-radius: 4px;
         padding: 10px;
-        height: 600px;
+        height: 500px;
         max-width: 100%;
         max-height: calc(100vh - 100px);
         box-sizing: border-box;
@@ -691,6 +722,9 @@ body {
 
 .page_column {
     margin: 0 20px;
+    a {
+        color: $link_color;
+    }
 }
 
 

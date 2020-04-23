@@ -20,7 +20,7 @@ export default class BaseGridPage extends Component {
   }
 
   renderDisplayOptions() {
-    return <span class="size_picker">
+    return <span class="display_options">
       <span class="icon icon-expand"></span>
       <PillPicker
         onChange={val => {
