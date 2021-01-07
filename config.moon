@@ -19,7 +19,6 @@ config "development", ->
   port 9091
 
   postgres {
-    backend: "pgmoon"
     database: "ludumdare"
   }
 
