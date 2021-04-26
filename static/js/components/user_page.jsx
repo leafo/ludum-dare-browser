@@ -1,11 +1,10 @@
 import { h, render, Component } from "preact"
 import classNames from "classnames"
-import {events} from "ld/events"
 
-import BaseGridPage from "ld/components/base_grid_page"
-import GameGrid from "ld/components/game_grid"
+import BaseGridPage from "./base_grid_page"
+import GameGrid from "./game_grid"
 
-export default class SearchPage extends BaseGridPage {
+export default class UserPage extends BaseGridPage {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,17 +20,32 @@ export default class SearchPage extends BaseGridPage {
   }
 
   render() {
+    let links = this.getProfileLinks()
+
     let emptyMessage
     if (this.state.games && !this.state.games.length) {
       emptyMessage = <p class="empty_message">Nothing found :(</p>
     }
 
-    return <div class="game_browser search_page">
+    return <div class="game_browser user_page">
       <div class="event_filters">
-        <h2 class="current_query">Searching for '{this.props.searchQuery}'</h2>
-        {"  "}
-        <a href="/">Return home</a>
-        {"  "}
+        <h2>Submissions by {this.props.userSlug}</h2>
+
+        {" "}
+
+        <span class="profile_links">
+          <span>Profile links: </span>
+          <ul>
+            {links.map(obj => {
+              return <li>
+                <a href={obj.href} target="_blank">{obj.label}</a>
+              </li>
+            })}
+            {links.length ? null : "None"}
+          </ul>
+        </span>
+
+        {" "}
         {this.renderDisplayOptions()}
       </div>
 
@@ -48,6 +62,32 @@ export default class SearchPage extends BaseGridPage {
     </div>
   }
 
+  getProfileLinks() {
+    if (!this.state.games) {
+      return []
+    }
+
+    let seen = {}
+    let urls = []
+
+    let ahref = document.createElement("a")
+
+    for (let game of this.state.games) {
+      if (seen[game.user_url]) {
+        continue
+      }
+      seen[game.user_url] = true
+      ahref.href = game.user_url
+
+      urls.push({
+        label: ahref.hostname,
+        href: game.user_url
+      })
+    }
+
+    return urls
+  }
+
   loadGames() {
     this.fetchGames(res => {
       this.setState({
@@ -60,10 +100,7 @@ export default class SearchPage extends BaseGridPage {
     this.setState({loading: true })
 
     let xhr = new XMLHttpRequest()
-
-    xhr.open("GET", `/search/games?${this.encodeQueryString({
-      q: this.props.searchQuery
-    })}`)
+    xhr.open("GET", `/users/${this.props.userSlug}/games`)
 
     xhr.addEventListener("readystatechange", e => {
       if (xhr.readyState != 4) return

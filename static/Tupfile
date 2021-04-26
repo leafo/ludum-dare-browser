@@ -2,11 +2,10 @@
 include_rules
 
 : foreach *.scss |> sassc < %f > %o |> %B.css
-: foreach *.md |> markdown < %f > %o |> %B.html
 
-: $(TOP)/node_modules/preact/dist/preact.umd.js $(TOP)/node_modules/preact-router/dist/preact-router.js $(TOP)/node_modules/requirejs/require.js $(TOP)/node_modules/classnames/index.js js/define_libs.js js/*.js |> !join |> bundle.js
+: js/app.jsx |> npx esbuild %f --log-level=warning --external:ld/events --jsx-factory=h --jsx-fragment=Fragment --target=es6 --minify --bundle --outfile=%o |> app.js
+: js/require.js |> npx esbuild %f --log-level=warning --target=es6 --bundle --minify --outfile=%o |> %B.js
 
-: foreach *.js |> npx uglifyjs %f > %o |> %B.min.js
-
+: app.js |> npx babel %f | npx esbuild --minify > %o |> %B.compat.js
 
 

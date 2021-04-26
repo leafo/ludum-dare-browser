@@ -1,7 +1,7 @@
 import { h, render, Component } from "preact"
 
-import Page from "ld/components/page"
-import NotFoundPage from "ld/components/not_found_page"
+import Page from "./page"
+import NotFoundPage from "./not_found_page"
 
 export default class AsyncEventPage extends Component {
   componentDidMount() {

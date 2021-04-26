@@ -1,7 +1,7 @@
 import { h, render, Component } from "preact"
 import classNames from "classnames"
 
-import {bindMenusBodyClick, pushOpenMenu, removeClosedMenu} from 'ld/menus'
+import {bindMenusBodyClick, pushOpenMenu, removeClosedMenu} from '../menus'
 
 export default class DropDownPicker extends Component {
   constructor(props) {

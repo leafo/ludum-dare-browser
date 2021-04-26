@@ -2,10 +2,10 @@
 import { h, render, Component, Fragment } from "preact"
 import classNames from "classnames"
 
-import BaseGridPage from "ld/components/base_grid_page"
-import PillPicker from "ld/components/pill_picker"
-import DropDownPicker from "ld/components/drop_down_picker"
-import GameGrid from "ld/components/game_grid"
+import BaseGridPage from "./base_grid_page"
+import PillPicker from "./pill_picker"
+import DropDownPicker from "./drop_down_picker"
+import GameGrid from "./game_grid"
 
 import {events} from "ld/events"
 

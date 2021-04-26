@@ -65,10 +65,8 @@
   
   </script>
   <script type="text/javascript" src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default&unknown=polyfill"></script>
-  <script type="text/javascript" src="/static/bundle.min.js?<!--# echo var="cache_buster" -->"></script>
-  <script type="text/javascript">
-    define("ld/events", <!--# include virtual="/events" -->)
-    require(["ld/init"], function(m) { m.init() })
-  </script>
+  <script type="text/javascript"><!--# include virtual="/static/require.js" --></script>
+  <script>define("ld/events", <!--# include virtual="/events" -->)</script>
+  <script type="text/javascript" src="/static/app.js?<!--# echo var="cache_buster" -->"></script>
 </body>
 </html>

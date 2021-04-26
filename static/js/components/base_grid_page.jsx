@@ -2,8 +2,8 @@
 import { h, render, Component } from "preact"
 import classNames from "classnames"
 
-import PillPicker from "ld/components/pill_picker"
-import DropDownPicker from "ld/components/drop_down_picker"
+import PillPicker from "./pill_picker"
+import DropDownPicker from "./drop_down_picker"
 
 export default class BaseGridPage extends Component {
   encodeQueryString(obj) {

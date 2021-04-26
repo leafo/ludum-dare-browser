@@ -1,5 +1,0 @@
-include_rules
-.gitignore
-
-: foreach components/*.es6 |> !babel_amd |> components/%B.js
-: components/*.js |> !join |> components.js

@@ -1,7 +1,5 @@
 TOP = $(TUP_CWD)
 
-!babel_amd = |> npx babel --plugins @babel/plugin-transform-modules-amd --module-id ld/%O %f > %o |>
-!scss = |> ^ scss %o^ sassc -I scss/ < %f > %o |>
 !join = |> ^ join %o^ sed -s '$G' %f > %o |>
 
 : foreach *.moon |> moonc %f |> %B.lua
