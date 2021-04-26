@@ -5,6 +5,24 @@
   -- ids can be found here: https://ldjam.com/events/ludum-dare
   -- https://api.ldjam.com/vx/node/feed/9/parent/event
   {
+    name: "Ludum Dare 48"
+    slug: "ludum-dare-48"
+    type: "ldjam"
+    key: "233335"
+    theme: "Deeper and deeper"
+    date: "April 2021"
+  }
+
+  {
+    name: "Ludum Dare 46"
+    slug: "ludum-dare-46"
+    type: "ldjam"
+    key: "212256"
+    theme: "Stuck in a loop"
+    date: "October 2020"
+  }
+
+  {
     name: "Ludum Dare 46"
     slug: "ludum-dare-46"
     type: "ldjam"
