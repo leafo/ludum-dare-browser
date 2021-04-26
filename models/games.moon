@@ -57,8 +57,22 @@ class Games extends Model
       uid: assert tostring(data.id), "missing game id"
     }
 
+    import types from require "tableshape"
+
+    flatten_id = types.number + types.partial({
+      types.number
+    }) / (t) -> t[1]
+
     downloads =  do
-      tag_ids = [val for key, val in pairs data.meta when key\match("%-tag$") when val != "0"]
+      -- note: at some point this turned into an array, can a tag have multiple ids??
+      tag_ids = for key, val in pairs data.meta
+        continue unless key\match("%-tag$")
+        continue if val == "0"
+        id = flatten_id\transform val
+        unless id
+          require("moon").p data.meta
+          continue
+        id
 
       tag_types = client\fetch_objects tag_ids, cache: true
       platforms_by_id = {tostring(t.id), t.name for t in *tag_types}
@@ -72,7 +86,9 @@ class Games extends Model
 
     table.sort downloads, (a, b) -> a.label < b.label
 
-    author = client\fetch_object data.author
+    -- note: at some point this turned into an array, is this for multiple authors?
+    author = if author_id = flatten_id\transform data.author
+      client\fetch_object author_id
 
     screenshots = do
       out = {}

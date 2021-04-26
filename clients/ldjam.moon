@@ -53,7 +53,7 @@ class LDJam extends require "clients.base"
     if next dont_have
       idstring = table.concat dont_have, "+"
       url = "#{@api_url}/node/get/#{idstring}"
-      res, status = @request "#{@api_url}/node/get/#{idstring}"
+      res, status = @request url
       result = assert @handle_json_response res, status, "fetch_objects: #{url}"
 
       if opts and opts.cache
