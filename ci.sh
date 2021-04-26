@@ -14,6 +14,7 @@ cp -r secret_example secret
 echo "config 'test', -> logging false" >> config.moon
 
 # build
+npm install --unsafe-perm=true
 tup init && tup generate build.sh && ./build.sh
 cat $(which busted) | sed 's/\/usr\/bin\/lua5\.1/\/usr\/local\/openresty\/luajit\/bin\/luajit/' > busted
 chmod +x busted
