@@ -59,9 +59,13 @@ class Games extends Model
 
     import types from require "tableshape"
 
-    flatten_id = types.number + types.partial({
+    flatten_id = types.assert types.annotate types.one_of {
+      types.literal(require("cjson").null) / nil
       types.number
-    }) / (t) -> t[1]
+      types.partial({
+        types.number
+      }) / (t) -> t[1]
+    }
 
     downloads =  do
       -- note: at some point this turned into an array, can a tag have multiple ids??
@@ -70,7 +74,6 @@ class Games extends Model
         continue if val == "0"
         id = flatten_id\transform val
         unless id
-          require("moon").p data.meta
           continue
         id
 
