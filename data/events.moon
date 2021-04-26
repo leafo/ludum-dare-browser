@@ -14,8 +14,8 @@
   }
 
   {
-    name: "Ludum Dare 46"
-    slug: "ludum-dare-46"
+    name: "Ludum Dare 47"
+    slug: "ludum-dare-47"
     type: "ldjam"
     key: "212256"
     theme: "Stuck in a loop"
