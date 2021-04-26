@@ -11,6 +11,8 @@ for event in *events
 
   event = {k,v for k,v in pairs event}
   event.type = Events.types\for_db event.type
+  event.theme = nil -- we don't store these in db right now
+  event.date = nil
 
   insert_on_conflict_update Events, {
     :slug
