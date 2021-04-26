@@ -2,7 +2,7 @@
 import config from require "lapis.config"
 
 config {"development", "production", "test"}, ->
-  comp_id 46
+  comp_id 48
 
   num_workers 1
   num_connections 1024
