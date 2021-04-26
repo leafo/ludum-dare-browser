@@ -29,4 +29,6 @@ make init_schema
 make migrate
 make test_db
 
+moon cmd/refresh_events.moon
+
 ./busted -o utfTerminal
