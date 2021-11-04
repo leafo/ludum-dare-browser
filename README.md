@@ -13,15 +13,15 @@ A website for browsing Ludum Dare games. Built with [Lapis][2] and
 ## How to update LD Jam version
 
 * Update `data/events.moon`, pull event ID from https://api.ldjam.com/vx/node/feed/9/parent/event
-* Update `comp_id` to latest numeric version for set default event
-* Run `cmd/refresh_events.moon` to synchronize `data/events.moon` with database
-* Run `cmd/scrape_games.moon` to refresh games for the default event (`config.comp_id`)
+* Update `comp_id` in `config.moon` to latest numeric version to set default event
+* Run `moon cmd/refresh_events.moon` to synchronize `data/events.moon` with database
+* Run `moon cmd/scrape_games.moon` to refresh games for the default event (`config.comp_id`)
 * Note: `lapis build` will bump the cache version and purge any cache pages, it should be run after scraping games
 
 These actions should be run run in cron while new games are being submitted:
 
-* Go to `https://ludumdare.itch.io/admin/scrape_games`
-* Go to `https://ludumdare.itch.io/admin/make_collections`
+* `https://ludumdare.itch.io/admin/scrape_games`
+* `https://ludumdare.itch.io/admin/make_collections`
 
 
  [1]: https://moonscript.org
