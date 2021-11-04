@@ -4,8 +4,7 @@ set -o pipefail
 set -o xtrace
 
 # setup lua
-luarocks --local --lua-version=5.1 install https://luarocks.org/manifests/leafo/lapis-dev-1.rockspec
-luarocks --local --lua-version=5.1 install moonscript
+luarocks --local --lua-version=5.1 build --only-deps
 eval $(luarocks --lua-version=5.1 path)
 
 # prepare secrets
