@@ -4,6 +4,16 @@
   -- ldjam dares
   -- ids can be found here: https://ldjam.com/events/ludum-dare
   -- https://api.ldjam.com/vx/node/feed/9/parent/event
+
+  {
+    name: "Ludum Dare 50"
+    slug: "ludum-dare-50"
+    type: "ldjam"
+    key: "276397"
+    theme: "Delay the inevitable"
+    date: "April 2022"
+  }
+
   {
     name: "Ludum Dare 49"
     slug: "ludum-dare-49"
