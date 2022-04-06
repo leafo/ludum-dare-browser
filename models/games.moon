@@ -171,8 +171,9 @@ class Games extends Model
 
     insert_on_conflict_update @, primary, update
 
+  -- NOTE: this only operates on legacy 
   fetch_details: (force=false)=>
-    return if @have_details and not force
+    return nil, "already have details" if @have_details and not force
     event = @get_event!
     return nil, "invalid type" unless event\is_ludumdare!
 
@@ -253,7 +254,7 @@ class Games extends Model
       http = require "lapis.nginx.http"
       image_blob, status = http.request original_url
       unless status == 200
-        return nil, "failed to fetch original"
+        return nil, "failed to fetch original (game_id: #{@id}, uid: #{@uid}): #{original_url}"
 
       with io.open "cache/#{cache_name}", "w"
         \write image_blob

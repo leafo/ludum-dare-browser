@@ -23,7 +23,7 @@ for event in *events
     import Games from require "models"
     game = Games\find uid: uid, event_id: event.id
     assert game, "invalid game: #{uid}"
-    res = game\fetch_details true
+    res = assert game\fetch_details true
     require("moon").p res
   else
     print "Refreshing #{event.name}"
