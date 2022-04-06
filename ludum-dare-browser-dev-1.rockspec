@@ -19,6 +19,7 @@ dependencies = {
   "lapis ~> 1.9",
   "magick ~> 1.6",
   "tableshape ~> 2.2",
+  "http ~> 0.4", -- needed for command line http requests
   "base58",
 
   "lapis-systemd ~> 1.0",

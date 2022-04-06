@@ -8,7 +8,7 @@ events = switch event_slug
     config = require("lapis.config").get!
     slug = "ludum-dare-#{config.comp_id}"
     {
-      assert Events\find(:slug), "failed to find default event by slug: #{slug}"
+      (assert Events\find(:slug), "failed to find default event by slug: #{slug}")
     }
   when "all" -- refresh every event
     Events\select!

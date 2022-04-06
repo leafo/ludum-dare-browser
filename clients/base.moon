@@ -5,11 +5,10 @@ class BaseClient
 
   http: =>
     unless @_http
-      -- for cqeuues "http.compat.socket"
       @http_provider or= if ngx
         "lapis.nginx.http"
       else
-        "socket.http"
+        "http.compat.socket"
 
       @_http = if type(@http_provider) == "function"
         @http_provider!
