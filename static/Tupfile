@@ -3,9 +3,9 @@ include_rules
 
 : foreach *.scss |> sassc < %f > %o |> %B.css
 
-: js/app.jsx |> npx esbuild %f --log-level=warning --external:ld/events --jsx-factory=h --jsx-fragment=Fragment --target=es6 --minify --bundle --outfile=%o |> app.js
-: js/require.js |> npx esbuild %f --log-level=warning --target=es6 --bundle --minify --outfile=%o |> %B.js
+: js/app.jsx |> $(TOP)/node_modules/.bin/esbuild %f --log-level=warning --external:ld/events --jsx-factory=h --jsx-fragment=Fragment --target=es6 --minify --bundle --outfile=%o |> app.js
+: js/require.js |> $(TOP)/node_modules/.bin/esbuild %f --log-level=warning --target=es6 --bundle --minify --outfile=%o |> %B.js
 
-: app.js |> npx babel %f | npx esbuild --minify > %o |> %B.compat.js
+: app.js |> $(TOP)/node_modules/.bin/babel %f | $(TOP)/node_modules/.bin/esbuild --minify > %o |> %B.compat.js
 
 
