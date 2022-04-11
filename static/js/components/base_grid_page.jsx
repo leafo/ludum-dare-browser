@@ -21,7 +21,7 @@ export default class BaseGridPage extends Component {
 
   renderDisplayOptions() {
     return <span class="display_options">
-      <span class="icon icon-expand"></span>
+      <span class="icon icon-expand" aria-hidden="true"></span>
       <PillPicker
         onChange={val => {
           this.setState({
@@ -44,7 +44,7 @@ export default class BaseGridPage extends Component {
           onChange={e => this.setState({showDetails: e.target.checked})}
           value={this.state.showDetails}
           type="checkbox" class="toggle_details" />
-        <span class="icon-eye"></span>
+        <span class="icon-eye" aria-hidden="true"></span>
       </label>
 
     </span>

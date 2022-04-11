@@ -14,6 +14,20 @@ $link_color: #a57393;
 
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,900|Inconsolata);
 
+
+.screenreader_only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+
 button {
     font-size: inherit;
     font-family: inherit;
@@ -125,6 +139,9 @@ body {
         &.hidden {
             display: none;
         }
+
+        overflow-y: auto;
+        max-height: 75vh;
 
         background: #ffffff;
         color: #222;

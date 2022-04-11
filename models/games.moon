@@ -47,6 +47,7 @@ class Games extends Model
   @relations: {
     {"event", belongs_to: "Events"}
     {"collection_games", has_many: "CollectionGames"}
+    {"data", has_one: "GameData"}
   }
 
   @create_from_ldjam: (event, data) =>
